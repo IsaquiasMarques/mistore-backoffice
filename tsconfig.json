@@ -3,6 +3,17 @@
   "compileOnSave": false,
   "compilerOptions": {
     "outDir": "./dist/out-tsc",
+    "baseUrl": "./src",
+    "paths": {
+      "@app/*": ["app/*"],
+      "@templates/*": ["app/templates/*"],
+      "@core/*": ["app/core/*"],
+      "@shared/*": ["app/shared/*"],
+      "@env/*": ["environments/*"],
+      "@auth/*": ["app/feature-modules/auth/*"],
+      "@store/*": ["app/feature-modules/store-admin/*"],
+      "@admin/*": ["app/feature-modules/mistore-admin/*"],
+    },
     "forceConsistentCasingInFileNames": true,
     "strict": true,
     "noImplicitOverride": true,

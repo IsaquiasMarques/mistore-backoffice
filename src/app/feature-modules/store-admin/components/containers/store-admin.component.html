@@ -1,0 +1,17 @@
+<div class="app-container flex justify-start items-stretch">
+    <aside class="sticky top-0 w-full text-white h-[1000px] max-h-screen max-w-[18.5rem] bg-black" #sidebarElement>
+        <div class="nav py-6 px-8">
+            <sidebar-menu
+            [sidebarMenuItems]="this.sidebarMenuItems"
+            />
+        </div>
+    </aside>
+    <section class="w-full bg-white h-[1500px]" #bodyContainer>
+        <header class="w-full sticky top-0 py-6 px-8 bg-white border-b border-[#E9E9E9]">
+            <mi-header />
+        </header>
+        <div class="content-wrapper py-10 px-8">
+            <router-outlet />
+        </div>
+    </section>
+</div>

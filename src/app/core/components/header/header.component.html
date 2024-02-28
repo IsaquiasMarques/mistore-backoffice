@@ -1,0 +1,73 @@
+<div class="header-container">
+    <div class="content flex justify-start items-stretch">
+        
+        <div class="greetings-col max-w-[14.188rem] grow-[1] border-r border-[#E9E9E9]">
+            @if (this.appearGreetings) {
+                <div class="title mb-2">
+                    <h1 class="text-black text-xl font-semibold limited-text one-line">
+                        Olá, {{ this.user.Name.split(' ')[0] }}
+                    </h1>
+                </div>
+                <div class="tiny-text">
+                    <p class="text-[#999] text-sm limited-text one-line">
+                        Os seus dados mais recentes
+                    </p>
+                </div>
+            }
+        </div>
+
+        <div class="searching-col grow-[3] px-10 flex gap-10 justify-between items-center border-r border-[#E9E9E9] mr-8">
+            <div class="input-container w-full h-full max-w-[30.063rem] bg-[#F4F4F4] border border-[#E9E9E9] rounded-lg p-3 flex gap-2 justify-start items-center">
+                <div class="search-icon">
+                    <label for="search">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M21 21L16.65 16.65M19 11C19 15.4183 15.4183 19 11 19C6.58172 19 3 15.4183 3 11C3 6.58172 6.58172 3 11 3C15.4183 3 19 6.58172 19 11Z" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </label>
+                </div>
+                <input
+                class="focus:outline-none bg-transparent w-full h-full placeholder:text-[#969696] placeholder:text-sm"
+                type="text"
+                id="search"
+                placeholder="Pesquisar no dashboard">
+            </div>
+            <div class="notifications-bell w-full max-w-[40px]">
+                <button class="relative">
+                    <div class="badge absolute -top-1 -right-2 w-5 h-5 flex justify-center items-center bg-[#ED695E] rounded-full">
+                        <span class="text-white text-xs font-medium">
+                            5
+                        </span>
+                    </div>
+                    <div class="bell-bg w-10 h-10 rounded-full flex justify-center items-center bg-[#F4F4F4] border border-[#E9E9E9]">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M9.35395 21C10.0591 21.6224 10.9853 22 11.9998 22C13.0142 22 13.9405 21.6224 14.6456 21M17.9998 8C17.9998 6.4087 17.3676 4.88258 16.2424 3.75736C15.1172 2.63214 13.5911 2 11.9998 2C10.4085 2 8.88235 2.63214 7.75713 3.75736C6.63192 4.88258 5.99977 6.4087 5.99977 8C5.99977 11.0902 5.22024 13.206 4.34944 14.6054C3.6149 15.7859 3.24763 16.3761 3.2611 16.5408C3.27601 16.7231 3.31463 16.7926 3.46155 16.9016C3.59423 17 4.19237 17 5.38863 17H18.6109C19.8072 17 20.4053 17 20.538 16.9016C20.6849 16.7926 20.7235 16.7231 20.7384 16.5408C20.7519 16.3761 20.3846 15.7859 19.6501 14.6054C18.7793 13.206 17.9998 11.0902 17.9998 8Z" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </div>
+                </button>
+            </div>
+        </div>
+        
+        <div class="user-col max-w-[15.75rem] pl-0 grow-[1] flex gap-4 justify-start items-stretch">
+            <div class="avatar w-full">
+                <div class="profile w-full h-full rounded-full overflow-hidden">
+                    <img src="{{ this.user.Profile }}" class="w-full h-full object-cover object-center" alt="">
+                </div>
+            </div>
+            <div class="profile-details max-w-[11.45rem]">
+                <div class="username mb-2">
+                    <a [routerLink]="['/my-account']">
+                        <p class="text-black text-base font-medium limited-text one-line">
+                            {{ this.user.Name }}
+                        </p>
+                    </a>
+                </div>
+                <div class="email">
+                    <p class="text-[#999] text-sm limited-text one-line">
+                        {{ this.user.Email }}
+                    </p>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>

@@ -1,0 +1,20 @@
+<div class="icon-container relative">
+    @if (this.theIcon) {
+        @if(this.bagde){
+            <div class="badge absolute -top-2 -right-2 p-0 w-5 h-5 flex justify-center items-center rounded-full text-xs text-white"
+            [style.backgroundColor]="this.bagde.color"
+            >
+                {{ this.bagde.label }}
+            </div>
+        }
+        @if (this.iconIsActive) {
+            <div class="img w-[24px]">
+                <img [src]="this.theIcon.activeSvg" alt="">
+            </div>
+        } @else {
+            <div class="img w-[24px]">
+                <img [src]="this.theIcon.svg" alt="">
+            </div>
+        }
+    }
+</div>

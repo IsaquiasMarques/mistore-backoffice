@@ -1,0 +1,31 @@
+nav.navigation ul li a{
+    transition: .2s;
+    color: #999;
+}
+nav.navigation ul li a.active-item{
+    background-color: #141414;
+    color: #fff !important;
+    font-weight: 600;
+}
+.sidebar-body::-webkit-scrollbar {
+    width: 5px;
+}
+.sidebar-body::-webkit-scrollbar-track {
+    background: #0c0c0c;
+    overflow: hidden;
+    border-radius: 50px;
+}
+.sidebar-body::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 50px;
+}
+/* .overflow-x-auto::-webkit-scrollbar,
+.no-scroll::-webkit-scrollbar
+{
+    display: none;
+}
+.overflow-x-auto,
+.no-scroll{
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+} */
