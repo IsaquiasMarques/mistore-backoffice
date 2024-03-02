@@ -56,7 +56,7 @@
                 }
             </div>
 
-            <div class="bars-cover absolute left-0 top-0 w-full h-full">
+            <!-- <div class="bars-cover absolute left-0 top-0 w-full h-full">
                 <div class="top-bars relative w-full h-full flex justify-around items-end">
                     @for (label of this.chartValues.labels; track labelIndex; let labelIndex = $index) {
                         <div class="bars-container flex flex-col h-[calc(100%-10px)]">
@@ -76,25 +76,39 @@
                         </div>
                     }
                 </div>
+            </div> -->
+
+            <div class="bars-cover absolute left-0 top-0 w-full h-full">
+                <div class="top-bars relative w-full h-full gap-3 flex justify-around items-end">
+                    @for (label of this.chartValues.labels; track labelIndex; let labelIndex = $index) {
+                        <div class="bars-container flex flex-col h-[calc(100%-10px)]"
+                        [ngClass]="{
+                            'w-[30%]': this.chartValues.labels.length < 4,
+                            'w-[20%]': this.chartValues.labels.length == 4,
+                            'w-[10%]': this.chartValues.labels.length > 4 && this.chartValues.labels.length < 8,
+                            'w-[8%]': this.chartValues.labels.length >= 8 && this.chartValues.labels.length <= 9,
+                            'w-10': this.chartValues.labels.length >= 10,
+                        }"
+                        >
+                            <div class="bars flex items-end w-full h-full">
+                                @for (serie of this.chartValues.series; track serieIndex; let serieIndex = $index) {
+                                    <div class="bar w-full rounded-t"
+                                    [style.backgroundColor]="serie.color"
+                                    [style.height.%]="getPercentage(this.chartValues.series[serieIndex].data[labelIndex])"
+                                    ></div>
+                                }
+                            </div>
+                            <div class="bottom-labels min-h-[22px] flex justify-around items-end">
+                                <span class="text-xs text-[#aaa]">
+                                    {{ label }}
+                                </span>
+                            </div>
+                        </div>
+                    }
+                </div>
             </div>
 
         </div>
 
-
-
-
-
-        <!-- <div class="y-axis">
-            <div class="interval" *ngFor="let interval of yAxisIntervals">{{ interval }}</div>
-        </div> -->
-        
-        <!-- <div class="bars">
-            @for (item of this.chartValues.series; track $index) {
-                <div class="bar">
-                    <div class="bar-label">{{ item.name }}</div>
-                    <div class="bar-fill" [style.height.px]="calculateBarHeight(item.data[$index])"></div>
-                </div>
-            }
-        </div> -->
     </div>
 </div>
