@@ -1,4 +1,5 @@
-import { Component, OnChanges, OnInit, SimpleChanges } from '@angular/core';
+import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
+import { HorizontalBarChart } from '@core/interfaces/hz-bar-chart.interface';
 
 @Component({
   selector: 'hz-bar',
@@ -6,65 +7,7 @@ import { Component, OnChanges, OnInit, SimpleChanges } from '@angular/core';
   styleUrl: './hz-bar.component.css'
 })
 export class HzBarComponent implements OnInit, OnChanges {
-  chartValues: any = {
-    details: {
-      title: 'Dados por produtos',
-      description: 'Análise de estados de produtos por venda',
-      chartUnity: 'AOA'
-    },
-    labels: [
-      "Jan",
-      "Fev",
-      // "Mar",
-      // "Abr",
-      // "Mai",
-      // "Jun",
-      // "Jul",
-      // "Ago",
-      // "Set",
-      // "Out",
-      // "Nov",
-      // "Dez"
-    ],
-    series: [
-      {
-        name: 'Ganhos',
-        color: '#61C554',
-        data: [
-          10123,
-          13345,
-          // 35235,
-          // 25223,
-          // 64213,
-          // 23000,
-          // 50522,
-          // 23409,
-          // 21345,
-          // 53234,
-          // 34563,
-          // 54322
-        ]
-      },
-      {
-        name: 'Perdas',
-        color: "#ddd",
-        data: [
-          13000,
-          23000,
-          // 45123,
-          // 35342,
-          // 56000,
-          // 23553,
-          // 70000,
-          // 23409,
-          // 21345,
-          // 64234,
-          // 14563,
-          // 14322
-        ]
-      }
-    ]
-  }
+  @Input() chartData!: HorizontalBarChart;
 
   chartHeight = 256; // Altura do gráfico em pixels
   maxValue: number = 0;
@@ -73,17 +16,16 @@ export class HzBarComponent implements OnInit, OnChanges {
   yAxisIntervals: string[] = [];
 
   ngOnInit(): void {
+  }
+  
+  ngOnChanges(changes: SimpleChanges): void {
     this.calculateMinMaxValues();
     this.calculateScaleY();
     this.calculateYAxisIntervals();
   }
-
-  ngOnChanges(changes: SimpleChanges): void {
-    
-  }
   
   calculateMinMaxValues(): void {
-    const allData = this.chartValues.series.reduce((acc: string | any[], series: { data: any; }) => acc.concat(series.data), []);
+    const allData = this.chartData.series.reduce((acc: string | any[], series: { data: any; }) => acc.concat(series.data), []);
     this.maxValue = Math.max(...allData);
     this.minValue = Math.min(...allData);
   }
