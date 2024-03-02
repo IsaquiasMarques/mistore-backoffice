@@ -1,0 +1,100 @@
+<div class="w-full h-full">
+    <div class="chart-header flex justify-between items-start" *ngIf="this.chartValues.details">
+        <div class="details-col">
+            <div class="title mb-2">
+                <h1 class="text-black text-lg font-bold">
+                    {{ this.chartValues.details.title }}
+                </h1>
+            </div>
+            <div class="description">
+                <p class="max-w-[20.313rem] text-[#aaa] text-base">
+                    {{ this.chartValues.details.description }}
+                </p>
+            </div>
+        </div>
+        <div class="labels-presentation max-w-[50%] flex flex-wrap justify-start items-center">
+            @for (label of this.chartValues.series; track $index) {
+                <div class="label w-fit flex justify-center items-center gap-2 px-2">
+                    <span
+                    class="w-2 h-2 rounded-full"
+                    [style.backgroundColor]="label.color"
+                    ></span>
+                    <p
+                    class="text-base"
+                    [style.color]="'#aaa'"
+                    >{{ label.name }}</p>
+                </div>
+            }
+        </div>
+    </div>
+    <div class="chart-canvas relative mt-8 max-h-[17rem] flex justify-between items-start">
+
+
+        <div class="y-axys">
+            <div class="intervals flex flex-col items-start justify-start gap-y-6">
+                @for (item of this.yAxisIntervals; track $index) {
+                    <div class="item text-sm text-[#aaa]"
+                    >
+                    <!-- [ngClass]="(item === '0') ? 'opacity-0' : 'opacity-1'" -->
+                        <span class="!text-xs !text-[rgba(170,170,170,0.40)]">
+                            AOA
+                        </span>
+                        {{ item }}
+                    </div>
+                }
+            </div>
+        </div>
+        <div class="chart-bars pb-3 relative border-l border-[#EBEBEB] bg-red-40 w-full max-w-[45.375rem] max-h-[300px]">
+            <div class="underlined-cover w-full h-full flex flex-col gap-y-6 justify-between">
+                @for (item of this.yAxisIntervals; track $index) {
+                    <div class="item relative text-sm text-transparent">
+                        {{ item }}
+                        <div class="dash absolute top-[50%] -translate-y-[50%] left-0 w-full h-[1px] border-b"
+                        [ngClass]="(item === '0') ? 'border-[#D9D9D9]' : 'border-dashed border-[rgba(204,204,204,0.40)]'"
+                        ></div>
+                    </div>
+                }
+            </div>
+
+            <div class="bars-cover absolute left-0 top-0 w-full h-full">
+                <div class="top-bars relative w-full h-full flex justify-around items-end">
+                    @for (label of this.chartValues.labels; track labelIndex; let labelIndex = $index) {
+                        <div class="bars-container flex flex-col h-[calc(100%-10px)]">
+                            <div class="bars flex items-end w-10 h-full">
+                                @for (serie of this.chartValues.series; track serieIndex; let serieIndex = $index) {
+                                    <div class="bar w-full rounded-t"
+                                    [style.backgroundColor]="serie.color"
+                                    [style.height.%]="getPercentage(this.chartValues.series[serieIndex].data[labelIndex])"
+                                    ></div>
+                                }
+                            </div>
+                            <div class="bottom-labels min-h-[22px] flex justify-around items-end">
+                                <span class="text-xs text-[#aaa]">
+                                    {{ label }}
+                                </span>
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+
+        </div>
+
+
+
+
+
+        <!-- <div class="y-axis">
+            <div class="interval" *ngFor="let interval of yAxisIntervals">{{ interval }}</div>
+        </div> -->
+        
+        <!-- <div class="bars">
+            @for (item of this.chartValues.series; track $index) {
+                <div class="bar">
+                    <div class="bar-label">{{ item.name }}</div>
+                    <div class="bar-fill" [style.height.px]="calculateBarHeight(item.data[$index])"></div>
+                </div>
+            }
+        </div> -->
+    </div>
+</div>
