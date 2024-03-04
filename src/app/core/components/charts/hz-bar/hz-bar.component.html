@@ -1,4 +1,4 @@
-<div class="w-full h-full">
+<div class="w-full h-full flex flex-col justify-around">
     <div class="chart-header flex justify-between items-start" *ngIf="this.chartData.details">
         <div class="details-col">
             <div class="title mb-2">
@@ -37,7 +37,7 @@
                     >
                     <!-- [ngClass]="(item === '0') ? 'opacity-0' : 'opacity-1'" -->
                         <span class="!text-xs !text-[rgba(170,170,170,0.40)]">
-                            AOA
+                            {{ this.chartData.details?.chartUnity }}
                         </span>
                         {{ item }}
                     </div>
@@ -55,29 +55,6 @@
                     </div>
                 }
             </div>
-
-            <!-- <div class="bars-cover absolute left-0 top-0 w-full h-full">
-                <div class="top-bars relative w-full h-full flex justify-around items-end">
-                    @for (label of this.chartData.labels; track labelIndex; let labelIndex = $index) {
-                        <div class="bars-container flex flex-col h-[calc(100%-10px)]">
-                            <div class="bars flex items-end w-10 h-full">
-                                @for (serie of this.chartData.series; track serieIndex; let serieIndex = $index) {
-                                    <div class="bar w-full rounded-t"
-                                    [style.backgroundColor]="serie.color"
-                                    [style.height.%]="getPercentage(this.chartData.series[serieIndex].data[labelIndex])"
-                                    ></div>
-                                }
-                            </div>
-                            <div class="bottom-labels min-h-[22px] flex justify-around items-end">
-                                <span class="text-xs text-[#aaa]">
-                                    {{ label }}
-                                </span>
-                            </div>
-                        </div>
-                    }
-                </div>
-            </div> -->
-
             <div class="bars-cover absolute left-0 top-0 w-full h-full">
                 <div class="top-bars relative w-full h-full gap-3 flex justify-around items-end">
                     @for (label of this.chartData.labels; track labelIndex; let labelIndex = $index) {
@@ -92,10 +69,24 @@
                         >
                             <div class="bars flex items-end w-full h-full">
                                 @for (serie of this.chartData.series; track serieIndex; let serieIndex = $index) {
-                                    <div class="bar w-full rounded-t"
+                                    <div class="bar w-full rounded-t relative"
                                     [style.backgroundColor]="serie.color"
                                     [style.height.%]="getPercentage(this.chartData.series[serieIndex].data[labelIndex])"
-                                    ></div>
+                                    >
+                                        @if(this.chartData.details?.toolpit){
+                                            <div class="toolpit text-sm absolute z-[10] w-max min-w-[150px] -top-[70px] left-[50%] -translate-x-[50%] bg-black text-white p-2 rounded">
+                                                <div class="top mb-2">
+                                                    {{ this.chartData.labels[labelIndex] }}
+                                                </div>
+                                                <div class="bottom flex gap-2 justify-start items-center">
+                                                    <span class="w-3 h-3 rounded-full"
+                                                    [style.backgroundColor]="serie.color"
+                                                    ></span>
+                                                    {{ serie.name }}: {{ this.chartData.series[serieIndex].data[labelIndex] | number | replaceCommaByDot }} {{ this.chartData.details?.chartUnity }}
+                                                </div>
+                                            </div>
+                                        }
+                                    </div>
                                 }
                             </div>
                             <div class="bottom-labels min-h-[22px] flex justify-around items-end">

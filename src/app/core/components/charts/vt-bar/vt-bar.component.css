@@ -1,0 +1,7 @@
+.bars .bar .toolpit{
+    transition: .6s;
+    display: none;
+}
+.bars .bar:hover .toolpit{
+    display: block;
+}

@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { HorizontalBarChart } from '@app/core/interfaces/hz-bar-chart.interface';
+import { VerticalBarChart } from '@app/core/interfaces/vt-bar-chart.interface';
 
 @Component({
   selector: 'mi-dashboard',
@@ -11,7 +12,8 @@ export class DashboardComponent {
     details: {
       title: 'Dados por produtos',
       description: 'Análise de estados de produtos por venda',
-      chartUnity: 'AOA'
+      chartUnity: 'AOA',
+      toolpit: true
     },
     labels: [
       "Jan",
@@ -64,6 +66,51 @@ export class DashboardComponent {
           // 14322
         ]
       }
+    ]
+  }
+
+  verticalChart: VerticalBarChart = {
+    details: {
+      title: 'Dados da loja',
+      description: 'Número de visitantes da sua loja nesta semana.',
+      toolpit: true
+    },
+    labels: [
+      "Seg",
+      "Ter",
+      // "Qua",
+      // "Qui",
+      // "Sex",
+      // "Sáb",
+      // "Dom"
+    ],
+    series: [
+      {
+        name: 'Visitas',
+        color: '#F4BF4F',
+        data: [
+          43,
+          23,
+          // 45,
+          // 80,
+          // 30,
+          // 12,
+          // 4
+        ]
+      },
+      {
+        name: 'Abandonos',
+        color: "#ddd",
+        data: [
+          35,
+          3,
+          // 35,
+          // 12,
+          // 85,
+          // 11,
+          // 5
+        ]
+      },
     ]
   }
 }

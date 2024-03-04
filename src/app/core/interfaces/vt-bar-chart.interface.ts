@@ -4,11 +4,11 @@ interface chartSerie{
     data: number[]
 }
 
-export interface HorizontalBarChart{
+export interface VerticalBarChart{
     details?: {
         title: string,
         description: string,
-        chartUnity: string,
+        chartUnity?: string,
         toolpit: boolean
     },
     labels: string[],

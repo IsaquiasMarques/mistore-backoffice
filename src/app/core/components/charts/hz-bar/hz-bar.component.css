@@ -1,6 +1,7 @@
-.interval .item::before{
-    content: '';
-    width: 100%;
-    height: 10px;
-    background-color: red;
+.bars .bar .toolpit{
+    transition: .6s;
+    display: none;
+}
+.bars .bar:hover .toolpit{
+    display: block;
 }
