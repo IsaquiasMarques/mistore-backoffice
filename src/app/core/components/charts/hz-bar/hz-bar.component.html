@@ -82,7 +82,7 @@
                                                     <span class="w-3 h-3 rounded-full"
                                                     [style.backgroundColor]="serie.color"
                                                     ></span>
-                                                    {{ serie.name }}: {{ this.chartData.series[serieIndex].data[labelIndex] | number | replaceCommaByDot }} {{ this.chartData.details?.chartUnity }}
+                                                    {{ serie.name }}: {{ this.chartData.series[serieIndex].data[labelIndex] | number | replaceBy }} {{ this.chartData.details?.chartUnity }}
                                                 </div>
                                             </div>
                                         }

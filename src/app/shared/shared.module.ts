@@ -2,23 +2,23 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { IconComponent } from './components/ui/icon/icon.component';
-import { ReplaceCommaByDotPipe } from './pipes/number/replace-comma-by-dot.pipe';
+import { ReplaceBy } from './pipes/number/replace-by.pipe';
 
 
 @NgModule({
   declarations: [
     IconComponent,
-    ReplaceCommaByDotPipe
+    ReplaceBy,
   ],
   imports: [
     CommonModule,
-    RouterModule
+    RouterModule,
   ],
   exports: [
     CommonModule,
     RouterModule,
     IconComponent,
-    ReplaceCommaByDotPipe
+    ReplaceBy
   ]
 })
 export class SharedModule { }

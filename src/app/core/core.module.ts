@@ -4,6 +4,8 @@ import { SharedModule } from '@shared/shared.module';
 import { HeaderComponent } from './components/header/header.component';
 import { HzBarComponent } from './components/charts/hz-bar/hz-bar.component';
 import { VtBarComponent } from './components/charts/vt-bar/vt-bar.component';
+import { AdsComponent } from './components/ads/ads.component';
+import { HttpClientModule } from '@angular/common/http';
 
 
 @NgModule({
@@ -11,16 +13,19 @@ import { VtBarComponent } from './components/charts/vt-bar/vt-bar.component';
     SidebarMenuComponent,
     HeaderComponent,
     HzBarComponent,
-    VtBarComponent
+    VtBarComponent,
+    AdsComponent
   ],
   imports: [
     SharedModule,
+    HttpClientModule
   ],
   exports: [
     SidebarMenuComponent,
     HeaderComponent,
     HzBarComponent,
-    VtBarComponent
+    VtBarComponent,
+    AdsComponent
   ],
 })
 export class CoreModule { }

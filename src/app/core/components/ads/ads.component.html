@@ -1,0 +1,10 @@
+<div class="ad-container w-full h-full flex flex-col gap-y-6 justify-between items-center p-4 rounded-lg"
+[style.backgroundColor]="this.backgroundColor"
+[style.color]="this.textColor"
+>
+    <ng-content select="[slot=ad-image]" class="ad-image"></ng-content>
+    <div class="content flex flex-col gap-y-10 justify-between items-center">
+        <ng-content select="[slot=ad-body]" class="ad-body"></ng-content>
+        <ng-content select="[slot=ad-footer]" class="ad-footer"></ng-content>
+    </div>
+</div>
