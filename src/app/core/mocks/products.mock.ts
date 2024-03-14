@@ -1,9 +1,9 @@
-import { ProductStatusEnum } from "@app/feature-modules/store-admin/enums/products-status.enum";
-import { IProduct } from "@app/feature-modules/store-admin/models/product.model";
+import { ProductStatusEnum } from "@store/enums/products-status.enum";
+import { IProduct } from "@store/models/product.model";
 
 export const PRODUCTS: IProduct[] = [
     {
-      id: '',
+      id: '6279d312-d682-4a54-9e16-e283b6c69430',
       ID: 22739,
       imagePath: 'assets/images/products/image-1.png',
       name: 'Topshop knit midi sweater dress in gray heather',
@@ -16,7 +16,7 @@ export const PRODUCTS: IProduct[] = [
       money_raised: 173000
     },
     {
-      id: '',
+      id: '10687a95-c512-44de-9ecc-12ed559812dc',
       ID: 43756,
       imagePath: 'assets/images/products/image-2.png',
       name: 'Nike air force 4',
@@ -29,7 +29,7 @@ export const PRODUCTS: IProduct[] = [
       money_raised: 173000
     },
     {
-      id: '',
+      id: '49e4da02-7128-4641-8271-b7a36e7c7dcd',
       ID: 39635,
       imagePath: 'assets/images/products/image-3.png',
       name: 'Vestido de noiva BAIL',
@@ -42,7 +42,7 @@ export const PRODUCTS: IProduct[] = [
       money_raised: 927000
     },
     {
-      id: '',
+      id: 'dd760f2c-88c1-4cd1-a7d1-c48e2c789966',
       ID: 97174,
       imagePath: 'assets/images/products/image-4.png',
       name: 'T-shirt branca Polo',
@@ -55,7 +55,7 @@ export const PRODUCTS: IProduct[] = [
       money_raised: 60000
     },
     {
-      id: '',
+      id: '4bc298f0-8606-46d1-9a8d-5b7eadb990da',
       ID: 97174,
       imagePath: '',
       name: 'T-shirt branca Polo',
@@ -68,7 +68,7 @@ export const PRODUCTS: IProduct[] = [
       money_raised: 50000
     },
     {
-      id: '',
+      id: '6f83cc14-1195-4820-97d8-431dbc103753',
       ID: 97174,
       imagePath: '',
       name: 'T-shirt branca Polo',
@@ -81,7 +81,7 @@ export const PRODUCTS: IProduct[] = [
       money_raised: 6000
     },
     {
-      id: '',
+      id: '7b43c6a2-25cf-485f-a138-4f74bc526332',
       ID: 97174,
       imagePath: '',
       name: 'T-shirt branca Polo',

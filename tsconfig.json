@@ -5,7 +5,6 @@
     "outDir": "./dist/out-tsc",
     "baseUrl": "./src",
     "paths": {
-      "@app/*": ["app/*"],
       "@templates/*": ["app/templates/*"],
       "@core/*": ["app/core/*"],
       "@shared/*": ["app/shared/*"],

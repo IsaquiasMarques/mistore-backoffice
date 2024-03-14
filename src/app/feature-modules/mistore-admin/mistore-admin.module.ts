@@ -3,8 +3,8 @@ import { CommonModule } from '@angular/common';
 
 import { MistoreAdminRoutingModule } from '@admin/mistore-admin-routing.module';
 import { MistoreAdminComponent } from '@admin/components/containers/mistore-admin.component';
-import { SharedModule } from '@app/shared/shared.module';
-import { CoreModule } from '@app/core/core.module';
+import { SharedModule } from '@shared/shared.module';
+import { CoreModule } from '@core/core.module';
 
 
 @NgModule({

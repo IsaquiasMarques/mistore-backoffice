@@ -1,4 +1,4 @@
-import { IMenuIconRef } from "@app/shared/interfaces/icon-ref.interface";
+import { IMenuIconRef } from "@shared/interfaces/icon-ref.interface";
 import { BadgeColorEnum } from "../Enums/badge.enum";
 
 export interface IMenuItemBadge{

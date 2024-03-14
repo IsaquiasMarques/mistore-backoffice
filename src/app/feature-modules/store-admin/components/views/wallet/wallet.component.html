@@ -244,113 +244,20 @@
         
                 </div>
             </div>
-            <div class="table-content">
-
-                <table class="w-full">
-                    <thead class="bg-[#F8F8F8] text-left">
-                        <tr class="text-sm">
-                            <th class="py-4 px-6">Produto</th>
-                            <th class="py-4 px-6">Categoria</th>
-                            <th class="py-4 px-6">Quantidade</th>
-                            <th class="py-4 px-6">Data de registro</th>
-                            <th class="py-4 px-6">Preço</th>
-                            <th class="py-4 px-6">Valor arrecadado</th>
-                        </tr>
-                    </thead>
-                    <tbody class="">
-                        @defer (when !(this.loaderService.getLoadingStatus(this.pageLoaderIdentifier.WALLET_PRODUCTS) | async)) {
-                            @if(this.tableProducts.length > 0){
-                                @for (product of this.tableProducts; track $index) {
-                                    <tr class="text-sm appear-softly">
-                                        <td class="py-4 px-6">
-                                            <div class="product-details flex gap-x-2 justify-start items-center">
-                                                <div class="image w-12 h-12 rounded overflow-hidden">
-                                                    <img src="{{ (product.imagePath != '') ? product.imagePath : 'assets/images/products/no-image.png' }}" class="w-full h-full object-cover object-center" alt="">
-                                                </div>
-                                                <div class="product max-w-[10.625rem] flex flex-col gap-y-2 justify-between items-start">
-                                                    <h1 class="text-black text-sm leading-4 font-medium limited-text one-line">
-                                                        {{ product.name }}
-                                                    </h1>
-                                                    <p class="text-sm text-[#aaa] leading-4 limited-text one-line">
-                                                        ID: {{ product.ID }}
-                                                    </p>
-                                                </div>
-                                            </div>
-                                        </td>
-                                        <td class="py-4 px-6 text-[#828282]">{{ product.category }}</td>
-                                        <td class="py-4 px-6 text-[#828282]">{{ product.quantity | number | replaceBy: ',' : ' ' }}</td>
-                                        <td class="py-4 px-6 text-[#828282]">{{ product.created_at }}</td>
-                                        <td class="py-4 px-6 text-[#828282]">{{ product.price| number | replaceBy }} AOA</td>
-                                        <td class="py-4 px-6">
-                                            <button class="chip py-1 px-2 rounded-full font-medium"
-                                            [style.backgroundColor]="(product.money_raised > 50000) ? 'rgba(39,206,153,0.10)' : 'rgba(225,48,41,0.10)'"
-                                            [style.color]="(product.money_raised > 50000) ? '#288853' : '#E13029'"
-                                            >{{ product.money_raised | number | replaceBy }} AOA</button>
-                                        </td>
-                                    </tr>
-                                }
-                            } @else {
-                                <tr class="text-sm appear-softly">
-                                    <td colspan="6" class="text-left px-6 py-4 font-medium">
-                                        Sem produtos cadastrados.
-                                    </td>
-                                </tr>
-                            }
-                        } @placeholder {
-                            @for(placeholder of [0,1,2,3]; track $index){
-                                <tr class="text-sm appear-softly">
-                                    <td class="py-4 px-6">
-                                        <div class="product-details flex gap-x-2 justify-start items-center">
-                                            <div class="image relative w-12 h-12 rounded overflow-hidden">
-                                                <div class="placeholder"></div>
-                                            </div>
-                                            <div class="product max-w-[10.625rem] flex flex-col gap-y-2 justify-between items-start">
-                                                <h1 class="text-transparent !relative placeholder text-sm leading-4 font-medium limited-text one-line">
-                                                    Texto médio para o skeleton
-                                                </h1>
-                                                <p class="text-sm !relative !w-fit placeholder text-transparent leading-4 limited-text one-line">
-                                                    Texto Pequeno
-                                                </p>
-                                            </div>
-                                        </div>
-                                    </td>
-                                    <td class="py-4 px-6 text-transparent">
-                                        <p class="placeholder !relative !w-fit">Texto pequeno</p>
-                                    </td>
-                                    <td class="py-4 px-6 text-transparent">
-                                        <p class="placeholder !relative !w-fit">Texto pequeno</p>
-                                    </td>
-                                    <td class="py-4 px-6 text-transparent">
-                                        <p class="placeholder !relative !w-fit">Texto pequeno</p>
-                                    </td>
-                                    <td class="py-4 px-6 text-transparent">
-                                        <p class="placeholder !relative !w-fit">Texto pequeno</p>
-                                    </td>
-                                    <td class="py-4 px-6">
-                                        <button class="chip placeholder text-transparent !relative !w-fit py-1 px-2 rounded-full font-medium">
-                                            Texto pequeno
-                                        </button>
-                                    </td>
-                                </tr>
-                            }
-                        }
-
-                    </tbody>
-                </table>
-
-            </div>
-            <div class="table-pagination px-6">
-                <div class="pagination-content">
-                    <!-- paginated-list.component.html -->
-                    <!-- <div class="pagination">
-                        <button (click)="goToPage(currentPage - 1)" [disabled]="currentPage === 1">Previous</button>
-                        <ng-container *ngFor="let page of generatePageNumbers()">
-                        <button (click)="goToPage(page)" [class.active]="page === currentPage">{{ page }}</button>
-                        </ng-container>
-                        <button (click)="goToPage(currentPage + 1)" [disabled]="currentPage === totalPages">Next</button>
-                    </div> -->
-                    Paginação
-                </div>
+            <div class="table-content relative">
+                <mi-table
+                [tableHeader]="this.tableHeader"
+                [tableData]="this.tableProducts"
+                [checkbox]="false"
+                [pagination]="true"
+                [perPage]="this.itemsPerPage"
+                [currentPage]="this.currentPage"
+                [totalItems]="this.totalItems"
+                [withImage]="true"
+                [withTinyText]="true"
+                [imageRadius]="'lg'"
+                [placeholderCount]="this.placeholderCount"
+                />
             </div>
 
         </div>

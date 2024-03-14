@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
-import { HorizontalBarChart } from '@app/core/interfaces/hz-bar-chart.interface';
-import { VerticalBarChart } from '@app/core/interfaces/vt-bar-chart.interface';
+import { HorizontalBarChart } from '@core/interfaces/hz-bar-chart.interface';
+import { VerticalBarChart } from '@core/interfaces/vt-bar-chart.interface';
 
 @Component({
   selector: 'mi-dashboard',

@@ -1,6 +1,6 @@
 import { Injectable } from "@angular/core";
 import { LoaderHandler } from "./handler.service";
-import { PageLoaderIdentifier } from "@app/core/Enums/page-loader-id.enum";
+import { PageLoaderIdentifier } from "@core/Enums/page-loader-id.enum";
 
 @Injectable({
     providedIn: 'root'

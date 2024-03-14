@@ -1,9 +1,9 @@
 import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
-import { DomSanitizer } from '@angular/platform-browser';
-import { IMenuItemBadge } from '@app/core/interfaces/sidebar.interface';
-import { SIDEBAR_ICONS } from '@app/shared/constants/sidebar-icons.const';
-import { IMenuIconRef } from '@app/shared/interfaces/icon-ref.interface';
-import { ISidebarIcon } from '@app/shared/interfaces/icons.interface';
+
+import { IMenuItemBadge } from '@core/interfaces/sidebar.interface';
+import { SIDEBAR_ICONS } from '@shared/constants/sidebar-icons.const';
+import { IMenuIconRef } from '@shared/interfaces/icon-ref.interface';
+import { ISidebarIcon } from '@shared/interfaces/icons.interface';
 
 @Component({
   selector: 'mi-icon',

@@ -1,0 +1,216 @@
+<table class="w-full relative">
+    <thead class="bg-[#F8F8F8] sticky z-[5] w-full left-0 text-left"
+    #theadElementRef
+    [style.top.px]="TABLE_STICKY_TOP"
+    >
+        <tr class="text-sm">
+            <th class="relative py-4 px-6" *ngIf="this.checkbox">
+                <label class="checkbox-container"
+                [ngClass]="{
+                    'all-checked': this.selectedItems.length === this.totalItems,
+                    'some-checked': this.selectedItems.length > 0  && (this.selectedItems.length < this.totalItems) 
+                }"
+                >
+                    <input type="checkbox"
+                    (click)="this.toggleSelect()"
+                    [checked]="this.selectedItems.length > 0"
+                    >
+                    <span class="checkmark"></span>
+                </label>
+            </th>
+            <th class="py-4 px-6" *ngFor="let item of this.tableHeader">{{ item }}</th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (!(this.loaderService.getLoadingStatus(this.pageLoaderIdentifier.WALLET_PRODUCTS) | async)) {
+            @if(this.tableData.length > 0){
+                @if (this.selectedItems.length > 0) {
+                    <tr class="text-sm appear-softly sticky bg-white z-[5] w-full left-0"
+                    [style.top.px]="selectedDetailsStickyTopSpacing"
+                    >
+                        <td colspan="7" class="text-left pl-4 pr-10 py-4 font-medium">
+                            <div class="selected-details flex justify-between items-center">
+                                <div class="aside">
+                                    <p class="text-[#999]">
+                                        {{ this.selectedItems.length }} / <span class="text-black">{{ this.totalItems }}</span>
+                                        Selecionado
+                                    </p>
+                                </div>
+                                <div class="buttons flex gap-5 justify-center items-center">
+                                    <button class="">
+                                        <svg width="34" height="34" viewBox="0 0 34 34" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                            <rect x="0.5" y="0.5" width="33" height="33" rx="3.5" fill="#F8F8F8"/>
+                                            <rect x="0.5" y="0.5" width="33" height="33" rx="3.5" stroke="#F2F2F2"/>
+                                            <path d="M21.1668 15.3333V13.6667C21.1668 11.3655 19.3013 9.5 17.0002 9.5C14.699 9.5 12.8335 11.3655 12.8335 13.6667V15.3333M17.0002 19.0833V20.75M14.3335 24.5H19.6668C21.067 24.5 21.767 24.5 22.3018 24.2275C22.7722 23.9878 23.1547 23.6054 23.3943 23.135C23.6668 22.6002 23.6668 21.9001 23.6668 20.5V19.3333C23.6668 17.9332 23.6668 17.2331 23.3943 16.6984C23.1547 16.228 22.7722 15.8455 22.3018 15.6058C21.767 15.3333 21.067 15.3333 19.6668 15.3333H14.3335C12.9334 15.3333 12.2333 15.3333 11.6985 15.6058C11.2281 15.8455 10.8457 16.228 10.606 16.6984C10.3335 17.2331 10.3335 17.9332 10.3335 19.3333V20.5C10.3335 21.9001 10.3335 22.6002 10.606 23.135C10.8457 23.6054 11.2281 23.9878 11.6985 24.2275C12.2333 24.5 12.9334 24.5 14.3335 24.5Z" stroke="black" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
+                                        </svg>
+                                    </button>
+                                    <button class="">
+                                        <svg width="34" height="34" viewBox="0 0 34 34" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                            <rect width="34" height="34" rx="4" fill="#E13029"/>
+                                            <path d="M20.3333 11.9998V11.3332C20.3333 10.3997 20.3333 9.93304 20.1517 9.57652C19.9919 9.26292 19.7369 9.00795 19.4233 8.84816C19.0668 8.6665 18.6001 8.6665 17.6667 8.6665H16.3333C15.3999 8.6665 14.9332 8.6665 14.5767 8.84816C14.2631 9.00795 14.0081 9.26292 13.8483 9.57652C13.6667 9.93304 13.6667 10.3997 13.6667 11.3332V11.9998M15.3333 16.5832V20.7498M18.6667 16.5832V20.7498M9.5 11.9998H24.5M22.8333 11.9998V21.3332C22.8333 22.7333 22.8333 23.4334 22.5608 23.9681C22.3212 24.4386 21.9387 24.821 21.4683 25.0607C20.9335 25.3332 20.2335 25.3332 18.8333 25.3332H15.1667C13.7665 25.3332 13.0665 25.3332 12.5317 25.0607C12.0613 24.821 11.6788 24.4386 11.4392 23.9681C11.1667 23.4334 11.1667 22.7333 11.1667 21.3332V11.9998" stroke="white" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
+                                        </svg>
+                                    </button>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                }
+                @for (product of this.tableData; track $index) {
+                    <tr class="text-sm appear-softly">
+                        <td class="relative py-4 px-6"
+                        *ngIf="this.checkbox"
+                        >
+                            <label class="checkbox-container">
+                                <input
+                                type="checkbox"
+                                [checked]="isSelected(product.id, 'checked')"
+                                (click)="selectItem(product.id)"
+                                >
+                                <span class="checkmark"></span>
+                            </label>
+                        </td>
+                        <td class="py-4 px-6">
+                            <div class="product-details flex gap-x-2 justify-start items-center">
+                                <div class="image w-12 h-12 overflow-hidden"
+                                *ngIf="this.withImage"
+                                [ngClass]="{
+                                    'rounded-full': this.imageRadius == 'full',
+                                    'rounded': this.imageRadius == 'lg',
+                                }"
+                                >
+                                    <img src="{{ (product.imagePath != '') ? product.imagePath : 'assets/images/products/no-image.png' }}" class="w-full h-full object-cover object-center" alt="">
+                                </div>
+                                <div class="product max-w-[10.625rem] flex flex-col gap-y-2 justify-between items-start">
+                                    <h1 class="text-black text-sm leading-4 font-medium limited-text one-line">
+                                        {{ product.name }}
+                                    </h1>
+                                    <p
+                                    *ngIf="this.withTinyText"
+                                    class="text-sm text-[#aaa] leading-4 limited-text one-line">
+                                        ID: {{ product.ID }}
+                                    </p>
+                                </div>
+                            </div>
+                        </td>
+                        <td class="py-4 px-6 text-[#828282]">{{ product.category }}</td>
+                        <td class="py-4 px-6 text-[#828282]">{{ product.quantity | number | replaceBy: ',' : ' ' }}</td>
+                        <td class="py-4 px-6 text-[#828282]">{{ product.created_at }}</td>
+                        <td class="py-4 px-6 text-[#828282]">{{ product.price| number | replaceBy }} AOA</td>
+                        <td class="py-4 px-6">
+                            <button class="chip py-1 px-2 rounded-full font-medium"
+                            [style.backgroundColor]="(product.money_raised > 50000) ? 'rgba(39,206,153,0.10)' : 'rgba(225,48,41,0.10)'"
+                            [style.color]="(product.money_raised > 50000) ? '#288853' : '#E13029'"
+                            >{{ product.money_raised | number | replaceBy }} AOA</button>
+                        </td>
+                    </tr>
+                }
+            } @else {
+                <tr class="text-sm appear-softly">
+                    <td colspan="7" class="text-left px-6 py-4 font-medium">
+                        Sem produtos cadastrados.
+                    </td>
+                </tr>
+            }
+        } @else {
+            @for(placeholder of this.generatePlaceholders(); track $index){
+                <tr class="text-sm appear-softly">
+                    <td class="relative py-4 px-6" *ngIf="this.checkbox">
+                        <label class="checkbox-container relative">
+                            <!-- <input type="checkbox"> -->
+                            <span class="checkmark-placeholder placeholder !relative !w-6 !h-6"></span>
+                        </label>
+                    </td>
+                    <td class="py-4 px-6">
+                        <div class="product-details flex gap-x-2 justify-start items-center">
+                            <div class="image relative w-12 h-12 overflow-hidden"
+                            *ngIf="this.withImage"
+                            [ngClass]="{
+                                'rounded-full': this.imageRadius == 'full',
+                                'rounded': this.imageRadius == 'lg',
+                            }"
+                            >
+                                <div class="placeholder"></div>
+                            </div>
+                            <div class="product max-w-[10.625rem] flex flex-col gap-y-2 justify-between items-start">
+                                <h1 class="text-transparent !relative placeholder text-sm leading-4 font-medium limited-text one-line">
+                                    Texto médio para o skeleton
+                                </h1>
+                                <p
+                                *ngIf="this.withTinyText"
+                                class="text-sm !relative !w-fit placeholder text-transparent leading-4 limited-text one-line">
+                                    Texto Pequeno
+                                </p>
+                            </div>
+                        </div>
+                    </td>
+                    <td class="py-4 px-6 text-transparent">
+                        <p class="placeholder !relative !w-fit">Texto pequeno</p>
+                    </td>
+                    <td class="py-4 px-6 text-transparent">
+                        <p class="placeholder !relative !w-fit">Texto pequeno</p>
+                    </td>
+                    <td class="py-4 px-6 text-transparent">
+                        <p class="placeholder !relative !w-fit">Texto pequeno</p>
+                    </td>
+                    <td class="py-4 px-6 text-transparent">
+                        <p class="placeholder !relative !w-fit">Texto pequeno</p>
+                    </td>
+                    <td class="py-4 px-6">
+                        <button class="chip placeholder text-transparent !relative !w-fit py-1 px-2 rounded-full font-medium">
+                            Texto pequeno
+                        </button>
+                    </td>
+                </tr>
+            }
+        }
+    </tbody>
+</table>
+<div class="table-pagination px-6 mt-10 flex justify-center items-center" *ngIf="this.pagination && this.tableData.length > 0">
+    <div class="pagination-content rounded-full overflow-hidden border border-[#EBEBEB] flex justify-center items-stretch">
+
+        <div class="previous-page">
+            <button
+            [disabled]="this.currentPage === this.pages[0]"
+            class="py-[10px] text-sm font-medium px-4 flex gap-2 justify-center items-center"
+            [ngClass]="{
+                'text-[#999] cursor-auto': this.currentPage === this.pages[0]
+            }"
+            [routerLink]="['/store/wallet']"
+            [queryParams]="{ page: this.currentPage - 1 }"
+            >
+                <svg width="21" height="20" viewBox="0 0 21 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M16.3337 10.0001H4.66699M4.66699 10.0001L10.5003 15.8334M4.66699 10.0001L10.5003 4.16675" [attr.stroke]="(this.currentPage === this.pages[0]) ? '#999999' : 'black'" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                Anterior
+            </button>
+        </div>
+        <div class="enumeration flex justify-center items-stretch">
+            @for (page of this.pages; track $index) {
+                <div class="button-page">
+                    <button class="w-11 h-full font-medium text-sm"
+                    [ngClass]="{ 'active': this.currentPage === page}"
+                    [routerLink]="['/store/wallet']"
+                    [queryParams]="{ page: page }"
+                    > {{ page }} </button>
+                </div>
+            }
+        </div>
+        <div class="next-page">
+            <button
+            [disabled]="this.currentPage === this.pages[this.pages.length - 1]"
+            class="py-[10px] text-sm font-medium px-4 flex gap-2 justify-center items-center"
+            [ngClass]="{
+                'text-[#999] cursor-auto': this.currentPage === this.pages[this.pages.length - 1]
+            }"
+            [routerLink]="['/store/wallet']"
+            [queryParams]="{ page: this.currentPage + 1 }"
+            >
+                Próximo
+                <svg width="21" height="20" viewBox="0 0 21 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M4.66699 10.0001H16.3337M16.3337 10.0001L10.5003 4.16675M16.3337 10.0001L10.5003 15.8334" [attr.stroke]="(this.currentPage === this.pages[this.pages.length - 1]) ? '#999999' : 'black'" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+            </button>
+        </div>
+
+    </div>
+</div>

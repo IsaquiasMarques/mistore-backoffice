@@ -1,7 +1,7 @@
 import { AfterViewInit, Component, ElementRef, OnInit, ViewChild, inject } from '@angular/core';
 import { ActivatedRoute, Event, NavigationEnd, Router } from '@angular/router';
-import { BadgeColorEnum } from '@app/core/Enums/badge.enum';
-import { ISidebar } from '@app/core/interfaces/sidebar.interface';
+import { BadgeColorEnum } from '@core/Enums/badge.enum';
+import { ISidebar } from '@core/interfaces/sidebar.interface';
 import { filter } from 'rxjs/operators';
 
 const INITIAL_INDEX: number = 0;

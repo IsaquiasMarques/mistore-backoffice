@@ -1,5 +1,5 @@
 import { Component, Input, OnChanges, OnInit, SimpleChanges, inject } from '@angular/core';
-import { User } from '@app/core/base-models/user/User';
+import { User } from '@core/base-models/user/User';
 
 @Component({
   selector: 'mi-header',
