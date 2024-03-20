@@ -12,5 +12,6 @@ export interface IProduct{
     favoritesCount?: number,
     created_at: string,
     price: number,
+    promotion_price: number,
     money_raised: number
 }

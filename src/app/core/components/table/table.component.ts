@@ -1,32 +1,19 @@
-import { AfterViewInit, Component, ElementRef, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges, ViewChild, inject } from '@angular/core';
-import { PageLoaderIdentifier } from '@core/Enums/page-loader-id.enum';
-import { LoaderService } from '@core/services/loader/loader.service';
-import { IProduct } from '@store/models/product.model';
+import { Component, ElementRef, Input, OnChanges, OnInit, SimpleChanges, ViewChild } from '@angular/core';
 
 @Component({
   selector: 'mi-table',
   templateUrl: './table.component.html',
   styleUrl: './table.component.css'
 })
-export class TableComponent implements OnInit, OnChanges, AfterViewInit {
+export class TableComponent implements OnInit, OnChanges {
   
   TABLE_STICKY_TOP: number = 100;
-  loaderService = inject(LoaderService);
-  pageLoaderIdentifier = PageLoaderIdentifier;
 
-  @Input() tableData: IProduct[] = [];
-  @Input() tableHeader: string[] = [];
-  @Input() checkbox: boolean = true;
   @Input() pagination: boolean = true;
   @Input() perPage: number = 4;
-  @Input() withImage: boolean = true;
-  @Input() withTinyText: boolean = true;
-  @Input() imageRadius: 'lg' | 'full' = 'lg';
-  @Input() placeholderCount: number = 6;
+  @Input() route: string = '';
   @Input() totalItems: number = 0;
   @Input() currentPage: number = 1;
-
-  @Output() gotoPage: EventEmitter<number> = new EventEmitter<number>();
 
   pages: number[] = [];
 
@@ -41,44 +28,6 @@ export class TableComponent implements OnInit, OnChanges, AfterViewInit {
 
   ngOnChanges(changes: SimpleChanges): void {
     this.calculatePages();
-  }
-
-  ngAfterViewInit(): void {
-    this.selectedDetailsStickyTopSpacing = (this.TABLE_STICKY_TOP + this.theadElementRef.nativeElement.clientHeight)
-  }
-
-  selectItem(itemId: string){
-    console.log(itemId)
-    let itemIndex: string | number = this.isSelected(itemId, 'index');
-    if((typeof(itemIndex) === 'number') && itemIndex !== -1){
-      this.selectedItems.splice(itemIndex, 1);
-      return;
-    }
-    this.selectedItems.push(itemId);
-  }
-
-  isSelected(itemId: string, returningString: 'checked' | 'index'): string | number{
-    let itemIndexOnSelection = this.selectedItems.findIndex(item => item === itemId);
-    
-    switch(returningString){
-      case 'checked':
-        return (itemIndexOnSelection !== -1) ? 'checked' : '';
-      case 'index':
-        return itemIndexOnSelection;
-      default:
-        return itemIndexOnSelection;
-    }
-  }
-
-  toggleSelect(): void{
-    if(this.selectedItems.length > 0){
-      this.selectedItems = [];
-      
-    }else{
-      this.tableData.forEach(element => {
-        this.selectedItems.push(element.id);
-      });
-    }
   }
 
   calculatePages(){
@@ -101,9 +50,5 @@ export class TableComponent implements OnInit, OnChanges, AfterViewInit {
       }
     }
 
-  }
-
-  generatePlaceholders(): number[]{
-    return Array.from({ length: this.placeholderCount });
   }
 }

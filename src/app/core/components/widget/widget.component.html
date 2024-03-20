@@ -1,0 +1,13 @@
+<div class="widget w-full flex flex-col gap-y-4 text-black border border-[rgba(233,233,233,0.60)] p-6 rounded-lg"
+[style.backgroundColor]="this.widgetBackground"
+[style.color]="this.widgetMainTextColor"
+>
+    <div class="widget-header flex justify-between items-center">
+        <ng-content select="[slot=widget-description]"></ng-content>
+        <ng-content select="[slot=widget-cta-dots]"></ng-content>
+    </div>
+    <div class="widget-body">
+        <ng-content select="[slot=widget-big-content]"></ng-content>
+        <ng-content select="[slot=widget-footer]"></ng-content>
+    </div>
+</div>

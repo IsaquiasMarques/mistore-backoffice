@@ -10,6 +10,7 @@ import { TableComponent } from './components/table/table.component';
 import { HttpClientInMemoryWebApiModule } from 'angular-in-memory-web-api';
 import { InMemoryDataService } from './data/in-memory-web-api/in-memory-data.service';
 import { RouterModule } from '@angular/router';
+import { WidgetComponent } from './components/widget/widget.component';
 
 
 @NgModule({
@@ -19,7 +20,8 @@ import { RouterModule } from '@angular/router';
     HzBarComponent,
     VtBarComponent,
     AdsComponent,
-    TableComponent
+    TableComponent,
+    WidgetComponent
   ],
   imports: [
     SharedModule,
@@ -35,7 +37,8 @@ import { RouterModule } from '@angular/router';
     HzBarComponent,
     VtBarComponent,
     AdsComponent,
-    TableComponent
+    TableComponent,
+    WidgetComponent
   ],
 })
 export class CoreModule { }

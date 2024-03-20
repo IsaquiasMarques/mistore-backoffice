@@ -1,6 +1,9 @@
 import { Component } from '@angular/core';
+import { WidgetPercentageStatusEnum } from '@core/Enums/widget-percentage-status.enum';
 import { HorizontalBarChart } from '@core/interfaces/hz-bar-chart.interface';
 import { VerticalBarChart } from '@core/interfaces/vt-bar-chart.interface';
+import { IWidget } from '@core/interfaces/widget.interface';
+import { SVGRefEnum } from '@shared/Enums/svg-ref.enum';
 
 @Component({
   selector: 'mi-dashboard',
@@ -8,6 +11,68 @@ import { VerticalBarChart } from '@core/interfaces/vt-bar-chart.interface';
   styleUrl: './dashboard.component.css'
 })
 export class DashboardComponent {
+
+  widgetPercentageStatusEnum = WidgetPercentageStatusEnum;
+  widgets: IWidget[] = [
+    {
+      backgroundColor: 'black',
+      ctaDotsColor: 'white',
+      mainTextColor: 'white',
+      footerTextColor: '#858585',
+      svgIcon: {
+        ref: SVGRefEnum.COINS_HAND,
+        color: 'white'
+      },
+      headerLabel: 'Vendas Concluídas',
+      view_data: true,
+      data: {
+        main: 1234,
+        percentageStatus: WidgetPercentageStatusEnum.ENCREASE,
+        percentageValue: 24,
+        footerLabelValue: 283,
+        footerLabelText: ' essa semana'
+      }
+    },
+    {
+      backgroundColor: 'white',
+      ctaDotsColor: '#858585',
+      mainTextColor: 'black',
+      footerTextColor: '#858585',
+      svgIcon: {
+        ref: SVGRefEnum.WALLET,
+        color: 'black'
+      },
+      headerLabel: 'Produtos disponíveis',
+      view_data: true,
+      data: {
+        main: 7453,
+        percentageStatus: WidgetPercentageStatusEnum.ENCREASE,
+        percentageValue: 24,
+        footerLabelValue: 663,
+        footerLabelText: ' essa semana'
+      }
+    },
+    {
+      backgroundColor: 'white',
+      ctaDotsColor: '#858585',
+      mainTextColor: 'black',
+      footerTextColor: '#858585',
+      svgIcon: {
+        ref: SVGRefEnum.WALLET,
+        color: 'black'
+      },
+      headerLabel: 'Valor arrecadado',
+      view_data: true,
+      data: {
+        main: 1234,
+        percentageStatus: WidgetPercentageStatusEnum.DECREASE,
+        percentageValue: 24,
+        footerLabelValue: -40000,
+        footerLabelText: ' essa semana'
+      }
+    },
+  ];
+  
   horizontalChart: HorizontalBarChart = {
     details: {
       title: 'Dados por produtos',

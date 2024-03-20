@@ -8,6 +8,8 @@ export class LoaderHandler{
         'dashboard-widgets': new BehaviorSubject(false),
         'wallet-widgets': new BehaviorSubject(false),
         'wallet-products': new BehaviorSubject(false),
+        'product-widgets': new BehaviorSubject(false),
+        'products': new BehaviorSubject(false),
     }
 
     toggleLoadingStatus(identifier: PageLoaderIdentifier): void{

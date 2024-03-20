@@ -1,1 +1,2 @@
-export const WALLET_PRODUCTS_LIMIT: number = 5;
+export const WALLET_PRODUCTS_LIMIT: number = 6;
+export const PRODUCTS_LIMIT: number = 6;

@@ -1,5 +1,5 @@
-import { Component, OnInit, inject } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Component, ElementRef, OnInit, ViewChild, inject } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import { PageLoaderIdentifier } from '@core/Enums/page-loader-id.enum';
 import { LoaderService } from '@core/services/loader/loader.service';
 import { WalletFacade } from '@store/facades/wallet.facade';
@@ -7,16 +7,101 @@ import { IProduct } from '@store/models/product.model';
 import { WALLET_PRODUCTS_LIMIT } from '@shared/constants/data-limit.const';
 import { HorizontalBarChart } from '@core/interfaces/hz-bar-chart.interface';
 import { PRODUCTS } from '@core/mocks/products.mock';
+import { TableComponentExtender } from '@core/component-classes/table-component.class';
+import { TableComponentInterface } from '@core/component-interfaces/table-component.interface';
+import { IWidget } from '@core/interfaces/widget.interface';
+import { SVGRefEnum } from '@shared/Enums/svg-ref.enum';
+import { WidgetPercentageStatusEnum } from '@core/Enums/widget-percentage-status.enum';
 
 @Component({
   selector: 'mi-wallet',
   templateUrl: './wallet.component.html',
   styleUrl: './wallet.component.css'
 })
-export class WalletComponent implements OnInit {
+export class WalletComponent extends TableComponentExtender implements OnInit, TableComponentInterface {
 
   private walletFacade = inject(WalletFacade);
   private activatedRoute = inject(ActivatedRoute);
+
+  constructor() {
+    super();
+    this.TABLE_STICKY_TOP = 100;
+    this.checkbox = false;
+    this.pagination = true;
+    this.route = '/store/wallet';
+    this.perPage = WALLET_PRODUCTS_LIMIT;
+    this.withImage = true;
+    this.withTinyText = true;
+    this.imageRadius = 'lg';
+    this.placeholderCount = 5;
+    this.totalItems = 0;
+    this.currentPage = 1;
+  }
+
+  
+  widgetPercentageStatusEnum = WidgetPercentageStatusEnum;
+  widgets: IWidget[] = [
+    {
+      backgroundColor: 'black',
+      ctaDotsColor: 'white',
+      mainTextColor: 'white',
+      footerTextColor: '#858585',
+      svgIcon: {
+        ref: SVGRefEnum.SHOPPING_CART,
+        color: 'white'
+      },
+      headerLabel: 'Total de Produtos',
+      view_data: true,
+      data: {
+        main: 263000,
+        percentageStatus: WidgetPercentageStatusEnum.ENCREASE,
+        percentageValue: 68,
+        footerLabelValue: 635,
+        footerLabelText: ' produtos adicionados'
+      }
+    },
+    {
+      backgroundColor: 'white',
+      ctaDotsColor: '#858585',
+      mainTextColor: 'black',
+      footerTextColor: '#858585',
+      svgIcon: {
+        ref: SVGRefEnum.COINS_HAND,
+        color: 'black'
+      },
+      headerLabel: 'Vendas Concluídas',
+      view_data: true,
+      data: {
+        main: 63000,
+        percentageStatus: WidgetPercentageStatusEnum.ENCREASE,
+        percentageValue: 24,
+        footerLabelValue: 283,
+        footerLabelText: ' esse mês'
+      }
+    },
+    {
+      backgroundColor: 'white',
+      ctaDotsColor: '#858585',
+      mainTextColor: 'black',
+      footerTextColor: '#858585',
+      svgIcon: {
+        ref: SVGRefEnum.BANK_NOTE,
+        color: 'black'
+      },
+      headerLabel: 'Valor total na carteira',
+      view_data: true,
+      data: {
+        main: 683000,
+        percentageStatus: WidgetPercentageStatusEnum.ENCREASE,
+        percentageValue: 68,
+        footerLabelValue: 100000,
+        footerLabelText: ' esse ano'
+      }
+    },
+  ];
+
+  tableHeader: string[] = ['Produto', 'Categoria', 'Quantidade', 'Data de Registro', 'Preço', 'Valor arrecadado'];
+  tableProducts: IProduct[] = [];
 
   loaderService = inject(LoaderService);
 
@@ -81,22 +166,36 @@ export class WalletComponent implements OnInit {
     ]
   }
 
-  tableHeader: string[] = ['Produto', 'Categoria', 'Quantidade', 'Data de Registro', 'Preço', 'Valor arrecadado'];
-  tableProducts: IProduct[] = [];
   pageLoaderIdentifier = PageLoaderIdentifier;
-  placeholderCount: number = 4;
-
-  itemsPerPage = WALLET_PRODUCTS_LIMIT;
-  totalItems = 0;
-  currentPage = 1;
-  totalPages!: number;
 
   ngOnInit(): void {
     this.activatedRoute.queryParamMap.subscribe(queryParam => {
       const pageParam = parseInt(queryParam.get('page') ?? '1');
       this.currentPage = pageParam;
-      this.getProducts(pageParam, this.itemsPerPage);
+      this.getProducts(pageParam, this.perPage);
     });
+
+    this.generatePlaceholders();
+  }
+
+  // Start of Table Component Interface Requirements
+  @ViewChild('theadElementRef') theadElementRef!: ElementRef<HTMLElement>;
+  selectedDetailsStickyTopSpacing: number = 0;
+
+  ngAfterViewInit(): void {
+    this.selectedDetailsStickyTopSpacing = this.TABLE_STICKY_TOP + this.theadElementRef.nativeElement.clientHeight;
+  }
+  // End of Table Component Interface Requirements
+
+  toggleSelect(): void{
+      if(this.selectedItems.length > 0){
+          this.selectedItems = [];
+          
+      }else{
+          this.tableProducts.forEach(element => {
+              this.selectedItems.push(element.id);
+          });
+      }
   }
 
   getProducts(page: number, limit: number){

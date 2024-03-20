@@ -13,6 +13,7 @@ export const PRODUCTS: IProduct[] = [
       quantity: 636,
       created_at: '06/01/2024',
       price: 2000,
+      promotion_price: 1000,
       money_raised: 173000
     },
     {
@@ -26,6 +27,7 @@ export const PRODUCTS: IProduct[] = [
       quantity: 193,
       created_at: '06/01/2024',
       price: 2000,
+      promotion_price: 0,
       money_raised: 173000
     },
     {
@@ -39,6 +41,8 @@ export const PRODUCTS: IProduct[] = [
       quantity: 0,
       created_at: '06/01/2024',
       price: 2000,
+      favoritesCount: 50,
+      promotion_price: 0,
       money_raised: 927000
     },
     {
@@ -52,6 +56,7 @@ export const PRODUCTS: IProduct[] = [
       quantity: 1311,
       created_at: '15/05/2020',
       price: 109000,
+      promotion_price: 90900,
       money_raised: 60000
     },
     {
@@ -63,8 +68,10 @@ export const PRODUCTS: IProduct[] = [
       subcategory: 'Beauty and Cosmetics',
       status: ProductStatusEnum.AVAILABLE,
       quantity: 1311,
+      favoritesCount: 10,
       created_at: '15/05/2020',
       price: 109000,
+      promotion_price: 50000,
       money_raised: 50000
     },
     {
@@ -78,6 +85,7 @@ export const PRODUCTS: IProduct[] = [
       quantity: 1311,
       created_at: '15/05/2020',
       price: 109000,
+      promotion_price: 0,
       money_raised: 6000
     },
     {
@@ -90,7 +98,9 @@ export const PRODUCTS: IProduct[] = [
       status: ProductStatusEnum.UNAVAILABLE,
       quantity: 1311,
       created_at: '15/05/2020',
+      favoritesCount: 40,
       price: 109000,
+      promotion_price: 0,
       money_raised: 6000
     },
 ]
