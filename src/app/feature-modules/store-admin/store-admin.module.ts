@@ -5,12 +5,13 @@ import { StoreAdminComponent } from '@store/components/containers/store-admin.co
 import { SharedModule } from '@shared/shared.module';
 import { CoreModule } from '@core/core.module';
 import { DashboardComponent } from '@store/components/views/dashboard/dashboard.component';
-import { ProductsComponent } from '@store/components/views/products/products.component';
+import { ProductsComponent } from '@store/components/views/products/index/products.component';
 import { PromotionsComponent } from '@store/components/views/promotions/promotions.component';
 import { FavoritesComponent } from '@store/components/views/favorites/favorites.component';
 import { WalletComponent } from '@store/components/views/wallet/wallet.component';
 import { MessagesComponent } from '@store/components/views/messages/messages.component';
 import { HelpComponent } from '@store/components/views/help/help.component';
+import { CreateProductComponent } from '@store/components/views/products/create/create-product.component';
 
 
 @NgModule({
@@ -18,11 +19,12 @@ import { HelpComponent } from '@store/components/views/help/help.component';
     StoreAdminComponent,
     DashboardComponent,
     ProductsComponent,
+    CreateProductComponent,
     PromotionsComponent,
     FavoritesComponent,
     WalletComponent,
     MessagesComponent,
-    HelpComponent
+    HelpComponent,
   ],
   imports: [
     SharedModule,

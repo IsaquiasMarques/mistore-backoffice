@@ -36,12 +36,12 @@ export class ApiService{
         const endIndex = startIndex + (limit_per_page - 1);
 
         return this.http.get<IProduct[]>(`api/products`).pipe(
+            map((filteredProducts: IProduct[]) => {
+                return filteredProducts.filter(product => product.promotion_price > 0) ?? []
+            }),
             map((incomingProducts: IProduct[]) => {
                 return incomingProducts.slice(startIndex, endIndex + 1)
             }),
-            map((filteredProducts: IProduct[]) => {
-                return filteredProducts.filter(product => product.promotion_price > 0) ?? []
-            })
         );
     }
 
@@ -50,12 +50,12 @@ export class ApiService{
         const endIndex = startIndex + (limit_per_page - 1);
 
         return this.http.get<IProduct[]>(`api/products`).pipe(
+            map((filteredProducts: IProduct[]) => {
+                return filteredProducts.filter(product => product.favoritesCount && product.favoritesCount > 0) ?? []
+            }),
             map((incomingProducts: IProduct[]) => {
                 return incomingProducts.slice(startIndex, endIndex + 1)
             }),
-            map((filteredProducts: IProduct[]) => {
-                return filteredProducts.filter(product => product.favoritesCount && product.favoritesCount > 0) ?? []
-            })
         );
     }
 }

@@ -3,11 +3,12 @@ import { RouterModule, Routes } from '@angular/router';
 import { StoreAdminComponent } from '@store/components/containers/store-admin.component';
 import { DashboardComponent } from '@store/components/views/dashboard/dashboard.component';
 import { WalletComponent } from '@store/components/views/wallet/wallet.component';
-import { ProductsComponent } from './components/views/products/products.component';
+import { ProductsComponent } from './components/views/products/index/products.component';
 import { PromotionsComponent } from './components/views/promotions/promotions.component';
 import { FavoritesComponent } from './components/views/favorites/favorites.component';
 import { MessagesComponent } from './components/views/messages/messages.component';
 import { HelpComponent } from './components/views/help/help.component';
+import { CreateProductComponent } from './components/views/products/create/create-product.component';
 
 const mistoreSignature: string = '- Mistore, Conta de Loja';
 
@@ -35,6 +36,11 @@ const routes: Routes = [
         path: 'products',
         title: `Produtos ${ mistoreSignature }`,
         component: ProductsComponent
+      },
+      {
+        path: 'products/create',
+        title: `Adicionar Produto ${ mistoreSignature }`,
+        component: CreateProductComponent
       },
       {
         path: 'promotions',
