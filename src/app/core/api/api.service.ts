@@ -1,7 +1,10 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
+import { IBrand } from "@core/base-models/base/brands.model";
+import { IProductCategory } from "@core/base-models/base/category.model";
+import { IProductSubCategory } from "@core/base-models/base/subcategory.model";
 import { IProduct } from "@store/models/product.model";
-import { Observable, map } from "rxjs";
+import { Observable, map, tap } from "rxjs";
 
 @Injectable({
     providedIn: 'root'
@@ -57,5 +60,26 @@ export class ApiService{
                 return incomingProducts.slice(startIndex, endIndex + 1)
             }),
         );
+    }
+    
+    getBrands(): Observable<IBrand[]>{
+        return this.http.get<IBrand[]>(`api/brands`)
+                        .pipe(
+                            // tap(console.log)
+                        );
+    }
+
+    getCategories(): Observable<IProductCategory[]>{
+        return this.http.get<IProductCategory[]>(`api/categories`)
+                        .pipe(
+                            // tap(console.log)
+                        );
+    }
+
+    getSubcategories(categoryId: string): Observable<IProductSubCategory[]>{
+        return this.http.get<IProductSubCategory[]>(`api/subcategories?category_id=${ categoryId }`)
+                        .pipe(
+                            // tap(console.log)
+                        );
     }
 }

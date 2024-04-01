@@ -10,6 +10,9 @@ export class LoaderHandler{
         'wallet-products': new BehaviorSubject(false),
         'product-widgets': new BehaviorSubject(false),
         'products': new BehaviorSubject(false),
+        'brands-add-products': new BehaviorSubject(false),
+        'categories-add-products': new BehaviorSubject(false),
+        'subcategories-add-products': new BehaviorSubject(false),
     }
 
     toggleLoadingStatus(identifier: PageLoaderIdentifier): void{

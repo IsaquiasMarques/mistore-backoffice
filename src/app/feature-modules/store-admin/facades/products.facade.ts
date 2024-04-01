@@ -2,6 +2,9 @@ import { Injectable, inject } from "@angular/core";
 import { ApiService } from "@core/api/api.service";
 import { Observable } from "rxjs";
 import { IProduct } from "../models/product.model";
+import { IProductCategory } from "@core/base-models/base/category.model";
+import { IProductSubCategory } from "@core/base-models/base/subcategory.model";
+import { IBrand } from "@core/base-models/base/brands.model";
 
 @Injectable({
     providedIn: 'root'
@@ -20,6 +23,18 @@ export class ProductFacade{
 
     favoritesProducts(page: number, limit: number): Observable<IProduct[]>{
         return this.api.getFavoritesProducts(page, limit);
+    }
+
+    brands(): Observable<IBrand[]>{
+        return this.api.getBrands();
+    };
+
+    categories(): Observable<IProductCategory[]>{
+        return this.api.getCategories();
+    }
+
+    subCategories(categoryId: string): Observable<IProductSubCategory[]>{
+        return this.api.getSubcategories(categoryId);
     }
 
 }

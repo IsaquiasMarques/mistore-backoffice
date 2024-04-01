@@ -11,6 +11,8 @@ import { HttpClientInMemoryWebApiModule } from 'angular-in-memory-web-api';
 import { InMemoryDataService } from './data/in-memory-web-api/in-memory-data.service';
 import { RouterModule } from '@angular/router';
 import { WidgetComponent } from './components/widget/widget.component';
+import { SelectComponent } from './components/select/select.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 
 @NgModule({
@@ -21,12 +23,15 @@ import { WidgetComponent } from './components/widget/widget.component';
     VtBarComponent,
     AdsComponent,
     TableComponent,
-    WidgetComponent
+    WidgetComponent,
+    SelectComponent
   ],
   imports: [
     SharedModule,
     RouterModule,
     HttpClientModule,
+    FormsModule,
+    ReactiveFormsModule,
     HttpClientInMemoryWebApiModule.forRoot(
       InMemoryDataService, { dataEncapsulation: false, delay: 3000 }
     ),
@@ -38,7 +43,8 @@ import { WidgetComponent } from './components/widget/widget.component';
     VtBarComponent,
     AdsComponent,
     TableComponent,
-    WidgetComponent
+    WidgetComponent,
+    SelectComponent
   ],
 })
 export class CoreModule { }
