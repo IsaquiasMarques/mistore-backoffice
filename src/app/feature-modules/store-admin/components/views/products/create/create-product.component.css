@@ -1,0 +1,29 @@
+.promotionRate input[type='range']{
+    appearance: none;
+    -webkit-appearance: none;
+    background: transparent;
+    cursor: pointer;
+}
+.promotionRate input[type='range']::-webkit-slider-runnable-track{
+    background: #F4F4F4;
+    height: 4px;
+}
+.promotionRate input[type='range']::-moz-range-track{
+    background: #F4F4F4;
+    height: 4px;
+}
+
+.promotionRate input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    margin-top: -8px;
+    z-index: 2 !important;
+    background: black;
+    border: 3px solid black;
+    height: 20px;
+    border-radius: 100%;
+    width: 20px;
+}
+.input-track {
+    z-index: 1; /* Garante que o input-track fique abaixo do thumb */
+}

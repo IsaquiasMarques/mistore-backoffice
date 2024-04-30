@@ -1,4 +1,6 @@
 export interface ColorOption {
+  id: string,
   hexCode: string;
-  colorDescription?: string;
+  colorName?: string;
+  selected?: boolean
 }

@@ -12,6 +12,7 @@ import { WalletComponent } from '@store/components/views/wallet/wallet.component
 import { MessagesComponent } from '@store/components/views/messages/messages.component';
 import { HelpComponent } from '@store/components/views/help/help.component';
 import { CreateProductComponent } from '@store/components/views/products/create/create-product.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 
 @NgModule({
@@ -29,6 +30,8 @@ import { CreateProductComponent } from '@store/components/views/products/create/
   imports: [
     SharedModule,
     CoreModule,
+    FormsModule,
+    ReactiveFormsModule,
     StoreAdminRoutingModule
   ]
 })

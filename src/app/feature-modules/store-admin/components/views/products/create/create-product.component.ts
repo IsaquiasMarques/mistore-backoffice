@@ -1,5 +1,6 @@
-import { Component, OnInit, inject } from '@angular/core';
+import { Component, OnInit, inject, signal } from '@angular/core';
 import { PageLoaderIdentifier } from '@core/Enums/page-loader-id.enum';
+import { ColorOption } from '@core/base-models/base/ColorOption.model';
 import { IBrand } from '@core/base-models/base/brands.model';
 import { IProductCategory } from '@core/base-models/base/category.model';
 import { IProductSubCategory } from '@core/base-models/base/subcategory.model';
@@ -23,6 +24,9 @@ export class CreateProductComponent implements OnInit {
   selectedCategory!: IProductCategory[];
   selectedSubCategories!: IProductSubCategory[];
   selectedSizes!: { label: string, value: string }[];
+  selectedColors: ColorOption[] = [];
+
+  promotionRangeValue = signal(0);
 
   brandsToSelect: IBrand[] = [];
   categoriesToSelect: IProductCategory[] = [];
@@ -53,6 +57,28 @@ export class CreateProductComponent implements OnInit {
       value: 'super-large'
     },
   ];
+  colors: ColorOption[] = [
+    {
+      id: '#754E53',
+      hexCode: '#754E53',
+      colorName: 'Castanho',
+      selected: true,
+    },
+    {
+      id: '#68183A',
+      hexCode: '#68183A',
+      colorName: 'Bege',
+      selected: false,
+    },
+    {
+      id: '#4CA7F8',
+      hexCode: '#4CA7F8',
+      colorName: 'Azul',
+      selected: false,
+    }
+  ];
+
+  isAvailable: boolean = true;
 
   ngOnInit(): void {
     this.loaderService.setLoadingStatus(this.pageLoaderIdentifier.BRANDS_ADD_PRODUCTS, true);
@@ -113,6 +139,17 @@ export class CreateProductComponent implements OnInit {
         this.loaderService.loaderActionAfterTryFetching(this.pageLoaderIdentifier.SUB_CATEGORIES_ADD_PRODUCTS);
       }
     });
+  }
+
+  changeAvailability(){
+    this.isAvailable = !this.isAvailable;
+  }
+
+  toggleSelectColor(colorId: string){
+    let theColor = this.colors.find(color => color.id === colorId);
+    if(theColor && 'selected' in theColor){
+      theColor.selected = !theColor.selected;
+    }
   }
 
 }
