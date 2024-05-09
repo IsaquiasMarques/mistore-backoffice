@@ -7,4 +7,6 @@ import { Component } from '@angular/core';
 })
 export class HelpComponent {
 
+  activeTab: string = 'myaccount';
+
 }

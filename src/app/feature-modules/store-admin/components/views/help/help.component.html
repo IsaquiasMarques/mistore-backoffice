@@ -1,1 +1,124 @@
-<p>help works!</p>
+<div class="wrapper px-0 flex justify-start items-stretch">
+    <div class="wrapper-tab py-10 px-8 w-[326px] bg-black/[0.03]">
+        <div class="title mb-10">
+            <h1 class=" text-2xl font-extrabold text-black">
+                Ajuda
+            </h1>
+        </div>
+        <div class="tab-items flex flex-col gap-y-3">
+            <div class="item">
+                <a
+                [routerLink]="['/store/help']"
+                [queryParams]="{ tab: 'myaccount' }"
+                [queryParamsHandling]="'merge'"
+                class="py-3 px-4 duration-[.3s] max-w-[197px] block bg-transparent text-black rounded-lg"
+                [ngClass]="{
+                    'active': this.activeTab === 'myaccount'
+                }"
+                >
+                    A minha conta
+                </a>
+            </div>
+            <div class="item">
+                <a
+                [routerLink]="['/store/help']"
+                [queryParams]="{ tab: 'requests' }"
+                [queryParamsHandling]="'merge'"
+                class="py-3 px-4 duration-[.3s] max-w-[197px] block bg-transparent text-black rounded-lg"
+                [ngClass]="{
+                    'active': this.activeTab === 'requests'
+                }"
+                >
+                    Pedidos
+                </a>
+            </div>
+            <div class="item">
+                <a
+                [routerLink]="['/store/help']"
+                [queryParams]="{ tab: 'payments' }"
+                [queryParamsHandling]="'merge'"
+                class="py-3 px-4 duration-[.3s] max-w-[197px] block bg-transparent text-black rounded-lg"
+                [ngClass]="{
+                    'active': this.activeTab === 'payments'
+                }"
+                >
+                    Pagamentos
+                </a>
+            </div>
+            <div class="item">
+                <a
+                [routerLink]="['/store/help']"
+                [queryParams]="{ tab: 'shipping' }"
+                [queryParamsHandling]="'merge'"
+                class="py-3 px-4 duration-[.3s] max-w-[197px] block bg-transparent text-black rounded-lg"
+                [ngClass]="{
+                    'active': this.activeTab === 'shipping'
+                }"
+                >
+                    Envio e Entrega
+                </a>
+            </div>
+            <div class="item">
+                <a
+                [routerLink]="['/store/help']"
+                [queryParams]="{ tab: 'devolution' }"
+                [queryParamsHandling]="'merge'"
+                class="py-3 px-4 duration-[.3s] max-w-[197px] block bg-transparent text-black rounded-lg"
+                [ngClass]="{
+                    'active': this.activeTab === 'devolution'
+                }"
+                >
+                    Devolução
+                </a>
+            </div>
+            <div class="item">
+                <a
+                [routerLink]="['/store/help']"
+                [queryParams]="{ tab: 'others' }"
+                [queryParamsHandling]="'merge'"
+                class="py-3 px-4 duration-[.3s] max-w-[197px] block bg-transparent text-black rounded-lg"
+                [ngClass]="{
+                    'active': this.activeTab === 'others'
+                }"
+                >
+                    Outras
+                </a>
+            </div>
+        </div>
+
+        <div class="contact-us pl-4 mt-12">
+
+            <div class="tiny-title">
+                <h5 class="text-sm font-medium tracking-[0.1px]">
+                    Apoio ao cliente
+                </h5>
+            </div>
+            <div class="bigger-title my-4">
+                <h1 class=" text-2xl font-bold tracking-[0.1px] text-black">
+                    Não conseguiu encontrar uma resposta útil?
+                </h1>
+            </div>
+            <div class="paragraph">
+                <p class="text-sm tracking-[0.1px]">
+                    Encontra a tua resposta em apenas alguns cliques ou contacta-nos para mais suporte.
+                </p>
+            </div>
+            <div class="cta mt-8">
+                <span class="text-xs text-[#999]">Entrar em contacto</span>
+                <div class="button mt-4">
+                    <button class="bg-black w-[262px] text-white p-4 text-sm font-medium rounded-lg flex gap-2 justify-center items-center">
+                        <svg width="17" height="16" viewBox="0 0 17 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M14.8334 11.9998L10.4048 7.99984M6.59528 7.99984L2.16673 11.9998M1.83337 4.6665L7.27665 8.4768C7.71743 8.78535 7.93783 8.93962 8.17755 8.99938C8.3893 9.05216 8.61078 9.05216 8.82253 8.99938C9.06226 8.93962 9.28265 8.78535 9.72343 8.4768L15.1667 4.6665M5.03337 13.3332H11.9667C13.0868 13.3332 13.6469 13.3332 14.0747 13.1152C14.451 12.9234 14.757 12.6175 14.9487 12.2412C15.1667 11.8133 15.1667 11.2533 15.1667 10.1332V5.8665C15.1667 4.7464 15.1667 4.18635 14.9487 3.75852C14.757 3.3822 14.451 3.07624 14.0747 2.88449C13.6469 2.6665 13.0868 2.6665 11.9667 2.6665H5.03337C3.91327 2.6665 3.35322 2.6665 2.92539 2.88449C2.54907 3.07624 2.24311 3.3822 2.05136 3.75852C1.83337 4.18635 1.83337 4.7464 1.83337 5.8665V10.1332C1.83337 11.2533 1.83337 11.8133 2.05136 12.2412C2.24311 12.6175 2.54907 12.9234 2.92539 13.1152C3.35322 13.3332 3.91327 13.3332 5.03337 13.3332Z" stroke="white" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                        medesign-angola&commat;gmail.com
+                    </button>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+    <div class="wrapper-tab-content">
+        wrapper tab content
+    </div>
+</div>
