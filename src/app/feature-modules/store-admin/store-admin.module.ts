@@ -13,6 +13,12 @@ import { MessagesComponent } from '@store/components/views/messages/messages.com
 import { HelpComponent } from '@store/components/views/help/help.component';
 import { CreateProductComponent } from '@store/components/views/products/create/create-product.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { MyAccountComponent } from './components/views/help/childrens/my-account/my-account.component';
+import { RequestsComponent } from './components/views/help/childrens/requests/requests.component';
+import { PaymentsComponent } from './components/views/help/childrens/payments/payments.component';
+import { ShippingsComponent } from './components/views/help/childrens/shippings/shippings.component';
+import { DevolutionComponent } from './components/views/help/childrens/devolution/devolution.component';
+import { OthersComponent } from './components/views/help/childrens/others/others.component';
 
 
 @NgModule({
@@ -26,6 +32,12 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     WalletComponent,
     MessagesComponent,
     HelpComponent,
+    MyAccountComponent,
+    RequestsComponent,
+    PaymentsComponent,
+    ShippingsComponent,
+    DevolutionComponent,
+    OthersComponent,
   ],
   imports: [
     SharedModule,

@@ -119,6 +119,15 @@
 
     </div>
     <div class="wrapper-tab-content">
-        wrapper tab content
+        
+        <div class="myaccount-tab-content py-28 px-16">
+            <mi-my-account-tab-content *ngIf="this.activeTab === tabsEnum.MY_ACCOUNT"></mi-my-account-tab-content>
+            <mi-requests-tab-content *ngIf="this.activeTab === this.tabsEnum.REQUESTS"></mi-requests-tab-content>
+            <mi-payments-tab-content *ngIf="this.activeTab === this.tabsEnum.PAYMENTS"></mi-payments-tab-content>
+            <mi-shippings-tab-content *ngIf="this.activeTab === this.tabsEnum.SHIPPING"></mi-shippings-tab-content>
+            <mi-devolution-tab-content *ngIf="this.activeTab === this.tabsEnum.DEVOLUTION"></mi-devolution-tab-content>
+            <mi-others-tab-content *ngIf="this.activeTab === this.tabsEnum.OTHERS"></mi-others-tab-content>
+        </div>
+
     </div>
 </div>
