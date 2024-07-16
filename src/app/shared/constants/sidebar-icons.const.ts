@@ -22,6 +22,11 @@ export const SIDEBAR_ICONS: ISidebarIcon[] = [
         activeSvg: `assets/svg/static/sidebar-icons/heart-rounded-white.svg`
     },
     {
+        ref: { iconRef: 'hearts' },
+        svg: `assets/svg/static/sidebar-icons/hearts.svg`,
+        activeSvg: `assets/svg/static/sidebar-icons/hearts-white.svg`
+    },
+    {
         ref: { iconRef: 'log-out' },
         svg: `assets/svg/static/sidebar-icons/logout.svg`,
     },

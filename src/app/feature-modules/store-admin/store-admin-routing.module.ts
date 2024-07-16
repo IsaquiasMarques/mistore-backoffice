@@ -9,6 +9,8 @@ import { FavoritesComponent } from './components/views/favorites/favorites.compo
 import { MessagesComponent } from './components/views/messages/messages.component';
 import { HelpComponent } from './components/views/help/help.component';
 import { CreateProductComponent } from './components/views/products/create/create-product.component';
+import { LooksComponent } from './components/views/looks/index/looks.component';
+import { CreateLookComponent } from './components/views/looks/create/create-look.component';
 
 const mistoreSignature: string = '- Mistore, Conta de Loja';
 
@@ -31,6 +33,16 @@ const routes: Routes = [
         path: 'wallet',
         title: `Minha Carteira ${ mistoreSignature }`,
         component: WalletComponent
+      },
+      {
+        path: 'looks',
+        title: `Looks ${ mistoreSignature }`,
+        component: LooksComponent
+      },
+      {
+        path: 'looks/create',
+        title: `Adicionar Look ${ mistoreSignature }`,
+        component: CreateLookComponent
       },
       {
         path: 'products',

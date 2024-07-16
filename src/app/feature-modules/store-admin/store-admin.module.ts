@@ -19,6 +19,8 @@ import { PaymentsComponent } from './components/views/help/childrens/payments/pa
 import { ShippingsComponent } from './components/views/help/childrens/shippings/shippings.component';
 import { DevolutionComponent } from './components/views/help/childrens/devolution/devolution.component';
 import { OthersComponent } from './components/views/help/childrens/others/others.component';
+import { LooksComponent } from './components/views/looks/index/looks.component';
+import { CreateLookComponent } from './components/views/looks/create/create-look.component';
 
 
 @NgModule({
@@ -38,6 +40,8 @@ import { OthersComponent } from './components/views/help/childrens/others/others
     ShippingsComponent,
     DevolutionComponent,
     OthersComponent,
+    LooksComponent,
+    CreateLookComponent,
   ],
   imports: [
     SharedModule,

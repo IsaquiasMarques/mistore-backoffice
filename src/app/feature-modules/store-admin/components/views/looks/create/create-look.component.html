@@ -37,7 +37,7 @@
                         <div class="upload-section">
                             <div class="title mb-5">
                                 <h5 class="text-xs font-medium">
-                                    Adicionar imagem
+                                    Adicionar imagens do look
                                 </h5>
                             </div>
                             <div class="dropzone">
@@ -130,192 +130,18 @@
                     <div class="col max-w-[50%] w-full py-4 px-6 border bg-white border-[#E9E9E9] rounded-lg">
                         <form class="form flex flex-col gap-y-8">
                             <div class="input flex flex-col gap-y-3">
-                                <label for="productName" class="text-xs font-medium">Nome do Produto</label>
+                                <label for="productName" class="text-xs font-medium">Nome do Look</label>
                                 <input type="text"
                                 class="placeholder:text-xs text-xs placeholder:text-[#999] focus:outline-none p-[14px] text-[#999] bg-[#F8F8F8] border border-[#E9E9E9] rounded-lg"
-                                formControlNames="productName" placeholder="Nome do Produto" id="productName">
-                            </div>
-
-                            <div class="brands">
-                                @if (this.loaderService.getLoadingStatus(this.pageLoaderIdentifier.BRANDS_ADD_PRODUCTS) | async) {
-
-                                    <div class="input flex flex-col gap-y-3">
-                                        <label for="productName" class="text-xs text-transparent placeholder !relative !w-fit !h-full rounded-lg font-medium">{{ this.pageLoaderIdentifier.CATEGORIES_ADD_PRODUCTS }}</label>
-                                        <div class="p-[14px] text-xs text-transparent placeholder !relative !w-full !h-full bg-[#F8F8F8] border border-[#E9E9E9] rounded-lg">placeholder</div>
-                                    </div>
-
-                                } @else {
-                                    <mi-select
-                                    [label]="'Marca'"
-                                    [name]="'select-brand'"
-                                    [items]="this.brandsToSelect"
-                                    [optionValue]="'id'"
-                                    [optionName]="'name'"
-                                    [placeholder]="'Seleccione a marca'"
-                                    (selectedItemsEventEmitter)="this.selectedBrandEventHandler($event)"
-                                    />
-                                }
-                            </div>
-
-                            <div class="category">
-                                @if (this.loaderService.getLoadingStatus(this.pageLoaderIdentifier.CATEGORIES_ADD_PRODUCTS) | async) {
-
-                                    <div class="input flex flex-col gap-y-3">
-                                        <label for="productName" class="text-xs text-transparent placeholder !relative !w-fit !h-full rounded-lg font-medium">{{ this.pageLoaderIdentifier.CATEGORIES_ADD_PRODUCTS }}</label>
-                                        <div class="p-[14px] text-xs text-transparent placeholder !relative !w-full !h-full bg-[#F8F8F8] border border-[#E9E9E9] rounded-lg">placeholder</div>
-                                    </div>
-
-                                } @else {
-                                    <mi-select
-                                    [label]="'Categoria'"
-                                    [name]="'select-category'"
-                                    [items]="this.categoriesToSelect"
-                                    [optionValue]="'id'"
-                                    [optionName]="'name'"
-                                    [placeholder]="'Seleccione a categoria'"
-                                    (selectedItemsEventEmitter)="this.selectedCategoryEventHandler($event)"
-                                    />
-                                }
-                            </div>
-                            <div class="sub-categories">
-                                @if (this.loaderService.getLoadingStatus(this.pageLoaderIdentifier.SUB_CATEGORIES_ADD_PRODUCTS) | async) {
-
-                                    <div class="input flex flex-col gap-y-3">
-                                        <label for="productName" class="text-xs text-transparent placeholder !relative !w-fit !h-full rounded-lg font-medium">{{ this.pageLoaderIdentifier.CATEGORIES_ADD_PRODUCTS }}</label>
-                                        <div class="p-[14px] text-xs text-transparent placeholder !relative !w-full !h-full bg-[#F8F8F8] border border-[#E9E9E9] rounded-lg">placeholder</div>
-                                    </div>
-
-                                } @else {
-                                    <mi-select
-                                    [label]="'Subcategorias'"
-                                    [name]="'select-subcategory'"
-                                    [items]="this.subCategoriesToSelect"
-                                    [optionValue]="'id'"
-                                    [optionName]="'name'"
-                                    [multi]="true"
-                                    [placeholder]="'Seleccione as subcategorias'"
-                                    (selectedItemsEventEmitter)="this.selectedSubCategoriesEventHandler($event)"
-                                    />
-                                }
-                            </div>
-                            <div class="sizes">
-                                <mi-select
-                                [label]="'Tamanhos'"
-                                [name]="'select-size'"
-                                [items]="this.sizes"
-                                [optionValue]="'value'"
-                                [optionName]="'label'"
-                                [multi]="true"
-                                [placeholder]="'Seleccione os tamanhos'"
-                                (selectedItemsEventEmitter)="this.selectedSizesEventHandler($event)"
-                                />
-                            </div>
-
-                            <div class="colors">
-                                <div class="title mb-4 text-xs text-black">Cores</div>
-                                <div class="colors-container flex flex-wrap gap-4 justify-start items-center">
-                                    @for (color of colors; track $index) {
-                                        <div class="color flex gap-x-2 justify-start cursor-pointer items-center"
-                                        (click)="toggleSelectColor(color.id)"
-                                        >
-                                            <div class="colored-circle rounded-full duration-[.2s] relative w-[24px] h-[24px] border-[2px] border-red-400"
-                                            [style.borderColor]="(color.selected) ? color.hexCode : 'white'"
-                                            >
-                                                <div class="circle-center rounded-full w-[18px] h-[18px] absolute left-[50%] top-[50%] -translate-x-[50%] -translate-y-[50%] flex justify-center items-center"
-                                                [style.backgroundColor]="color.hexCode"
-                                                >
-                                                    <svg width="10" height="8" viewBox="0 0 10 8" fill="none" xmlns="http://www.w3.org/2000/svg"
-                                                    *ngIf="color.selected">
-                                                        <path d="M1 3.48889L4.02222 6.51111L9 1" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                                                    </svg>
-                                                </div>
-                                            </div>
-                                            <label for="" class="text-[#999999] cursor-pointer">{{ color.colorName }}</label>
-                                        </div>
-                                    }
-                                </div>
-                            </div>
-
-                            <div class="price input flex flex-col gap-y-3">
-                                <label for="price" class="text-xs font-medium">Preço</label>
-                                <input type="text"
-                                class="placeholder:text-xs text-xs placeholder:text-[#999] focus:outline-none p-[14px] text-[#999] bg-[#F8F8F8] border border-[#E9E9E9] rounded-lg"
-                                formControlNames="price" placeholder="{{ 5000 | number | replaceBy }}" id="price">
-                            </div>
-
-                            <div class="qtd input flex flex-col gap-y-3">
-                                <label for="qtd" class="text-xs font-medium">Qtd de produtos em stock</label>
-                                <input type="text"
-                                class="placeholder:text-xs text-xs placeholder:text-[#999] focus:outline-none p-[14px] text-[#999] bg-[#F8F8F8] border border-[#E9E9E9] rounded-lg"
-                                formControlNames="qtd" placeholder="20" id="qtd">
-                            </div>
-
-                            <div class="promotionRate input flex flex-col gap-y-3"> 
-                                <label for="promotionRate" class="text-xs font-medium mb-5">Promoção</label>
-                                <div class="input-container relative bg-red-400 flex">
-                                    <input type="range"
-                                    name="promotionRange"
-                                    class="promotion-range relative w-full top-0"
-                                    formControlNames="promotionRate"
-                                    [(ngModel)]="promotionRangeValue"
-                                    id="promotionRate"
-                                    >
-                                    <div class="input-track absolute top-0 bg-black h-full"
-                                    [style.width.%]="promotionRangeValue()"
-                                    ></div>
-                                </div>
-                                <div class="number-preview flex justify-between items-center mt-6">
-                                    <span class="text-xs font-semibold text-black">{{ promotionRangeValue() }}</span>
-                                    <span class="text-xs font-semibold text-black">100</span>
-                                </div>
-                            </div>
-
-                            <div class="qtd input flex flex-col gap-y-3">
-                                <label for="qtd" class="text-xs font-medium mb-6">Disopnibilidade em stock</label>
-                                
-                                <div class="chips flex justify-start items-center gap-x-4">
-                                    <div
-                                    class="chip cursor-pointer w-fit bg-[rgba(39,206,153,0.10)] rounded-full px-3 py-2 text-[#288853] text-sm font-medium uppercase flex gap-2 items-center"
-                                    (click)="changeAvailability()"
-                                    >
-                                        <div class="check w-5 h-5 duration-[.6s] border-[2px] rounded-[5px]  border-[#288853] flex justify-center items-center"
-                                        [ngClass]="{
-                                            'bg-[#288853]': isAvailable
-                                        }"
-                                        >
-                                            <svg width="100%" height="8" viewBox="0 0 10 8" fill="none" xmlns="http://www.w3.org/2000/svg"
-                                            *ngIf="this.isAvailable"
-                                            >
-                                                <path d="M1 3.48889L4.02222 6.51111L9 1" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                                            </svg>
-                                        </div>
-                                        Disponível
-                                    </div>
-                                    <div
-                                    class="chip cursor-pointer w-fit bg-[rgba(225,48,41,0.10)] rounded-full px-3 py-2 text-[#E13029] text-sm font-medium uppercase flex gap-2 items-center"
-                                    (click)="changeAvailability()"
-                                    >
-                                        <div class="check w-5 h-5 border-[2px] rounded-[5px] border-[#E13029] flex justify-center items-center"
-                                        [ngClass]="{
-                                            'bg-[#E13029]': !isAvailable
-                                        }"
-                                        >
-                                            <svg width="100%" height="8" viewBox="0 0 10 8" fill="none" xmlns="http://www.w3.org/2000/svg"
-                                            *ngIf="!isAvailable"
-                                            >
-                                                <path d="M1 3.48889L4.02222 6.51111L9 1" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                                            </svg>
-                                        </div>
-                                        Indisponível
-                                    </div>
-                                </div>
-
+                                formControlNames="productName" placeholder="Look Fashion Win" id="productName">
                             </div>
 
                             <div class="description input flex flex-col gap-y-3">
                                 <label for="description" class="text-xs font-medium">Descrição</label>
                                 <textarea rows="5" class="placeholder:text-xs resize-none text-xs placeholder:text-[#999] focus:outline-none p-[14px] text-[#999] bg-[#F8F8F8] border border-[#E9E9E9] rounded-lg"
-                                formControlNames="description" id="description"></textarea>
+                                formControlNames="description"
+                                placeholder="Moda Casual para festa"
+                                id="description"></textarea>
                             </div>
 
                             <div class="buttons flex justify-between items-center mt-8">
@@ -323,7 +149,7 @@
                                     Cancelar
                                 </button>
                                 <button class="send p-4 bg-black text-white rounded-lg">
-                                    Publicar produto
+                                    Publicar look
                                 </button>
                             </div>
 

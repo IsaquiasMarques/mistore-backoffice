@@ -36,6 +36,12 @@ export class StoreAdminComponent implements OnInit, AfterViewInit {
           active: false
         },
         {
+          icon: { iconRef: 'hearts' },
+          label: 'Looks',
+          routeTo: 'looks',
+          active: false
+        },
+        {
           icon: { iconRef: 'shopping-cart' },
           label: 'Produtos',
           routeTo: 'products',
@@ -52,12 +58,7 @@ export class StoreAdminComponent implements OnInit, AfterViewInit {
           label: 'Favoritos',
           routeTo: 'favorites',
           active: false
-        }
-      ]
-    },
-    {
-      fieldset: 'Geral',
-      items: [
+        },
         {
           icon: { iconRef: 'message-dots-circle' },
           label: 'Mensagens',
@@ -68,6 +69,11 @@ export class StoreAdminComponent implements OnInit, AfterViewInit {
             color: BadgeColorEnum.ALERT
           }
         },
+      ]
+    },
+    {
+      fieldset: 'Geral',
+      items: [
         {
           icon: { iconRef: 'alert-circle' },
           label: 'Ajuda',
