@@ -126,6 +126,33 @@
                                 }
                             </div>
                         </div>
+                        <div class="selected-products mt-4 flex justify-between items-center">
+                            <div class="products-rounded relative flex gap-6 justify-between items-center">
+                                <div class="images flex justify-start items-center">
+                                    @for (product of this.products; track $index) {
+                                        <div class="product-image w-8 h-8 relative rounded-full border-[1px] border-white overflow-hidden"
+                                        [style.zIndex]="this.products.length - $index"
+                                        [ngClass]="{
+                                            '-ml-5': $index > 0
+                                        }"
+                                        >
+                                            <img
+                                            [src]="product" alt="">
+                                        </div>
+                                    }
+                                </div>
+                                <div class="selected-count">
+                                    <p class="text-[#999] text-sm limited-text one-line">
+                                        {{ this.products.length }} seleccionado{{ this.products.length > 1 ? 's' : '' }}
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="button">
+                                <button class="px-4 py-3 text-sm text-black font-semibold rounded-lg border border-black">
+                                    Ver produtos
+                                </button>
+                            </div>
+                        </div>
                     </div>
                     <div class="col max-w-[50%] w-full py-4 px-6 border bg-white border-[#E9E9E9] rounded-lg">
                         <form class="form flex flex-col gap-y-8">
@@ -145,10 +172,10 @@
                             </div>
 
                             <div class="buttons flex justify-between items-center mt-8">
-                                <button class="cancel p-4 text-[#999] rounded-lg">
+                                <button class="cancel p-4 text-sm leading-4 text-[#999] rounded-lg">
                                     Cancelar
                                 </button>
-                                <button class="send p-4 bg-black text-white rounded-lg">
+                                <button class="send p-4 text-sm leading-4 bg-black text-white rounded-lg">
                                     Publicar look
                                 </button>
                             </div>

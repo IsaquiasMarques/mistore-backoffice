@@ -1,1 +1,371 @@
-<p>looks works!</p>
+<div class="wrapper py-6 px-8">
+    <div class="wrapper-header">
+
+        <div class="top-content flex justify-between items-start">
+            <div class="aside">
+                <div class="title mb-4">
+                    <h1 class="text-black font-extrabold text-2xl">
+                        Looks
+                    </h1>
+                </div>
+                <!-- <div class="tiny-text">
+                    <p class="text-[#AAA] text-base">
+                        Resumo dos principais dados sobre os seus produtos
+                    </p>
+                </div> -->
+            </div>
+            <div class="actions-chips flex gap-8 justify-start items-center">
+    
+                <div class="input-container w-full h-full max-w-[16.438rem] bg-[#F4F4F4] border border-[#E9E9E9] rounded-lg p-3 flex gap-2 justify-start items-center">
+                    <div class="search-icon">
+                        <label for="search">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M21 21L16.65 16.65M19 11C19 15.4183 15.4183 19 11 19C6.58172 19 3 15.4183 3 11C3 6.58172 6.58172 3 11 3C15.4183 3 19 6.58172 19 11Z" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                        </label>
+                    </div>
+                    <input
+                    class="focus:outline-none bg-transparent w-full h-full text-sm placeholder:text-[#969696] placeholder:text-sm"
+                    type="text"
+                    id="search"
+                    placeholder="Pesquisar look">
+                </div>
+                <div class="chip border border-black bg-white w-fit rounded-lg">
+                    <button class="text-black font-semibold py-3 px-4 text-sm leading-4 flex gap-2 justify-center items-center">
+                        <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M4 8H12M2 4H14M6 12H10" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                        Filtrar
+                    </button>
+                </div>
+    
+            </div>
+        </div>
+    </div>
+    <div class="wrapper-content mt-10">
+        <div class="content-header flex mb-6 justify-between items-center">
+            <h3 class="text-base text-black font-medium">
+                Todos os looks
+            </h3>
+            <div class="pagination p-[10px] flex gap-1 justify-start items-center">
+                <div class="prev">
+                    <a href="javascript:void(0)" class="">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M15 18L9 12L15 6" stroke="#AAAAAA" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </a>
+                </div>
+                <div class="pages h-6 flex">
+                    <p class="text-black text-base font-medium tracking-[0.1px]">
+                        <span class="text-[#aaa]">1/</span>4
+                    </p>
+                </div>
+                <div class="next">
+                    <a href="javascript:void(0)" class="">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M9 18L15 12L9 6" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <div class="looks-container">
+            <div class="looks flex flex-wrap gap-6 justify-start items-stretch">
+
+                <div class="box relative w-[270px] p-3 rounded-lg border border-[#E9E9E9]">
+                    <div class="box-header rounded overflo-hidden">
+                        <div class="check-container absolute w-full p-3">
+                            <div class="checkbox">
+                                <button class="">
+                                    <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <rect width="32" height="32" rx="16" fill="black" fill-opacity="0.3"/>
+                                        <path d="M8.5 12.5C8.5 11.0999 8.5 10.3998 8.77248 9.86502C9.01217 9.39462 9.39462 9.01217 9.86502 8.77248C10.3998 8.5 11.0999 8.5 12.5 8.5H19.5C20.9001 8.5 21.6002 8.5 22.135 8.77248C22.6054 9.01217 22.9878 9.39462 23.2275 9.86502C23.5 10.3998 23.5 11.0999 23.5 12.5V19.5C23.5 20.9001 23.5 21.6002 23.2275 22.135C22.9878 22.6054 22.6054 22.9878 22.135 23.2275C21.6002 23.5 20.9001 23.5 19.5 23.5H12.5C11.0999 23.5 10.3998 23.5 9.86502 23.2275C9.39462 22.9878 9.01217 22.6054 8.77248 22.135C8.5 21.6002 8.5 20.9001 8.5 19.5V12.5Z" stroke="white" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
+                                    </svg>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="image w-full h-[180px]">
+                            <img
+                            class="w-full h-full object-cover object-center"
+                            src="assets/images/products/image-2.png" alt="">
+                        </div>
+                    </div>
+                    <div class="box-content mt-3 flex flex-col gap-y-5 justify-between">
+                        <div class="look-details">
+                            <p class="text-base text-black tracking-[0.1px] leading-6 limited-text two-lines">
+                                Look Fashion Win - Moda casual para festas
+                            </p>
+                        </div>
+                        <div class="products-rounded relative flex gap-6 justify-between items-center">
+                            <div class="images flex justify-start items-center">
+                                @for (product of this.products; track $index) {
+                                    <div class="product-image w-8 h-8 relative rounded-full border-[1px] border-white overflow-hidden"
+                                    [style.zIndex]="this.products.length - $index"
+                                    [ngClass]="{
+                                        '-ml-5': $index > 0
+                                    }"
+                                    >
+                                        <img
+                                        [src]="product" alt="">
+                                    </div>
+                                }
+                            </div>
+                            <div class="selected-count">
+                                <p class="text-[#999] text-sm limited-text one-line">
+                                    {{ this.products.length }} seleccionado{{ this.products.length > 1 ? 's' : '' }}
+                                </p>
+                            </div>
+                        </div>
+                        <div class="actions flex justify-between items-center">
+                            <div class="edit">
+                                <button class="px-1 py-3 text-sm text-black font-semibold rounded-lg">
+                                    Editar
+                                </button>
+                            </div>
+                            <div class="dynamic-action">
+                                <button class="px-4 py-3 text-sm text-white bg-black font-semibold rounded-lg">
+                                    Continuar
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="box relative w-[270px] p-3 rounded-lg border border-[#E9E9E9]">
+                    <div class="box-header rounded overflo-hidden">
+                        <div class="check-container absolute w-full p-3">
+                            <div class="checkbox">
+                                <button class="">
+                                    <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <rect width="32" height="32" rx="16" fill="black" fill-opacity="0.3"/>
+                                        <path d="M8.5 12.5C8.5 11.0999 8.5 10.3998 8.77248 9.86502C9.01217 9.39462 9.39462 9.01217 9.86502 8.77248C10.3998 8.5 11.0999 8.5 12.5 8.5H19.5C20.9001 8.5 21.6002 8.5 22.135 8.77248C22.6054 9.01217 22.9878 9.39462 23.2275 9.86502C23.5 10.3998 23.5 11.0999 23.5 12.5V19.5C23.5 20.9001 23.5 21.6002 23.2275 22.135C22.9878 22.6054 22.6054 22.9878 22.135 23.2275C21.6002 23.5 20.9001 23.5 19.5 23.5H12.5C11.0999 23.5 10.3998 23.5 9.86502 23.2275C9.39462 22.9878 9.01217 22.6054 8.77248 22.135C8.5 21.6002 8.5 20.9001 8.5 19.5V12.5Z" stroke="white" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
+                                    </svg>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="image w-full h-[180px]">
+                            <img
+                            class="w-full h-full object-cover object-center"
+                            src="assets/images/products/image-2.png" alt="">
+                        </div>
+                    </div>
+                    <div class="box-content mt-3 flex flex-col gap-y-5 justify-between">
+                        <div class="look-details">
+                            <p class="text-base text-black tracking-[0.1px] leading-6 limited-text two-lines">
+                                Look Fashion Win - Moda casual para festas
+                            </p>
+                        </div>
+                        <div class="products-rounded relative flex gap-6 justify-between items-center">
+                            <div class="images flex justify-start items-center">
+                                @for (product of this.products; track $index) {
+                                    <div class="product-image w-8 h-8 relative rounded-full border-[1px] border-white overflow-hidden"
+                                    [style.zIndex]="this.products.length - $index"
+                                    [ngClass]="{
+                                        '-ml-5': $index > 0
+                                    }"
+                                    >
+                                        <img
+                                        [src]="product" alt="">
+                                    </div>
+                                }
+                            </div>
+                            <div class="selected-count">
+                                <p class="text-[#999] text-sm limited-text one-line">
+                                    {{ this.products.length }} seleccionado{{ this.products.length > 1 ? 's' : '' }}
+                                </p>
+                            </div>
+                        </div>
+                        <div class="actions flex justify-between items-center">
+                            <div class="edit">
+                                <button class="px-1 py-3 text-sm text-black font-semibold rounded-lg">
+                                    Editar
+                                </button>
+                            </div>
+                            <div class="dynamic-action">
+                                <button class="px-4 py-3 text-sm text-white bg-black font-semibold rounded-lg">
+                                    Continuar
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="box relative w-[270px] p-3 rounded-lg border border-[#E9E9E9]">
+                    <div class="box-header rounded overflo-hidden">
+                        <div class="check-container absolute w-full p-3">
+                            <div class="checkbox">
+                                <button class="">
+                                    <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <rect width="32" height="32" rx="16" fill="black" fill-opacity="0.3"/>
+                                        <path d="M8.5 12.5C8.5 11.0999 8.5 10.3998 8.77248 9.86502C9.01217 9.39462 9.39462 9.01217 9.86502 8.77248C10.3998 8.5 11.0999 8.5 12.5 8.5H19.5C20.9001 8.5 21.6002 8.5 22.135 8.77248C22.6054 9.01217 22.9878 9.39462 23.2275 9.86502C23.5 10.3998 23.5 11.0999 23.5 12.5V19.5C23.5 20.9001 23.5 21.6002 23.2275 22.135C22.9878 22.6054 22.6054 22.9878 22.135 23.2275C21.6002 23.5 20.9001 23.5 19.5 23.5H12.5C11.0999 23.5 10.3998 23.5 9.86502 23.2275C9.39462 22.9878 9.01217 22.6054 8.77248 22.135C8.5 21.6002 8.5 20.9001 8.5 19.5V12.5Z" stroke="white" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
+                                    </svg>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="image w-full h-[180px]">
+                            <img
+                            class="w-full h-full object-cover object-center"
+                            src="assets/images/products/image-2.png" alt="">
+                        </div>
+                    </div>
+                    <div class="box-content mt-3 flex flex-col gap-y-5 justify-between">
+                        <div class="look-details">
+                            <p class="text-base text-black tracking-[0.1px] leading-6 limited-text two-lines">
+                                Look Fashion Win - Moda casual para festas
+                            </p>
+                        </div>
+                        <div class="products-rounded relative flex gap-6 justify-between items-center">
+                            <div class="images flex justify-start items-center">
+                                @for (product of this.products; track $index) {
+                                    <div class="product-image w-8 h-8 relative rounded-full border-[1px] border-white overflow-hidden"
+                                    [style.zIndex]="this.products.length - $index"
+                                    [ngClass]="{
+                                        '-ml-5': $index > 0
+                                    }"
+                                    >
+                                        <img
+                                        [src]="product" alt="">
+                                    </div>
+                                }
+                            </div>
+                            <div class="selected-count">
+                                <p class="text-[#999] text-sm limited-text one-line">
+                                    {{ this.products.length }} seleccionado{{ this.products.length > 1 ? 's' : '' }}
+                                </p>
+                            </div>
+                        </div>
+                        <div class="actions flex justify-between items-center">
+                            <div class="edit">
+                                <button class="px-1 py-3 text-sm text-black font-semibold rounded-lg">
+                                    Editar
+                                </button>
+                            </div>
+                            <div class="dynamic-action">
+                                <button class="px-4 py-3 text-sm text-white bg-black font-semibold rounded-lg">
+                                    Continuar
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="box relative w-[270px] p-3 rounded-lg border border-[#E9E9E9]">
+                    <div class="box-header rounded overflo-hidden">
+                        <div class="check-container absolute w-full p-3">
+                            <div class="checkbox">
+                                <button class="">
+                                    <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <rect width="32" height="32" rx="16" fill="black" fill-opacity="0.3"/>
+                                        <path d="M8.5 12.5C8.5 11.0999 8.5 10.3998 8.77248 9.86502C9.01217 9.39462 9.39462 9.01217 9.86502 8.77248C10.3998 8.5 11.0999 8.5 12.5 8.5H19.5C20.9001 8.5 21.6002 8.5 22.135 8.77248C22.6054 9.01217 22.9878 9.39462 23.2275 9.86502C23.5 10.3998 23.5 11.0999 23.5 12.5V19.5C23.5 20.9001 23.5 21.6002 23.2275 22.135C22.9878 22.6054 22.6054 22.9878 22.135 23.2275C21.6002 23.5 20.9001 23.5 19.5 23.5H12.5C11.0999 23.5 10.3998 23.5 9.86502 23.2275C9.39462 22.9878 9.01217 22.6054 8.77248 22.135C8.5 21.6002 8.5 20.9001 8.5 19.5V12.5Z" stroke="white" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
+                                    </svg>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="image w-full h-[180px]">
+                            <img
+                            class="w-full h-full object-cover object-center"
+                            src="assets/images/products/image-2.png" alt="">
+                        </div>
+                    </div>
+                    <div class="box-content mt-3 flex flex-col gap-y-5 justify-between">
+                        <div class="look-details">
+                            <p class="text-base text-black tracking-[0.1px] leading-6 limited-text two-lines">
+                                Look Fashion Win - Moda casual para festas
+                            </p>
+                        </div>
+                        <div class="products-rounded relative flex gap-6 justify-between items-center">
+                            <div class="images flex justify-start items-center">
+                                @for (product of this.products; track $index) {
+                                    <div class="product-image w-8 h-8 relative rounded-full border-[1px] border-white overflow-hidden"
+                                    [style.zIndex]="this.products.length - $index"
+                                    [ngClass]="{
+                                        '-ml-5': $index > 0
+                                    }"
+                                    >
+                                        <img
+                                        [src]="product" alt="">
+                                    </div>
+                                }
+                            </div>
+                            <div class="selected-count">
+                                <p class="text-[#999] text-sm limited-text one-line">
+                                    {{ this.products.length }} seleccionado{{ this.products.length > 1 ? 's' : '' }}
+                                </p>
+                            </div>
+                        </div>
+                        <div class="actions flex justify-between items-center">
+                            <div class="edit">
+                                <button class="px-1 py-3 text-sm text-black font-semibold rounded-lg">
+                                    Editar
+                                </button>
+                            </div>
+                            <div class="dynamic-action">
+                                <button class="px-4 py-3 text-sm text-white bg-black font-semibold rounded-lg">
+                                    Continuar
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="box relative w-[270px] p-3 rounded-lg border border-[#E9E9E9]">
+                    <div class="box-header rounded overflo-hidden">
+                        <div class="check-container absolute w-full p-3">
+                            <div class="checkbox">
+                                <button class="">
+                                    <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <rect width="32" height="32" rx="16" fill="black" fill-opacity="0.3"/>
+                                        <path d="M8.5 12.5C8.5 11.0999 8.5 10.3998 8.77248 9.86502C9.01217 9.39462 9.39462 9.01217 9.86502 8.77248C10.3998 8.5 11.0999 8.5 12.5 8.5H19.5C20.9001 8.5 21.6002 8.5 22.135 8.77248C22.6054 9.01217 22.9878 9.39462 23.2275 9.86502C23.5 10.3998 23.5 11.0999 23.5 12.5V19.5C23.5 20.9001 23.5 21.6002 23.2275 22.135C22.9878 22.6054 22.6054 22.9878 22.135 23.2275C21.6002 23.5 20.9001 23.5 19.5 23.5H12.5C11.0999 23.5 10.3998 23.5 9.86502 23.2275C9.39462 22.9878 9.01217 22.6054 8.77248 22.135C8.5 21.6002 8.5 20.9001 8.5 19.5V12.5Z" stroke="white" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
+                                    </svg>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="image w-full h-[180px]">
+                            <img
+                            class="w-full h-full object-cover object-center"
+                            src="assets/images/products/image-2.png" alt="">
+                        </div>
+                    </div>
+                    <div class="box-content mt-3 flex flex-col gap-y-5 justify-between">
+                        <div class="look-details">
+                            <p class="text-base text-black tracking-[0.1px] leading-6 limited-text two-lines">
+                                Look Fashion Win - Moda casual para festas
+                            </p>
+                        </div>
+                        <div class="products-rounded relative flex gap-6 justify-between items-center">
+                            <div class="images flex justify-start items-center">
+                                @for (product of this.products; track $index) {
+                                    <div class="product-image w-8 h-8 relative rounded-full border-[1px] border-white overflow-hidden"
+                                    [style.zIndex]="this.products.length - $index"
+                                    [ngClass]="{
+                                        '-ml-5': $index > 0
+                                    }"
+                                    >
+                                        <img
+                                        [src]="product" alt="">
+                                    </div>
+                                }
+                            </div>
+                            <div class="selected-count">
+                                <p class="text-[#999] text-sm limited-text one-line">
+                                    {{ this.products.length }} seleccionado{{ this.products.length > 1 ? 's' : '' }}
+                                </p>
+                            </div>
+                        </div>
+                        <div class="actions flex justify-between items-center">
+                            <div class="edit">
+                                <button class="px-1 py-3 text-sm text-black font-semibold rounded-lg">
+                                    Editar
+                                </button>
+                            </div>
+                            <div class="dynamic-action">
+                                <button class="px-4 py-3 text-sm text-white bg-black font-semibold rounded-lg">
+                                    Continuar
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+
+    </div>
+</div>

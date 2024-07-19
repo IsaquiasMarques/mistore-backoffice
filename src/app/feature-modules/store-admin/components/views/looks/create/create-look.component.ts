@@ -1,4 +1,5 @@
 import { Component, inject } from '@angular/core';
+import { DropzoneFunctionalities } from '@core/component-classes/dropzone-functionalities.class';
 import { PageLoaderIdentifier } from '@core/Enums/page-loader-id.enum';
 import { LoaderService } from '@core/services/loader/loader.service';
 
@@ -7,45 +8,20 @@ import { LoaderService } from '@core/services/loader/loader.service';
   templateUrl: './create-look.component.html',
   styleUrl: './create-look.component.css'
 })
-export class CreateLookComponent {
+export class CreateLookComponent extends DropzoneFunctionalities {
 
   public loaderService = inject(LoaderService);
-
-  files: any[] = [];
-
   pageLoaderIdentifier = PageLoaderIdentifier;
 
-  dropzoneOnChange($event: any){
-    this.files = $event.files;
-    this.startFilesSetup();
-  }
+  products: any[] = [
+    'assets/images/products/image-1.png',
+    'assets/images/products/image-2.png',
+    'assets/images/products/image-3.png',
+    'assets/images/products/image-4.png',
+    'assets/images/products/image-1.png',
+    'assets/images/products/image-2.png',
+    'assets/images/products/image-3.png',
+    'assets/images/products/image-4.png',
+  ];
 
-  startFilesSetup(){
-    this.files = [...this.files]; // forçar o files a ser considerado um array
-    const promise = this.files.map(file => this.loadFile(file));
-  }
-
-  loadFile(file: any): Promise<void>{
-    return new Promise((resolve, reject) => {
-      const fileReader = new FileReader();
-      fileReader.onload = (e: any) => {
-        file['previewUrl'] = e.target.result;
-        file['hasLoaded'] = true;
-        resolve();
-      };
-      fileReader.onerror = (error: any) => {
-        console.log("Erro ao carregar o arquivo: ", error);
-        reject(error)
-      }
-      fileReader.readAsDataURL(file);
-    });
-  }
-
-  imageHasLoaded($index: number){
-    this.files[$index]['hasLoaded'] = true;
-  }
-
-  removeFileItem($index: number){
-    this.files.splice($index, 1);
-  }
 }
