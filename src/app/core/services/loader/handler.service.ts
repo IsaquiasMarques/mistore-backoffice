@@ -13,6 +13,7 @@ export class LoaderHandler{
         'brands-add-products': new BehaviorSubject(false),
         'categories-add-products': new BehaviorSubject(false),
         'subcategories-add-products': new BehaviorSubject(false),
+        'looks': new BehaviorSubject(false),
     }
 
     toggleLoadingStatus(identifier: PageLoaderIdentifier): void{
