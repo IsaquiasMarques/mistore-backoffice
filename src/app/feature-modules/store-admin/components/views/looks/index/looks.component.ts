@@ -1,4 +1,4 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, inject, OnInit, signal } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Unsubscriber } from '@core/classes/subcriber/unsubscriber.class';
 import { PageLoaderIdentifier } from '@core/Enums/page-loader-id.enum';
@@ -7,20 +7,26 @@ import { LoaderService } from '@core/services/loader/loader.service';
 import { LOOKS_LIMT } from '@shared/constants/data-limit.const';
 import { LookFacade } from '@store/facades/look.facade';
 import { ILook } from '@store/models/looks.model';
+import { takeUntil } from 'rxjs';
 
 @Component({
   selector: 'mi-looks',
   templateUrl: './looks.component.html',
   styleUrl: './looks.component.css'
 })
-export class LooksComponent extends Unsubscriber implements OnInit {
+export class LooksComponent
+extends Unsubscriber
+implements OnInit {
   private lookFacade = inject(LookFacade);
   private activatedRoute = inject(ActivatedRoute);
   
   loaderService = inject(LoaderService);
   pageLoaderIdentifier = PageLoaderIdentifier;
 
+  searchTerm = signal<string>('');
+
   looks: ILook[] = [];
+  displayableLooks: ILook[] = [];
   currentPage: number = 1;
   totalItems: number = 0;
   
@@ -34,11 +40,12 @@ export class LooksComponent extends Unsubscriber implements OnInit {
       this.currentPage = parseInt(query.get('page') ?? '1');
 
       this.loaderService.setLoadingStatus(PageLoaderIdentifier.LOOKS, true)
-      this.lookFacade.looks(this.currentPage, LOOKS_LIMT).subscribe({
+      this.lookFacade.looks(this.currentPage, LOOKS_LIMT).pipe(takeUntil(this.unsubscribe)).subscribe({
         next: (incoming: ILook[]) => {
           this.looks = incoming;
           if(this.looks.length > 0){
             this.totalItems = LOOKS.length;
+            this.searchByTerm();
             this.loaderService.setLoadingStatus(PageLoaderIdentifier.LOOKS, false);
             this.calculatePages();
           } else {
@@ -47,6 +54,11 @@ export class LooksComponent extends Unsubscriber implements OnInit {
         }
       })
     });
+  }
+
+  searchByTerm(): void{
+    let filtered = this.looks.filter(item => item.name.toLocaleLowerCase().includes(this.searchTerm().toLocaleLowerCase()));
+    this.displayableLooks = (this.searchTerm().length > 0) ? filtered : this.looks; 
   }
 
   calculatePages(){

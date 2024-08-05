@@ -1,3 +1,5 @@
+import { inject } from "@angular/core";
+import { TableItemSelection } from "@core/services/table/item-selection.service";
 
 
 export class TableComponentExtender{
@@ -18,6 +20,8 @@ export class TableComponentExtender{
 
     selectedItems: string[] = [];
 
+    protected itemsSelectionService = inject(TableItemSelection);
+
     selectItem(itemId: string){
         let itemIndex: string | number = this.isSelected(itemId, 'index');
         if((typeof(itemIndex) === 'number') && itemIndex !== -1){
@@ -25,6 +29,11 @@ export class TableComponentExtender{
             return;
         }
         this.selectedItems.push(itemId);
+    }
+
+    
+    getTheItem(id: string): any | undefined{
+        return this.itemsSelectionService.getItems().find(item => item.id === id);
     }
 
     isSelected(itemId: string, returningString: 'checked' | 'index'): string | number{

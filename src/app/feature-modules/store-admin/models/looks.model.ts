@@ -1,3 +1,4 @@
+import { LookStatus } from "@store/enums/look-status.enum";
 import { IProduct } from "./product.model";
 
 export interface ILook{
@@ -7,4 +8,5 @@ export interface ILook{
     description: string,
     images: string[],
     products: IProduct[],
+    status?: LookStatus
 }

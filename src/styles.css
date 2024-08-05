@@ -147,6 +147,9 @@
 }
   
 /* Create a custom checkbox */
+.checkmark.checkmark-th{
+    border: 1px solid black;
+}
 .checkmark {
     position: absolute;
     left: 50%;

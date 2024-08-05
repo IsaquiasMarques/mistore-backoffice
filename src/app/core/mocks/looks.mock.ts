@@ -4,7 +4,7 @@ import { ILook } from "@store/models/looks.model";
 export const LOOKS: ILook[] = [
     {
         id: "id-1",
-        name:  "Look Fashion Win",
+        name:  "Look Fashion Win 1",
         slug: "look-fashion-win",
         description: "Moda casual para festas",
         images: [
@@ -43,7 +43,7 @@ export const LOOKS: ILook[] = [
     },
     {
         id: "id-2",
-        name:  "Look Fashion Win",
+        name:  "Look Fashion Win 2",
         slug: "look-fashion-win",
         description: "Moda casual para festas",
         images: [
