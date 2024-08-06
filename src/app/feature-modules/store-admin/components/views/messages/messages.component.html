@@ -1,1 +1,204 @@
-<p>messages works!</p>
+<div class="wrapper py-6 px-8">
+    <div class="wrapper-header">
+
+        <div class="top-content flex justify-between items-start">
+        </div>
+    </div>
+    <div class="wrapper-content mt-10">
+        <div class="chat-container mt-10 p-6 w-full rounded-lg border border-[rgba(233,233,233,0.60)] bg-white flex flex-col gap-y-0">
+            <div class="container-title mb-2">
+                <h1 class="text-lg text-black font-bold leading-6 flex justify-start items-center gap-2">
+                    Caixa de mensagens
+                    <div class="badge p-0 w-5 h-5 flex justify-center items-center bg-[#ED695E] rounded-full text-xs text-white">
+                        3
+                    </div>
+                </h1>
+            </div>
+            <div class="content py-8 flex gap-16 justify-between items-stretch">
+                <div class="chat-lists w-[384px] flex flex-col gap-8">
+                    <div class="search-chat">
+                        <div class="input-container w-full h-full bg-[#F4F4F4] border border-[#E9E9E9] rounded-lg p-3 flex gap-2 justify-start items-center">
+                            <div class="search-icon">
+                                <label for="search">
+                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M21 21L16.65 16.65M19 11C19 15.4183 15.4183 19 11 19C6.58172 19 3 15.4183 3 11C3 6.58172 6.58172 3 11 3C15.4183 3 19 6.58172 19 11Z" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                    </svg>
+                                </label>
+                            </div>
+                            <input
+                            class="focus:outline-none bg-transparent w-full h-full text-sm placeholder:text-[#969696] placeholder:text-sm"
+                            type="text"
+                            id="search"
+                            placeholder="Pesquisar mensagem">
+                        </div>
+                    </div>
+                    <div class="chats flex flex-col gap-6 max-h-[848px] overflow-y-auto no-scrolle">
+                        <div class="box p-2 flex justify-start items-center gap-2">
+                            <div class="image w-12 h-12 relative rounded-full overflow-hidden">
+                                <img [src]="'assets/images/profile/avatar.png'" class="w-full h-full object-cover object-center" alt="">
+                            </div>
+                            <div class="description max-w-[312px]">
+                                <p class="text-sm mb-1 font-medium leading-4 limited-text one-line">Lusala Kixindo</p>
+                                <p class="text-sm text-[#999] limited-text one-line">Nemo enim ipsam voluptatem quia sNemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut</p>
+                            </div>
+                        </div>
+                        <div class="box p-2 flex justify-start items-center gap-2">
+                            <div class="image w-12 h-12 relative rounded-full overflow-hidden">
+                                <img [src]="'assets/images/profile/profile-2.png'" class="w-full h-full object-cover object-center" alt="">
+                            </div>
+                            <div class="description max-w-[312px]">
+                                <p class="text-sm mb-1 font-medium leading-4 limited-text one-line">Rute João Tomás</p>
+                                <p class="text-sm text-[#999] limited-text one-line">Nemo enim ipsam voluptatem quia sNemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut</p>
+                            </div>
+                        </div>
+                        <div class="box p-2 flex justify-start items-center gap-2">
+                            <div class="image w-12 h-12 relative rounded-full overflow-hidden">
+                                <img [src]="'assets/images/profile/profile-3.png'" class="w-full h-full object-cover object-center" alt="">
+                            </div>
+                            <div class="description max-w-[312px]">
+                                <p class="text-sm mb-1 font-medium leading-4 limited-text one-line">Kunzika Emanuel</p>
+                                <p class="text-sm text-[#999] limited-text one-line">Nemo enim ipsam voluptatem quia sNemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut</p>
+                            </div>
+                        </div>
+                        <div class="box p-2 flex justify-start items-center gap-2">
+                            <div class="image w-12 h-12 relative rounded-full overflow-hidden">
+                                <img [src]="'assets/images/profile/avatar.png'" class="w-full h-full object-cover object-center" alt="">
+                            </div>
+                            <div class="description max-w-[312px]">
+                                <p class="text-sm mb-1 font-medium leading-4 limited-text one-line">Lusala Kixindo</p>
+                                <p class="text-sm text-[#999] limited-text one-line">Nemo enim ipsam voluptatem quia sNemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut</p>
+                            </div>
+                        </div>
+                        <div class="box p-2 flex justify-start items-center gap-2">
+                            <div class="image w-12 h-12 relative rounded-full overflow-hidden">
+                                <img [src]="'assets/images/profile/profile-2.png'" class="w-full h-full object-cover object-center" alt="">
+                            </div>
+                            <div class="description max-w-[312px]">
+                                <p class="text-sm mb-1 font-medium leading-4 limited-text one-line">Rute João Tomás</p>
+                                <p class="text-sm text-[#999] limited-text one-line">Nemo enim ipsam voluptatem quia sNemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut</p>
+                            </div>
+                        </div>
+                        <div class="box p-2 flex justify-start items-center gap-2">
+                            <div class="image w-12 h-12 relative rounded-full overflow-hidden">
+                                <img [src]="'assets/images/profile/profile-3.png'" class="w-full h-full object-cover object-center" alt="">
+                            </div>
+                            <div class="description max-w-[312px]">
+                                <p class="text-sm mb-1 font-medium leading-4 limited-text one-line">Kunzika Emanuel</p>
+                                <p class="text-sm text-[#999] limited-text one-line">Nemo enim ipsam voluptatem quia sNemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut</p>
+                            </div>
+                        </div>
+                        <div class="box p-2 flex justify-start items-center gap-2">
+                            <div class="image w-12 h-12 relative rounded-full overflow-hidden">
+                                <img [src]="'assets/images/profile/avatar.png'" class="w-full h-full object-cover object-center" alt="">
+                            </div>
+                            <div class="description max-w-[312px]">
+                                <p class="text-sm mb-1 font-medium leading-4 limited-text one-line">Lusala Kixindo</p>
+                                <p class="text-sm text-[#999] limited-text one-line">Nemo enim ipsam voluptatem quia sNemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut</p>
+                            </div>
+                        </div>
+                        <div class="box p-2 flex justify-start items-center gap-2">
+                            <div class="image w-12 h-12 relative rounded-full overflow-hidden">
+                                <img [src]="'assets/images/profile/profile-2.png'" class="w-full h-full object-cover object-center" alt="">
+                            </div>
+                            <div class="description max-w-[312px]">
+                                <p class="text-sm mb-1 font-medium leading-4 limited-text one-line">Rute João Tomás</p>
+                                <p class="text-sm text-[#999] limited-text one-line">Nemo enim ipsam voluptatem quia sNemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut</p>
+                            </div>
+                        </div>
+                        <div class="box p-2 flex justify-start items-center gap-2">
+                            <div class="image w-12 h-12 relative rounded-full overflow-hidden">
+                                <img [src]="'assets/images/profile/profile-3.png'" class="w-full h-full object-cover object-center" alt="">
+                            </div>
+                            <div class="description max-w-[312px]">
+                                <p class="text-sm mb-1 font-medium leading-4 limited-text one-line">Kunzika Emanuel</p>
+                                <p class="text-sm text-[#999] limited-text one-line">Nemo enim ipsam voluptatem quia sNemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut</p>
+                            </div>
+                        </div>
+                        <div class="box p-2 flex justify-start items-center gap-2">
+                            <div class="image w-12 h-12 relative rounded-full overflow-hidden">
+                                <img [src]="'assets/images/profile/avatar.png'" class="w-full h-full object-cover object-center" alt="">
+                            </div>
+                            <div class="description max-w-[312px]">
+                                <p class="text-sm mb-1 font-medium leading-4 limited-text one-line">Lusala Kixindo</p>
+                                <p class="text-sm text-[#999] limited-text one-line">Nemo enim ipsam voluptatem quia sNemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut</p>
+                            </div>
+                        </div>
+                        <div class="box p-2 flex justify-start items-center gap-2">
+                            <div class="image w-12 h-12 relative rounded-full overflow-hidden">
+                                <img [src]="'assets/images/profile/profile-2.png'" class="w-full h-full object-cover object-center" alt="">
+                            </div>
+                            <div class="description max-w-[312px]">
+                                <p class="text-sm mb-1 font-medium leading-4 limited-text one-line">Rute João Tomás</p>
+                                <p class="text-sm text-[#999] limited-text one-line">Nemo enim ipsam voluptatem quia sNemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut</p>
+                            </div>
+                        </div>
+                        <div class="box p-2 flex justify-start items-center gap-2">
+                            <div class="image w-12 h-12 relative rounded-full overflow-hidden">
+                                <img [src]="'assets/images/profile/profile-3.png'" class="w-full h-full object-cover object-center" alt="">
+                            </div>
+                            <div class="description max-w-[312px]">
+                                <p class="text-sm mb-1 font-medium leading-4 limited-text one-line">Kunzika Emanuel</p>
+                                <p class="text-sm text-[#999] limited-text one-line">Nemo enim ipsam voluptatem quia sNemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut</p>
+                            </div>
+                        </div>
+                        <div class="box p-2 flex justify-start items-center gap-2">
+                            <div class="image w-12 h-12 relative rounded-full overflow-hidden">
+                                <img [src]="'assets/images/profile/avatar.png'" class="w-full h-full object-cover object-center" alt="">
+                            </div>
+                            <div class="description max-w-[312px]">
+                                <p class="text-sm mb-1 font-medium leading-4 limited-text one-line">Lusala Kixindo</p>
+                                <p class="text-sm text-[#999] limited-text one-line">Nemo enim ipsam voluptatem quia sNemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut</p>
+                            </div>
+                        </div>
+                        <div class="box p-2 flex justify-start items-center gap-2">
+                            <div class="image w-12 h-12 relative rounded-full overflow-hidden">
+                                <img [src]="'assets/images/profile/profile-2.png'" class="w-full h-full object-cover object-center" alt="">
+                            </div>
+                            <div class="description max-w-[312px]">
+                                <p class="text-sm mb-1 font-medium leading-4 limited-text one-line">Rute João Tomás</p>
+                                <p class="text-sm text-[#999] limited-text one-line">Nemo enim ipsam voluptatem quia sNemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut</p>
+                            </div>
+                        </div>
+                        <div class="box p-2 flex justify-start items-center gap-2">
+                            <div class="image w-12 h-12 relative rounded-full overflow-hidden">
+                                <img [src]="'assets/images/profile/profile-3.png'" class="w-full h-full object-cover object-center" alt="">
+                            </div>
+                            <div class="description max-w-[312px]">
+                                <p class="text-sm mb-1 font-medium leading-4 limited-text one-line">Kunzika Emanuel</p>
+                                <p class="text-sm text-[#999] limited-text one-line">Nemo enim ipsam voluptatem quia sNemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut</p>
+                            </div>
+                        </div>
+                        <div class="box p-2 flex justify-start items-center gap-2">
+                            <div class="image w-12 h-12 relative rounded-full overflow-hidden">
+                                <img [src]="'assets/images/profile/avatar.png'" class="w-full h-full object-cover object-center" alt="">
+                            </div>
+                            <div class="description max-w-[312px]">
+                                <p class="text-sm mb-1 font-medium leading-4 limited-text one-line">Lusala Kixindo</p>
+                                <p class="text-sm text-[#999] limited-text one-line">Nemo enim ipsam voluptatem quia sNemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut</p>
+                            </div>
+                        </div>
+                        <div class="box p-2 flex justify-start items-center gap-2">
+                            <div class="image w-12 h-12 relative rounded-full overflow-hidden">
+                                <img [src]="'assets/images/profile/profile-2.png'" class="w-full h-full object-cover object-center" alt="">
+                            </div>
+                            <div class="description max-w-[312px]">
+                                <p class="text-sm mb-1 font-medium leading-4 limited-text one-line">Rute João Tomás</p>
+                                <p class="text-sm text-[#999] limited-text one-line">Nemo enim ipsam voluptatem quia sNemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut</p>
+                            </div>
+                        </div>
+                        <div class="box p-2 flex justify-start items-center gap-2">
+                            <div class="image w-12 h-12 relative rounded-full overflow-hidden">
+                                <img [src]="'assets/images/profile/profile-3.png'" class="w-full h-full object-cover object-center" alt="">
+                            </div>
+                            <div class="description max-w-[312px]">
+                                <p class="text-sm mb-1 font-medium leading-4 limited-text one-line">Kunzika Emanuel</p>
+                                <p class="text-sm text-[#999] limited-text one-line">Nemo enim ipsam voluptatem quia sNemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="message-container rounded-lg border border-[rgba(233,233,233,0.60)]"></div>
+            </div>
+        </div>
+    </div>
+</div>
