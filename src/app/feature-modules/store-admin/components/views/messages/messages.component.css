@@ -1,0 +1,17 @@
+.message-card.authenticated-user,
+.message-card.authenticated-user .message-details
+{
+    flex-direction: row-reverse;
+}
+.message-card.authenticated-user .message-details .message-content{
+    border-radius: 8px 0px 8px 8px;
+    background-color: #000;
+    color: #fff;
+}
+.message-card.foreign-user .message-details .message-content{
+    border-radius: 0px 8px 8px 8px;
+    background-color: #F8F8F8;
+    color: #999;
+    border: 1px solid #E9E9E9;
+}
+.message-card.foreign-user{}
