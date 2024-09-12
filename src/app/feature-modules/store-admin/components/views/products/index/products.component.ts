@@ -1,10 +1,10 @@
 import { Component, ElementRef, OnDestroy, OnInit, ViewChild, inject } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { PageLoaderIdentifier } from '@core/Enums/page-loader-id.enum';
-import { WidgetPercentageStatusEnum } from '@core/Enums/widget-percentage-status.enum';
-import { TableComponentExtender } from '@core/component-classes/table-component.class';
-import { TableComponentInterface } from '@core/component-interfaces/table-component.interface';
-import { IWidget } from '@core/interfaces/widget.interface';
+import { PageLoaderIdentifier } from '@shared/Enums/page-loader-id.enum';
+import { WidgetPercentageStatusEnum } from '@shared/Enums/widget-percentage-status.enum';
+import { TableComponentExtender } from '@shared/component-classes/table-component.class';
+import { TableComponentInterface } from '@shared/component-interfaces/table-component.interface';
+import { IWidget } from '@shared/interfaces/widget.interface';
 import { PRODUCTS } from '@core/mocks/products.mock';
 import { LoaderService } from '@core/services/loader/loader.service';
 import { SVGRefEnum } from '@shared/Enums/svg-ref.enum';
@@ -152,7 +152,7 @@ export class ProductsComponent extends TableComponentExtender implements OnInit,
 
           this.itemsSelectionService.setItems = this.tableProducts;
 
-          this.totalItems = PRODUCTS.length;
+          this.totalItems = this.tableProducts.length;
           this.loaderService.setLoadingStatus(this.pageLoaderIdentifier.PRODUCTS, false);
         
         }else{

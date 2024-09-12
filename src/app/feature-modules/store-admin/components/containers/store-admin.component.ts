@@ -1,25 +1,21 @@
 import { AfterViewInit, Component, ElementRef, OnInit, ViewChild, inject } from '@angular/core';
 import { ActivatedRoute, Event, NavigationEnd, Router } from '@angular/router';
-import { BadgeColorEnum } from '@core/Enums/badge.enum';
-import { ISidebar } from '@core/interfaces/sidebar.interface';
+import { SidebarExtender } from '@shared/component-classes/sidebar/sidebar-extender.class';
+import { BadgeColorEnum } from '@shared/Enums/badge.enum';
+import { ISidebar } from '@shared/interfaces/sidebar.interface';
 import { filter } from 'rxjs/operators';
-
-const INITIAL_INDEX: number = 0;
 
 @Component({
   selector: 'app-store-admin',
   templateUrl: './store-admin.component.html',
   styleUrl: './store-admin.component.css'
 })
-export class StoreAdminComponent implements OnInit, AfterViewInit {
-
-  router = inject(Router);
-  route = inject(ActivatedRoute);
-
-  @ViewChild('sidebarElement') sidebaerElementRef!: ElementRef<HTMLElement>;
-  @ViewChild('bodyContainer') bodyContainer!: ElementRef<HTMLElement>;
+export class StoreAdminComponent extends SidebarExtender implements OnInit, AfterViewInit {
   
-  sidebarMenuItems: ISidebar[] = [
+  @ViewChild('sidebaerElementRef') override sidebaerElementRef!: ElementRef<HTMLElement>;
+  @ViewChild('bodyContainer') override bodyContainer!: ElementRef<HTMLElement>;
+
+  override sidebarMenuItems: ISidebar[] = [
     {
       fieldset: 'Categorias',
       items: [
@@ -101,45 +97,6 @@ export class StoreAdminComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit(): void {
-  }
-
-
-  captuteSnapshot(){
-    if(this.route.snapshot.children && this.route.snapshot.children[INITIAL_INDEX]){
-      if(this.route.snapshot.children[INITIAL_INDEX].url && this.route.snapshot.children[INITIAL_INDEX].url[INITIAL_INDEX]){
-        let path = this.route.snapshot.children[INITIAL_INDEX].url[INITIAL_INDEX].path;
-        let sidebarIndex: number = this.getSidebarIndex(path);
-        let sidebarItemIndex: number = this.getSidebarItemIndex(path, sidebarIndex);
-        
-        this.changeActiveItemOnMenu(sidebarIndex, sidebarItemIndex);
-      }
-    }
-  }
-
-  getSidebarIndex(path: string): number{
-    return this.sidebarMenuItems.findIndex(sidebarItem => {
-      let wantedItem = sidebarItem.items.findIndex(item => item.routeTo === path);
-      if(wantedItem != -1){
-        return true;
-      }else{
-        return false;
-      }
-    });
-  }
-
-  getSidebarItemIndex(path: string, sidebarIndex: number): number{
-    return this.sidebarMenuItems[sidebarIndex].items.findIndex(item => item.routeTo === path);
-  }
-
-  changeActiveItemOnMenu(sidebarIndex: number, sidebarItemIndex: number): void{
-    this.deactivateAllOthers();
-    this.sidebarMenuItems[sidebarIndex].items[sidebarItemIndex].active = true;
-  }
-
-  deactivateAllOthers(): void{
-    this.sidebarMenuItems.forEach(sidebar => {
-      sidebar.items.forEach(item => item.active = false);
-    });
   }
 
 }

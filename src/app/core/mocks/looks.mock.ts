@@ -13,11 +13,18 @@ export const LOOKS: ILook[] = [
         products: [
             {
                 id: '6279d312-d682-4a54-9e16-e283b6c69430',
-                ID: 22739,
+                ID: '22739',
                 imagePath: 'assets/images/products/image-1.png',
                 name: 'Topshop knit midi sweater dress in gray heather',
-                category: 'Winter',
-                subcategory: 'Winter',
+                // category: {
+                //   id: 'mpd',
+                //   name: 'Winter'
+                // },
+                subcategory: {
+                    id: '',
+                    name: 'Winter',
+                    parent_id: '',
+                },
                 status: ProductStatusEnum.AVAILABLE,
                 quantity: 636,
                 created_at: '06/01/2024',
@@ -27,11 +34,14 @@ export const LOOKS: ILook[] = [
             },
             {
             id: '10687a95-c512-44de-9ecc-12ed559812dc',
-            ID: 43756,
+            ID: '43756',
             imagePath: 'assets/images/products/image-2.png',
             name: 'Nike air force 4',
-            category: 'Kids',
-            subcategory: 'Kids',
+            subcategory: {
+                id: '',
+                name: 'Kids',
+                parent_id: '',
+            },
             status: ProductStatusEnum.UNAVAILABLE,
             quantity: 193,
             created_at: '06/01/2024',
@@ -52,11 +62,14 @@ export const LOOKS: ILook[] = [
         products: [
             {
                 id: '6279d312-d682-4a54-9e16-e283b6c69430',
-                ID: 22739,
+                ID: '22739',
                 imagePath: 'assets/images/products/image-3.png',
                 name: 'Topshop knit midi sweater dress in gray heather',
-                category: 'Winter',
-                subcategory: 'Winter',
+                subcategory: {
+                    id: '',
+                    name: 'Winter',
+                    parent_id: '',
+                },
                 status: ProductStatusEnum.AVAILABLE,
                 quantity: 636,
                 created_at: '06/01/2024',
@@ -66,11 +79,14 @@ export const LOOKS: ILook[] = [
             },
             {
             id: '10687a95-c512-44de-9ecc-12ed559812dc',
-            ID: 43756,
+            ID: '43756',
             imagePath: 'assets/images/products/image-4.png',
             name: 'Nike air force 4',
-            category: 'Kids',
-            subcategory: 'Kids',
+            subcategory: {
+                id: '',
+                name: 'Winter',
+                parent_id: '',
+            },
             status: ProductStatusEnum.UNAVAILABLE,
             quantity: 193,
             created_at: '06/01/2024',
@@ -91,11 +107,14 @@ export const LOOKS: ILook[] = [
         products: [
             {
                 id: '6279d312-d682-4a54-9e16-e283b6c69430',
-                ID: 22739,
+                ID: '22739',
                 imagePath: 'assets/images/products/image-1.png',
                 name: 'Topshop knit midi sweater dress in gray heather',
-                category: 'Winter',
-                subcategory: 'Winter',
+                subcategory: {
+                    id: '',
+                    name: 'Winter',
+                    parent_id: '',
+                },
                 status: ProductStatusEnum.AVAILABLE,
                 quantity: 636,
                 created_at: '06/01/2024',
@@ -105,11 +124,14 @@ export const LOOKS: ILook[] = [
             },
             {
             id: '10687a95-c512-44de-9ecc-12ed559812dc',
-            ID: 43756,
+            ID: '43756',
             imagePath: 'assets/images/products/image-2.png',
             name: 'Nike air force 4',
-            category: 'Kids',
-            subcategory: 'Kids',
+            subcategory: {
+                id: '',
+                name: 'Winter',
+                parent_id: '',
+            },
             status: ProductStatusEnum.UNAVAILABLE,
             quantity: 193,
             created_at: '06/01/2024',
@@ -130,11 +152,14 @@ export const LOOKS: ILook[] = [
         products: [
             {
                 id: '6279d312-d682-4a54-9e16-e283b6c69430',
-                ID: 22739,
+                ID: '22739',
                 imagePath: 'assets/images/products/image-1.png',
                 name: 'Topshop knit midi sweater dress in gray heather',
-                category: 'Winter',
-                subcategory: 'Winter',
+                subcategory: {
+                    id: '',
+                    name: 'Winter',
+                    parent_id: '',
+                },
                 status: ProductStatusEnum.AVAILABLE,
                 quantity: 636,
                 created_at: '06/01/2024',
@@ -144,11 +169,14 @@ export const LOOKS: ILook[] = [
             },
             {
             id: '10687a95-c512-44de-9ecc-12ed559812dc',
-            ID: 43756,
+            ID: '43756',
             imagePath: 'assets/images/products/image-2.png',
             name: 'Nike air force 4',
-            category: 'Kids',
-            subcategory: 'Kids',
+            subcategory: {
+                id: '',
+                name: 'Winter',
+                parent_id: '',
+            },
             status: ProductStatusEnum.UNAVAILABLE,
             quantity: 193,
             created_at: '06/01/2024',
@@ -169,11 +197,14 @@ export const LOOKS: ILook[] = [
         products: [
             {
                 id: '6279d312-d682-4a54-9e16-e283b6c69430',
-                ID: 22739,
+                ID: '22739',
                 imagePath: 'assets/images/products/image-1.png',
                 name: 'Topshop knit midi sweater dress in gray heather',
-                category: 'Winter',
-                subcategory: 'Winter',
+                subcategory: {
+                    id: '',
+                    name: 'Winter',
+                    parent_id: '',
+                },
                 status: ProductStatusEnum.AVAILABLE,
                 quantity: 636,
                 created_at: '06/01/2024',
@@ -183,11 +214,14 @@ export const LOOKS: ILook[] = [
             },
             {
             id: '10687a95-c512-44de-9ecc-12ed559812dc',
-            ID: 43756,
+            ID: '43756',
             imagePath: 'assets/images/products/image-2.png',
             name: 'Nike air force 4',
-            category: 'Kids',
-            subcategory: 'Kids',
+            subcategory: {
+                id: '',
+                name: 'Winter',
+                parent_id: '',
+            },
             status: ProductStatusEnum.UNAVAILABLE,
             quantity: 193,
             created_at: '06/01/2024',
@@ -208,11 +242,14 @@ export const LOOKS: ILook[] = [
         products: [
             {
                 id: '6279d312-d682-4a54-9e16-e283b6c69430',
-                ID: 22739,
+                ID: '22739',
                 imagePath: 'assets/images/products/image-3.png',
                 name: 'Topshop knit midi sweater dress in gray heather',
-                category: 'Winter',
-                subcategory: 'Winter',
+                subcategory: {
+                    id: '',
+                    name: 'Winter',
+                    parent_id: '',
+                },
                 status: ProductStatusEnum.AVAILABLE,
                 quantity: 636,
                 created_at: '06/01/2024',
@@ -222,11 +259,14 @@ export const LOOKS: ILook[] = [
             },
             {
             id: '10687a95-c512-44de-9ecc-12ed559812dc',
-            ID: 43756,
+            ID: '43756',
             imagePath: 'assets/images/products/image-4.png',
             name: 'Nike air force 4',
-            category: 'Kids',
-            subcategory: 'Kids',
+            subcategory: {
+                id: '',
+                name: 'Winter',
+                parent_id: '',
+            },
             status: ProductStatusEnum.UNAVAILABLE,
             quantity: 193,
             created_at: '06/01/2024',

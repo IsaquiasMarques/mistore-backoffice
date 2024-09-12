@@ -1,4 +1,4 @@
-import { WidgetPercentageStatusEnum } from "@core/Enums/widget-percentage-status.enum"
+import { WidgetPercentageStatusEnum } from "@shared/Enums/widget-percentage-status.enum"
 import { SVGRefEnum } from "@shared/Enums/svg-ref.enum"
 
 interface ISvgIcon{

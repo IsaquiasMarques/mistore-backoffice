@@ -1,6 +1,6 @@
 import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 
-import { IMenuItemBadge } from '@core/interfaces/sidebar.interface';
+import { IMenuItemBadge } from '@shared/interfaces/sidebar.interface';
 import { SIDEBAR_ICONS } from '@shared/constants/sidebar-icons.const';
 import { IMenuIconRef } from '@shared/interfaces/icon-ref.interface';
 import { ISidebarIcon } from '@shared/interfaces/icons.interface';

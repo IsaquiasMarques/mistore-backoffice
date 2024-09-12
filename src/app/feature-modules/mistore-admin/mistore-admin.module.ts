@@ -5,11 +5,13 @@ import { MistoreAdminRoutingModule } from '@admin/mistore-admin-routing.module';
 import { MistoreAdminComponent } from '@admin/components/containers/mistore-admin.component';
 import { SharedModule } from '@shared/shared.module';
 import { CoreModule } from '@core/core.module';
+import { DashboardComponent } from './components/views/dashboard/dashboard.component';
 
 
 @NgModule({
   declarations: [
-    MistoreAdminComponent
+    MistoreAdminComponent,
+    DashboardComponent
   ],
   imports: [
     SharedModule,

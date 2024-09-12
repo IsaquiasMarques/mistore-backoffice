@@ -9,5 +9,11 @@ export enum SVGRefEnum{
     MINUS_CIRCLE = 'minus-circle',
     HEART_ROUNDED = 'heart-rounded',
     TRASH = 'trash',
-    NULL = 'null'
+    NULL = 'null',
+    USERS = 'users',
+    SHOPPING_BAG_2 = 'shopping-bag-2',
+    TAG = 'tag',
+    LIST = 'list',
+    ALERT_TRIANGLE = 'alert-triangle',
+    ANNOUNCEMENT = 'announcement'
 }

@@ -1,8 +1,8 @@
 <div class="header-container">
     <div class="content flex justify-start items-stretch">
         
+        @if (this.appearGreetings) {
         <div class="greetings-col max-w-[14.188rem] grow-[1] border-r border-[#E9E9E9]">
-            @if (this.appearGreetings) {
                 <div class="title mb-2">
                     <h1 class="text-black text-xl font-semibold limited-text one-line">
                         Olá, {{ this.user.Name.split(' ')[0] }}
@@ -13,8 +13,10 @@
                         Os seus dados mais recentes
                     </p>
                 </div>
-            }
-        </div>
+            </div>
+        } @else {
+            <div class="w-full max-w-[14.188rem] h-full"></div>
+        }
 
         <div class="searching-col grow-[3] px-10 flex gap-10 justify-between items-center border-r border-[#E9E9E9] mr-8">
             <div class="input-container w-full h-full max-w-[30.063rem] bg-[#F4F4F4] border border-[#E9E9E9] rounded-lg p-3 flex gap-2 justify-start items-center">

@@ -1,4 +1,4 @@
-import { IProductCategory } from "@core/base-models/base/category.model";
+import { IProductCategory } from "@core/base-models/base/product-category.model";
 
 export const CATEGORIES: IProductCategory[] = [
     {

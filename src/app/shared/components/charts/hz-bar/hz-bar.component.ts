@@ -1,5 +1,5 @@
 import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
-import { HorizontalBarChart } from '@core/interfaces/hz-bar-chart.interface';
+import { HorizontalBarChart } from '@shared/interfaces/hz-bar-chart.interface';
 
 @Component({
   selector: 'hz-bar',

@@ -1,7 +1,7 @@
 import { Component, inject, OnInit, signal } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { Unsubscriber } from '@core/classes/subcriber/unsubscriber.class';
-import { PageLoaderIdentifier } from '@core/Enums/page-loader-id.enum';
+import { Unsubscriber } from '@shared/component-classes/subcriber/unsubscriber.class';
+import { PageLoaderIdentifier } from '@shared/Enums/page-loader-id.enum';
 import { LOOKS } from '@core/mocks/looks.mock';
 import { LoaderService } from '@core/services/loader/loader.service';
 import { LOOKS_LIMT } from '@shared/constants/data-limit.const';

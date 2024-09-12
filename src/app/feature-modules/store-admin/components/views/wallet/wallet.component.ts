@@ -1,17 +1,17 @@
 import { Component, ElementRef, OnInit, ViewChild, inject } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { PageLoaderIdentifier } from '@core/Enums/page-loader-id.enum';
+import { PageLoaderIdentifier } from '@shared/Enums/page-loader-id.enum';
 import { LoaderService } from '@core/services/loader/loader.service';
 import { WalletFacade } from '@store/facades/wallet.facade';
 import { IProduct } from '@store/models/product.model';
 import { WALLET_PRODUCTS_LIMIT } from '@shared/constants/data-limit.const';
-import { HorizontalBarChart } from '@core/interfaces/hz-bar-chart.interface';
+import { HorizontalBarChart } from '@shared/interfaces/hz-bar-chart.interface';
 import { PRODUCTS } from '@core/mocks/products.mock';
-import { TableComponentExtender } from '@core/component-classes/table-component.class';
-import { TableComponentInterface } from '@core/component-interfaces/table-component.interface';
-import { IWidget } from '@core/interfaces/widget.interface';
+import { TableComponentExtender } from '@shared/component-classes/table-component.class';
+import { TableComponentInterface } from '@shared/component-interfaces/table-component.interface';
+import { IWidget } from '@shared/interfaces/widget.interface';
 import { SVGRefEnum } from '@shared/Enums/svg-ref.enum';
-import { WidgetPercentageStatusEnum } from '@core/Enums/widget-percentage-status.enum';
+import { WidgetPercentageStatusEnum } from '@shared/Enums/widget-percentage-status.enum';
 
 @Component({
   selector: 'mi-wallet',
@@ -38,7 +38,6 @@ export class WalletComponent extends TableComponentExtender implements OnInit, T
     this.currentPage = 1;
   }
 
-  
   widgetPercentageStatusEnum = WidgetPercentageStatusEnum;
   widgets: IWidget[] = [
     {

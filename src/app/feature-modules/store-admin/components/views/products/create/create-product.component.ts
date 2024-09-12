@@ -1,11 +1,10 @@
 import { Component, OnInit, inject, signal } from '@angular/core';
-import { PageLoaderIdentifier } from '@core/Enums/page-loader-id.enum';
+import { PageLoaderIdentifier } from '@shared/Enums/page-loader-id.enum';
 import { ColorOption } from '@core/base-models/base/ColorOption.model';
 import { IBrand } from '@core/base-models/base/brands.model';
-import { IProductCategory } from '@core/base-models/base/category.model';
+import { IProductCategory } from '@core/base-models/base/product-category.model';
 import { IProductSubCategory } from '@core/base-models/base/subcategory.model';
-import { DropzoneFunctionalities } from '@core/component-classes/dropzone-functionalities.class';
-import { ISelectItem } from '@core/interfaces/select-item.interface';
+import { DropzoneFunctionalities } from '@shared/component-classes/dropzone-functionalities.class';
 import { LoaderService } from '@core/services/loader/loader.service';
 import { ProductFacade } from '@store/facades/products.facade';
 

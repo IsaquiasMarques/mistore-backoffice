@@ -6,22 +6,56 @@ import { ReplaceByPipe } from './pipes/number/replace-by.pipe';
 import { SvgComponent } from './components/ui/svg/svg.component';
 import { DataFormatPipe } from './pipes/number/data-format.pipe';
 import { DragAndDropDirective } from './directives/drag-and-drop.directive';
+import { WidgetComponent } from './components/widget/widget.component';
+import { SelectComponent } from './components/select/select.component';
+import { HeaderComponent } from './components/header/header.component';
+import { HzBarComponent } from './components/charts/hz-bar/hz-bar.component';
+import { VtBarComponent } from './components/charts/vt-bar/vt-bar.component';
+import { AdsComponent } from './components/ads/ads.component';
+import { TableComponent } from './components/table/table.component';
+import { SidebarMenuComponent } from './components/sidebar-menu/sidebar-menu.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { FooterComponent } from './components/footer/footer.component';
 
 
 @NgModule({
   declarations: [
+    SidebarMenuComponent,
+    HeaderComponent,
+    HzBarComponent,
+    VtBarComponent,
+    AdsComponent,
+    TableComponent,
+    WidgetComponent,
+    SelectComponent,
     IconComponent,
     ReplaceByPipe,
     SvgComponent,
     DataFormatPipe,
     DragAndDropDirective,
+    FooterComponent,
   ],
   imports: [
     CommonModule,
+    FormsModule,
+    RouterModule,
+    ReactiveFormsModule,
     RouterModule,
   ],
   exports: [
     CommonModule,
+    FormsModule,
+    RouterModule,
+    ReactiveFormsModule,
+    SidebarMenuComponent,
+    HeaderComponent,
+    FooterComponent,
+    HzBarComponent,
+    VtBarComponent,
+    AdsComponent,
+    TableComponent,
+    WidgetComponent,
+    SelectComponent,
     RouterModule,
     IconComponent,
     SvgComponent,

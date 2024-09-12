@@ -36,23 +36,43 @@ const routes: Routes = [
       },
       {
         path: 'looks',
-        title: `Looks ${ mistoreSignature }`,
-        component: LooksComponent
-      },
-      {
-        path: 'looks/create',
-        title: `Adicionar Look ${ mistoreSignature }`,
-        component: CreateLookComponent
+        children: [
+          {
+            path: '',
+            redirectTo: 'index',
+            pathMatch: 'full'
+          },
+          {
+            path: 'index',
+            title: `Looks ${ mistoreSignature }`,
+            component: LooksComponent,
+          },
+          {
+            path: 'create',
+            title: `Adicionar Look ${ mistoreSignature }`,
+            component: CreateLookComponent
+          },
+        ]
       },
       {
         path: 'products',
-        title: `Produtos ${ mistoreSignature }`,
-        component: ProductsComponent
-      },
-      {
-        path: 'products/create',
-        title: `Adicionar Produto ${ mistoreSignature }`,
-        component: CreateProductComponent
+        children: [
+          {
+            path: '',
+            redirectTo: 'index',
+            pathMatch: 'full'
+          },
+          {
+            path: 'index',
+            title: `Produtos ${ mistoreSignature }`,
+            component: ProductsComponent
+          },
+          {
+            path: 'create',
+            title: `Adicionar Produto ${ mistoreSignature }`,
+            component: CreateProductComponent
+          },
+        ]
       },
       {
         path: 'promotions',

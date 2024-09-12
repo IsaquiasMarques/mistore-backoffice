@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
-import { WidgetPercentageStatusEnum } from '@core/Enums/widget-percentage-status.enum';
-import { HorizontalBarChart } from '@core/interfaces/hz-bar-chart.interface';
-import { VerticalBarChart } from '@core/interfaces/vt-bar-chart.interface';
-import { IWidget } from '@core/interfaces/widget.interface';
+import { WidgetPercentageStatusEnum } from '@shared/Enums/widget-percentage-status.enum';
+import { HorizontalBarChart } from '@shared/interfaces/hz-bar-chart.interface';
+import { VerticalBarChart } from '@shared/interfaces/vt-bar-chart.interface';
+import { IWidget } from '@shared/interfaces/widget.interface';
 import { SVGRefEnum } from '@shared/Enums/svg-ref.enum';
 
 @Component({

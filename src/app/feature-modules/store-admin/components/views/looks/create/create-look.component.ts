@@ -1,6 +1,6 @@
 import { Component, inject } from '@angular/core';
-import { DropzoneFunctionalities } from '@core/component-classes/dropzone-functionalities.class';
-import { PageLoaderIdentifier } from '@core/Enums/page-loader-id.enum';
+import { DropzoneFunctionalities } from '@shared/component-classes/dropzone-functionalities.class';
+import { PageLoaderIdentifier } from '@shared/Enums/page-loader-id.enum';
 import { LoaderService } from '@core/services/loader/loader.service';
 
 @Component({

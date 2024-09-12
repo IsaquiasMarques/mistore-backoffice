@@ -37,7 +37,7 @@ const routes: Routes = [
     // canActivate: 
   },
   {
-    path: 'admin',
+    path: '',
     component: MistoreAdminComponent,
     children: [
       {

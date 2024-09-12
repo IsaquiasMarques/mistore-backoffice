@@ -62,6 +62,36 @@ export const SIDEBAR_ICONS: ISidebarIcon[] = [
         activeSvg: `assets/svg/static/sidebar-icons/alert-circle-white.svg`
     },
     {
+        ref: { iconRef: 'users' },
+        svg: `assets/svg/static/sidebar-icons/users.svg`,
+        activeSvg: `assets/svg/static/sidebar-icons/users-white.svg`
+    },
+    {
+        ref: { iconRef: 'shopping-bag-2' },
+        svg: `assets/svg/static/sidebar-icons/shopping-bag-2.svg`,
+        activeSvg: `assets/svg/static/sidebar-icons/shopping-bag-2-white.svg`
+    },
+    {
+        ref: { iconRef: 'tag' },
+        svg: `assets/svg/static/sidebar-icons/tag.svg`,
+        activeSvg: `assets/svg/static/sidebar-icons/tag-white.svg`
+    },
+    {
+        ref: { iconRef: 'list' },
+        svg: `assets/svg/static/sidebar-icons/list.svg`,
+        activeSvg: `assets/svg/static/sidebar-icons/list-white.svg`
+    },
+    {
+        ref: { iconRef: 'alert-triangle' },
+        svg: `assets/svg/static/sidebar-icons/alert-triangle.svg`,
+        activeSvg: `assets/svg/static/sidebar-icons/alert-triangle-white.svg`
+    },
+    {
+        ref: { iconRef: 'announcement' },
+        svg: `assets/svg/static/sidebar-icons/announcement.svg`,
+        activeSvg: `assets/svg/static/sidebar-icons/announcement-white.svg`
+    },
+    {
         ref: { iconRef: null },
         
         svg: `assets/svg/static/sidebar-icons/alert-circle.svg`,

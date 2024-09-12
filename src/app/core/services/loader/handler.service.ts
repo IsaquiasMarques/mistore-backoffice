@@ -1,5 +1,5 @@
-import { PageLoaderIdentifier } from "@core/Enums/page-loader-id.enum";
-import { ILoaderContainer } from "@core/interfaces/loader-container.interface";
+import { PageLoaderIdentifier } from "@shared/Enums/page-loader-id.enum";
+import { ILoaderContainer } from "@shared/interfaces/loader-container.interface";
 import { BehaviorSubject } from "rxjs";
 
 export class LoaderHandler{

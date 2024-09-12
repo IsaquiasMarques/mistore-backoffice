@@ -1,5 +1,5 @@
 import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
-import { ISidebar } from '@core/interfaces/sidebar.interface';
+import { ISidebar } from '@shared/interfaces/sidebar.interface';
 
 @Component({
   selector: 'sidebar-menu',

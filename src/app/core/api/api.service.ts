@@ -1,9 +1,11 @@
-import { HttpClient } from "@angular/common/http";
+import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { IBrand } from "@core/base-models/base/brands.model";
-import { IProductCategory } from "@core/base-models/base/category.model";
+import { IProductCategory } from "@core/base-models/base/product-category.model";
 import { IProductSubCategory } from "@core/base-models/base/subcategory.model";
-import { Paginator } from "@core/classes/pagination/paginator.class";
+import { environment } from "@env/environment.development";
+import { Paginator } from "@shared/component-classes/pagination/paginator.class";
+import { Transformer } from "@shared/component-classes/transformation/transformer.class";
 import { ILook } from "@store/models/looks.model";
 import { IProduct } from "@store/models/product.model";
 import { Observable, map, tap } from "rxjs";
@@ -14,6 +16,8 @@ import { Observable, map, tap } from "rxjs";
 export class ApiService{
 
     constructor(private http: HttpClient) {}
+    
+    headers = new HttpHeaders().set('ngrok-skip-browser-warning', 'true');
 
     getWalletProducts(page: number = 1, limit_per_page: number): Observable<IProduct[]>{
         return this.http.get<IProduct[]>(`api/products`).pipe(
@@ -23,9 +27,12 @@ export class ApiService{
         );
     }
     getProducts(page: number = 1, limit_per_page: number): Observable<IProduct[]>{
-        return this.http.get<IProduct[]>(`api/products`).pipe(
+        return this.http.get<IProduct[]>(`${ environment.backend }/api/products/GET-ListOfProductsClient?id=9c84acac-6c0b-4d6a-82b7-0a9184d33cee`,
+            { headers: this.headers }
+        )
+        .pipe(
             map((incomingProducts: IProduct[]) => {
-                return Paginator.paginate(incomingProducts, page, limit_per_page);
+                return Paginator.paginate(Transformer.products(incomingProducts), page, limit_per_page);
             })
         );
     }

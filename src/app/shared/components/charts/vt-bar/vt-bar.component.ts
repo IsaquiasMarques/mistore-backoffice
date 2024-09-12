@@ -1,5 +1,5 @@
 import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
-import { VerticalBarChart } from '@core/interfaces/vt-bar-chart.interface';
+import { VerticalBarChart } from '@shared/interfaces/vt-bar-chart.interface';
 
 @Component({
   selector: 'vt-bar',
