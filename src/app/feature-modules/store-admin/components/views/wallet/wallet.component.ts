@@ -204,7 +204,7 @@ export class WalletComponent extends TableComponentExtender implements OnInit, T
         this.tableProducts = incoming;
         if(this.tableProducts.length > 0){
 
-          this.totalItems = PRODUCTS.length;
+          this.totalItems = incoming.length;
           this.loaderService.setLoadingStatus(this.pageLoaderIdentifier.WALLET_PRODUCTS, false);
         
         }else{

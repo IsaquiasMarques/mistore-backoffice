@@ -127,7 +127,8 @@ export class FavoritesComponent extends TableComponentExtender implements OnInit
         this.tableProducts = incoming;
         if(this.tableProducts.length > 0){
 
-          this.totalItems = PRODUCTS.filter(product => product.favoritesCount && product.favoritesCount > 0).length;
+          // this.totalItems = PRODUCTS.filter(product => product.favoritesCount && product.favoritesCount > 0).length;
+          this.totalItems = incoming.length;
           this.loaderService.setLoadingStatus(this.pageLoaderIdentifier.PRODUCTS, false);
         
         }else{

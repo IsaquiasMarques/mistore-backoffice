@@ -8,7 +8,7 @@ export class Transformer{
         
         return incoming.flatMap((product) => {
 
-            const created_at = (product.dateTime).split('T')[0];
+            const created_at = this.date((product.dateTime).split('T')[0], '-', '/');
             const featureImages: string[] = product.featureimages.flatMap((image: any) => {
                 return image.image
             });
@@ -51,6 +51,14 @@ export class Transformer{
 
     static looks(incoming: any[]): ILook[]{
         return [];
+    }
+
+    static date(date: string, currentSeparator: string, replacementSeparator: string): string{
+        const year = date.split(currentSeparator)[0];
+        const month = date.split(currentSeparator)[1];
+        const day = date.split(currentSeparator)[2];
+
+        return `${ day + replacementSeparator + month + replacementSeparator + year }`;
     }
 
 }

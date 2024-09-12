@@ -20,9 +20,12 @@ export class ApiService{
     headers = new HttpHeaders().set('ngrok-skip-browser-warning', 'true');
 
     getWalletProducts(page: number = 1, limit_per_page: number): Observable<IProduct[]>{
-        return this.http.get<IProduct[]>(`api/products`).pipe(
+        return this.http.get<IProduct[]>(`${ environment.backend }/api/products/GET-ListOfProductsClient?id=9c84acac-6c0b-4d6a-82b7-0a9184d33cee`,
+            { headers: this.headers }
+        )
+        .pipe(
             map((incomingProducts: IProduct[]) => {
-                return Paginator.paginate(incomingProducts, page, limit_per_page);
+                return Paginator.paginate(Transformer.products(incomingProducts), page, limit_per_page);
             })
         );
     }
@@ -49,7 +52,13 @@ export class ApiService{
     }
 
     getFavoritesProducts(page: number = 1, limit_per_page: number): Observable<IProduct[]>{
-        return this.http.get<IProduct[]>(`api/products`).pipe(
+        return this.http.get<IProduct[]>(`${ environment.backend }/api/products/GET-ListOfProductsClient?id=9c84acac-6c0b-4d6a-82b7-0a9184d33cee`,
+            { headers: this.headers }
+        )
+        .pipe(
+            map((incoming: any) => {
+                return Transformer.products(incoming);
+            }),
             map((filteredProducts: IProduct[]) => {
                 return filteredProducts.filter(product => product.favoritesCount && product.favoritesCount > 0) ?? []
             }),
