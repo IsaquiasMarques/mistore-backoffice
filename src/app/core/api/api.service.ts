@@ -7,7 +7,7 @@ import { environment } from "@env/environment.development";
 import { Paginator } from "@shared/component-classes/pagination/paginator.class";
 import { Transformer } from "@shared/component-classes/transformation/transformer.class";
 import { ILook } from "@store/models/looks.model";
-import { IProduct } from "@store/models/product.model";
+import { IProduct, IProductResponse } from "@store/models/product.model";
 import { Observable, map, tap } from "rxjs";
 
 @Injectable({
@@ -29,13 +29,18 @@ export class ApiService{
             })
         );
     }
-    getProducts(page: number = 1, limit_per_page: number): Observable<IProduct[]>{
-        return this.http.get<IProduct[]>(`${ environment.backend }/api/products/GET-ListOfProductsClient?id=9c84acac-6c0b-4d6a-82b7-0a9184d33cee`,
+
+    getProducts(page: number = 1, limit_per_page: number): Observable<IProductResponse>{
+        return this.http.get<IProductResponse>(`${ environment.backend }/api/products/GET-ListOfProductsClient?id=9c84acac-6c0b-4d6a-82b7-0a9184d33cee&page=${ page }`,
             { headers: this.headers }
         )
         .pipe(
-            map((incomingProducts: IProduct[]) => {
-                return Paginator.paginate(Transformer.products(incomingProducts), page, limit_per_page);
+            map((incomingProducts: any) => {
+                return {
+                    total: incomingProducts.totalProductCount,
+                    // products: Paginator.paginate(Transformer.products(incomingProducts.products), page, limit_per_page)
+                    products: Transformer.products(incomingProducts.products)
+                };
             })
         );
     }
@@ -51,20 +56,23 @@ export class ApiService{
         );
     }
 
-    getFavoritesProducts(page: number = 1, limit_per_page: number): Observable<IProduct[]>{
-        return this.http.get<IProduct[]>(`${ environment.backend }/api/products/GET-ListOfProductsClient?id=9c84acac-6c0b-4d6a-82b7-0a9184d33cee`,
+    getFavoritesProducts(page: number = 1, limit_per_page: number): Observable<IProductResponse>{
+        return this.http.get<IProductResponse>(`${ environment.backend }/api/products/GET-ListOfProductsClient?id=9c84acac-6c0b-4d6a-82b7-0a9184d33cee&page=${ page }`,
             { headers: this.headers }
         )
         .pipe(
             map((incoming: any) => {
-                return Transformer.products(incoming);
+                return {
+                    total: incoming.totalProductCount,
+                    products: Transformer.products(incoming.products)
+                }
             }),
-            map((filteredProducts: IProduct[]) => {
-                return filteredProducts.filter(product => product.favoritesCount && product.favoritesCount > 0) ?? []
-            }),
-            map((incomingProducts: IProduct[]) => {
-                return Paginator.paginate(incomingProducts, page, limit_per_page);
-            }),
+            map((filteredProducts: IProductResponse) => {
+                return {
+                    ...filteredProducts,
+                    products: filteredProducts.products.filter(product => product.favoritesCount && product.favoritesCount > 0) ?? []
+                }
+            })
         );
     }
     

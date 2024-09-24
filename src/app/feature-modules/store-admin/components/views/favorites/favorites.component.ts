@@ -11,7 +11,7 @@ import { SVGRefEnum } from '@shared/Enums/svg-ref.enum';
 import { PRODUCTS_LIMIT } from '@shared/constants/data-limit.const';
 import { ProductStatusEnum } from '@store/enums/products-status.enum';
 import { ProductFacade } from '@store/facades/products.facade';
-import { IProduct } from '@store/models/product.model';
+import { IProduct, IProductResponse } from '@store/models/product.model';
 
 @Component({
   selector: 'mi-favorites',
@@ -123,12 +123,12 @@ export class FavoritesComponent extends TableComponentExtender implements OnInit
   getProducts(page: number, limit: number){
     this.loaderService.setLoadingStatus(this.pageLoaderIdentifier.PRODUCTS, true);
     this.productFacade.favoritesProducts(page, limit).subscribe({
-      next: (incoming: IProduct[]) => {
-        this.tableProducts = incoming;
+      next: (incoming: IProductResponse) => {
+        this.tableProducts = incoming.products;
         if(this.tableProducts.length > 0){
 
           // this.totalItems = PRODUCTS.filter(product => product.favoritesCount && product.favoritesCount > 0).length;
-          this.totalItems = incoming.length;
+          this.totalItems = incoming.total;
           this.loaderService.setLoadingStatus(this.pageLoaderIdentifier.PRODUCTS, false);
         
         }else{

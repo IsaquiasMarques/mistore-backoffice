@@ -1,6 +1,11 @@
 import { IProductCategory } from "@core/base-models/base/product-category.model"
 import { ProductStatusEnum } from "../enums/products-status.enum"
 
+export interface IProductResponse{
+    total: number,
+    products: IProduct[]
+}
+
 export interface IProductColor{
     id: string,
     color: string,

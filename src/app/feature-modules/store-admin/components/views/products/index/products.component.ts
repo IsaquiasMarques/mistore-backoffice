@@ -11,7 +11,7 @@ import { SVGRefEnum } from '@shared/Enums/svg-ref.enum';
 import { PRODUCTS_LIMIT } from '@shared/constants/data-limit.const';
 import { ProductStatusEnum } from '@store/enums/products-status.enum';
 import { ProductFacade } from '@store/facades/products.facade';
-import { IProduct } from '@store/models/product.model';
+import { IProduct, IProductResponse } from '@store/models/product.model';
 
 @Component({
   selector: 'mi-products',
@@ -146,13 +146,13 @@ export class ProductsComponent extends TableComponentExtender implements OnInit,
   getProducts(page: number, limit: number){
     this.loaderService.setLoadingStatus(this.pageLoaderIdentifier.PRODUCTS, true);
     this.productFacade.products(page, limit).subscribe({
-      next: (incoming: IProduct[]) => {
-        this.tableProducts = incoming;
+      next: (incoming: IProductResponse) => {
+        this.tableProducts = incoming.products;
         if(this.tableProducts.length > 0){
 
           this.itemsSelectionService.setItems = this.tableProducts;
 
-          this.totalItems = this.tableProducts.length;
+          this.totalItems = incoming.total;
           this.loaderService.setLoadingStatus(this.pageLoaderIdentifier.PRODUCTS, false);
         
         }else{
