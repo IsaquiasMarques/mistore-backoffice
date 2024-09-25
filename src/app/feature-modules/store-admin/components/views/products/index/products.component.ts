@@ -12,6 +12,7 @@ import { PRODUCTS_LIMIT } from '@shared/constants/data-limit.const';
 import { ProductStatusEnum } from '@store/enums/products-status.enum';
 import { ProductFacade } from '@store/facades/products.facade';
 import { IProduct, IProductResponse } from '@store/models/product.model';
+import { StatisticsFacade } from '@store/facades/statistics.facade';
 
 @Component({
   selector: 'mi-products',
@@ -23,6 +24,7 @@ export class ProductsComponent extends TableComponentExtender implements OnInit,
   activatedRoute = inject(ActivatedRoute);
   loaderService = inject(LoaderService);
   productFacade = inject(ProductFacade);
+  statisticsFacade = inject(StatisticsFacade);
 
   constructor(){
     super();
@@ -50,13 +52,13 @@ export class ProductsComponent extends TableComponentExtender implements OnInit,
         ref: SVGRefEnum.SHOPPING_CART,
         color: 'white'
       },
-      headerLabel: 'Valor total na carteira',
+      headerLabel: 'Total de produtos',
       view_data: true,
       data: {
-        main: 683000,
+        main: 0,
         percentageStatus: WidgetPercentageStatusEnum.ENCREASE,
-        percentageValue: 68,
-        footerLabelValue: 635,
+        percentageValue: 0,
+        footerLabelValue: 0,
         footerLabelText: ' produtos adicionados'
       }
     },
@@ -72,10 +74,10 @@ export class ProductsComponent extends TableComponentExtender implements OnInit,
       headerLabel: 'Produtos Disponíves',
       view_data: true,
       data: {
-        main: 872,
+        main: 0,
         percentageStatus: WidgetPercentageStatusEnum.ENCREASE,
-        percentageValue: 55,
-        footerLabelValue: 60,
+        percentageValue: 0,
+        footerLabelValue: 0,
         footerLabelText: ' produtos essa semana'
       }
     },
@@ -91,10 +93,10 @@ export class ProductsComponent extends TableComponentExtender implements OnInit,
       headerLabel: 'Produtos Indisponíveis',
       view_data: true,
       data: {
-        main: 298,
-        percentageStatus: WidgetPercentageStatusEnum.DECREASE,
-        percentageValue: 24,
-        footerLabelValue: 40,
+        main: 0,
+        percentageStatus: WidgetPercentageStatusEnum.ENCREASE,
+        percentageValue: 0,
+        footerLabelValue: 0,
         footerLabelText: ' produtos essa semana'
       }
     },
@@ -114,8 +116,9 @@ export class ProductsComponent extends TableComponentExtender implements OnInit,
       this.currentPage = pageParam;
       this.getProducts(pageParam, this.perPage);
     });
-
     this.generatePlaceholders();
+    
+    this.getWidgetsDatas();
   }
 
   // Start of Table Component Interface Requirements
@@ -142,6 +145,27 @@ export class ProductsComponent extends TableComponentExtender implements OnInit,
   }
   
   // End of Table Component Interface Requirements
+
+  getWidgetsDatas(): void{
+    this.allProductsCountWidget();
+    this.availableProductsCountWidget();
+    this.unavailableProductsCountWidget();
+  }
+
+  allProductsCountWidget(): void{
+    const ALL_PRODUCTS_TOTAL_WIDGET_INDEX = 0;
+    this.statisticsFacade.allProductsCount().subscribe(incoming => this.widgets[ALL_PRODUCTS_TOTAL_WIDGET_INDEX].data = { ...this.widgets[ALL_PRODUCTS_TOTAL_WIDGET_INDEX].data, ...incoming });
+  }
+
+  availableProductsCountWidget(): void{
+    const AVAILABLE_PRODUCTS_TOTAL_WIDGET_INDEX = 1;
+    this.statisticsFacade.availableProductsCount().subscribe(incoming => this.widgets[AVAILABLE_PRODUCTS_TOTAL_WIDGET_INDEX].data = { ...this.widgets[AVAILABLE_PRODUCTS_TOTAL_WIDGET_INDEX].data, ...incoming });
+  }
+
+  unavailableProductsCountWidget(): void{
+    const UNAVAILABLE_PRODUCTS_TOTAL_WIDGET_INDEX = 2;
+    this.statisticsFacade.unavailableProductsCount().subscribe(incoming => this.widgets[UNAVAILABLE_PRODUCTS_TOTAL_WIDGET_INDEX].data = { ...this.widgets[UNAVAILABLE_PRODUCTS_TOTAL_WIDGET_INDEX].data, ...incoming });
+  }
 
   getProducts(page: number, limit: number){
     this.loaderService.setLoadingStatus(this.pageLoaderIdentifier.PRODUCTS, true);

@@ -40,25 +40,25 @@ export class WalletComponent extends TableComponentExtender implements OnInit, T
 
   widgetPercentageStatusEnum = WidgetPercentageStatusEnum;
   widgets: IWidget[] = [
-    {
-      backgroundColor: 'black',
-      ctaDotsColor: 'white',
-      mainTextColor: 'white',
-      footerTextColor: '#858585',
-      svgIcon: {
-        ref: SVGRefEnum.SHOPPING_CART,
-        color: 'white'
-      },
-      headerLabel: 'Total de Produtos',
-      view_data: true,
-      data: {
-        main: 263000,
-        percentageStatus: WidgetPercentageStatusEnum.ENCREASE,
-        percentageValue: 68,
-        footerLabelValue: 635,
-        footerLabelText: ' produtos adicionados'
-      }
-    },
+    // {
+    //   backgroundColor: 'black',
+    //   ctaDotsColor: 'white',
+    //   mainTextColor: 'white',
+    //   footerTextColor: '#858585',
+    //   svgIcon: {
+    //     ref: SVGRefEnum.SHOPPING_CART,
+    //     color: 'white'
+    //   },
+    //   headerLabel: 'Total de Produtos',
+    //   view_data: true,
+    //   data: {
+    //     main: 263000,
+    //     percentageStatus: WidgetPercentageStatusEnum.ENCREASE,
+    //     percentageValue: 68,
+    //     footerLabelValue: 635,
+    //     footerLabelText: ' produtos adicionados'
+    //   }
+    // },
     {
       backgroundColor: 'white',
       ctaDotsColor: '#858585',

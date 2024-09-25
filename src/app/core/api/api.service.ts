@@ -3,24 +3,27 @@ import { Injectable } from "@angular/core";
 import { IBrand } from "@core/base-models/base/brands.model";
 import { IProductCategory } from "@core/base-models/base/product-category.model";
 import { IProductSubCategory } from "@core/base-models/base/subcategory.model";
+import { APIExtender } from "@core/class/api/api-extender.class";
 import { environment } from "@env/environment.development";
 import { Paginator } from "@shared/component-classes/pagination/paginator.class";
 import { Transformer } from "@shared/component-classes/transformation/transformer.class";
+import { WidgetPercentageStatusEnum } from "@shared/Enums/widget-percentage-status.enum";
 import { ILook } from "@store/models/looks.model";
 import { IProduct, IProductResponse } from "@store/models/product.model";
+import { StatisticsData } from "@store/models/statistics.model";
 import { Observable, map, tap } from "rxjs";
 
 @Injectable({
     providedIn: 'root'
 })
-export class ApiService{
+export class ApiService extends APIExtender {
 
-    constructor(private http: HttpClient) {}
-    
-    headers = new HttpHeaders().set('ngrok-skip-browser-warning', 'true');
+    constructor(private http: HttpClient) {
+        super();
+    }
 
     getWalletProducts(page: number = 1, limit_per_page: number): Observable<IProduct[]>{
-        return this.http.get<IProduct[]>(`${ environment.backend }/api/products/GET-ListOfProductsClient?id=9c84acac-6c0b-4d6a-82b7-0a9184d33cee`,
+        return this.http.get<IProduct[]>(`${ environment.backend }/api/products/GET-ListOfProductsClient?id=${ this.storeId }`,
             { headers: this.headers }
         )
         .pipe(
@@ -31,7 +34,7 @@ export class ApiService{
     }
 
     getProducts(page: number = 1, limit_per_page: number): Observable<IProductResponse>{
-        return this.http.get<IProductResponse>(`${ environment.backend }/api/products/GET-ListOfProductsClient?id=9c84acac-6c0b-4d6a-82b7-0a9184d33cee&page=${ page }`,
+        return this.http.get<IProductResponse>(`${ environment.backend }/api/products/GET-ListOfProductsClient?id=${ this.storeId }&page=${ page }`,
             { headers: this.headers }
         )
         .pipe(
@@ -57,7 +60,7 @@ export class ApiService{
     }
 
     getFavoritesProducts(page: number = 1, limit_per_page: number): Observable<IProductResponse>{
-        return this.http.get<IProductResponse>(`${ environment.backend }/api/products/GET-ListOfProductsClient?id=9c84acac-6c0b-4d6a-82b7-0a9184d33cee&page=${ page }`,
+        return this.http.get<IProductResponse>(`${ environment.backend }/api/products/GET-ListOfProductsClient?id=${ this.storeId }&page=${ page }`,
             { headers: this.headers }
         )
         .pipe(
