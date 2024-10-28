@@ -45,10 +45,12 @@
                     <div class="w-description flex gap-2 justify-between items-center"
                     slot="widget-description"
                     >
-                        <mi-svg
-                        [reference]="widget.svgIcon.ref"
-                        [color]="widget.svgIcon.color"
-                        />
+                        @if (widget.svgIcon.visible) {
+                            <mi-svg
+                            [reference]="widget.svgIcon.ref"
+                            [color]="widget.svgIcon.color"
+                            />
+                        }
                         <p class="">
                             {{ widget.headerLabel }}
                         </p>
@@ -102,12 +104,12 @@
     </div>
     <div class="wrapper-content mt-10">
         <div class="bar-charts flex justify-between items-stretch">
-            <div class="hz-bar p-6 w-full max-w-[53.625rem] rounded-lg border border-[rgba(233,233,233,0.60)] bg-white">
+            <div class="hz-bar p-6 w-full rounded-lg border border-[rgba(233,233,233,0.60)] bg-white">
                 <hz-bar [chartData]="this.horizontalChart" />
             </div>
-            <div class="vt-bar p-6 w-full max-w-[16.875rem] rounded-lg border border-[rgba(233,233,233,0.60)] bg-white">
+            <!-- <div class="vt-bar p-6 w-full max-w-[16.875rem] rounded-lg border border-[rgba(233,233,233,0.60)] bg-white">
                 <vt-bar [chartData]="this.verticalChart" />
-            </div>
+            </div> -->
         </div>
     </div>
 </div>

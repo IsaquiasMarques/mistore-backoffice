@@ -1,5 +1,5 @@
 export interface IBrand{
-    id?: string | number,
+    id?: string,
     logoPath: string,
     bgPath?: string,
     name?: string,

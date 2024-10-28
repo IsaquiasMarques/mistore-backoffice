@@ -6,12 +6,13 @@ import { MistoreAdminComponent } from '@admin/components/containers/mistore-admi
 import { SharedModule } from '@shared/shared.module';
 import { CoreModule } from '@core/core.module';
 import { DashboardComponent } from './components/views/dashboard/dashboard.component';
-
+import { GeneralUsersComponent } from './components/views/general-users/general-users.component';
 
 @NgModule({
   declarations: [
     MistoreAdminComponent,
-    DashboardComponent
+    DashboardComponent,
+    GeneralUsersComponent
   ],
   imports: [
     SharedModule,

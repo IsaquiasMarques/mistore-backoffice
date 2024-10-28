@@ -10,7 +10,7 @@ import { LoaderService } from '@core/services/loader/loader.service';
 import { SVGRefEnum } from '@shared/Enums/svg-ref.enum';
 import { PRODUCTS_LIMIT } from '@shared/constants/data-limit.const';
 import { ProductStatusEnum } from '@store/enums/products-status.enum';
-import { ProductFacade } from '@store/facades/products.facade';
+import { ProductFacade } from '@store/facades/products/products.facade';
 import { IProduct } from '@store/models/product.model';
 
 @Component({

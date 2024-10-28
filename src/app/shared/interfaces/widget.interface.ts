@@ -2,8 +2,9 @@ import { WidgetPercentageStatusEnum } from "@shared/Enums/widget-percentage-stat
 import { SVGRefEnum } from "@shared/Enums/svg-ref.enum"
 
 interface ISvgIcon{
-    ref: SVGRefEnum,
-    color: string
+  visible?: boolean,
+  ref: SVGRefEnum,
+  color: string
 }
 
 export interface IWidget{

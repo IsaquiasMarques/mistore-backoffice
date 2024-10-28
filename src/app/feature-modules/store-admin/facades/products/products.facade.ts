@@ -1,7 +1,7 @@
 import { Injectable, inject } from "@angular/core";
 import { ApiService } from "@core/api/api.service";
 import { Observable } from "rxjs";
-import { IProduct, IProductResponse } from "../models/product.model";
+import { IProduct, IProductResponse } from "../../models/product.model";
 import { IProductCategory } from "@core/base-models/base/product-category.model";
 import { IProductSubCategory } from "@core/base-models/base/subcategory.model";
 import { IBrand } from "@core/base-models/base/brands.model";

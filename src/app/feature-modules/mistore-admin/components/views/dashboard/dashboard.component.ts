@@ -19,17 +19,18 @@ export class DashboardComponent {
       mainTextColor: 'white',
       footerTextColor: '#858585',
       svgIcon: {
+        visible: false,
         ref: SVGRefEnum.COINS_HAND,
         color: 'white'
       },
-      headerLabel: 'Vendas Concluídas',
+      headerLabel: 'Total de marcas',
       view_data: true,
       data: {
-        main: 1234,
+        main: 836000,
         percentageStatus: WidgetPercentageStatusEnum.ENCREASE,
-        percentageValue: 24,
+        percentageValue: 89,
         footerLabelValue: 283,
-        footerLabelText: ' essa semana'
+        footerLabelText: ' esse mês'
       }
     },
     {
@@ -38,6 +39,7 @@ export class DashboardComponent {
       mainTextColor: 'black',
       footerTextColor: '#858585',
       svgIcon: {
+        visible: false,
         ref: SVGRefEnum.WALLET,
         color: 'black'
       },
@@ -57,25 +59,26 @@ export class DashboardComponent {
       mainTextColor: 'black',
       footerTextColor: '#858585',
       svgIcon: {
+        visible: false,
         ref: SVGRefEnum.WALLET,
         color: 'black'
       },
-      headerLabel: 'Valor arrecadado',
+      headerLabel: 'Total de clientes',
       view_data: true,
       data: {
-        main: 1234,
+        main: 5256,
         percentageStatus: WidgetPercentageStatusEnum.DECREASE,
-        percentageValue: 24,
-        footerLabelValue: -40000,
-        footerLabelText: ' essa semana'
+        percentageValue: 68,
+        footerLabelValue: -20,
+        footerLabelText: ' esse mês'
       }
     },
   ];
   
   horizontalChart: HorizontalBarChart = {
     details: {
-      title: 'Dados por produtos',
-      description: 'Análise de estados de produtos por venda',
+      title: 'Aquisição de valores',
+      description: 'Análise dos valores ganho na plataforma.',
       chartUnity: 'AOA',
       toolpit: true
     },
@@ -133,48 +136,48 @@ export class DashboardComponent {
     ]
   }
 
-  verticalChart: VerticalBarChart = {
-    details: {
-      title: 'Dados da loja',
-      description: 'Número de visitantes da sua loja nesta semana.',
-      toolpit: true
-    },
-    labels: [
-      "Seg",
-      "Ter",
-      // "Qua",
-      // "Qui",
-      // "Sex",
-      // "Sáb",
-      // "Dom"
-    ],
-    series: [
-      {
-        name: 'Visitas',
-        color: '#F4BF4F',
-        data: [
-          43,
-          23,
-          // 45,
-          // 80,
-          // 30,
-          // 12,
-          // 4
-        ]
-      },
-      {
-        name: 'Abandonos',
-        color: "#ddd",
-        data: [
-          35,
-          3,
-          // 35,
-          // 12,
-          // 85,
-          // 11,
-          // 5
-        ]
-      },
-    ]
-  }
+  // verticalChart: VerticalBarChart = {
+  //   details: {
+  //     title: 'Visibilidade da plataforma',
+  //     description: 'Quantidade de visitas e abandono na plataforma.',
+  //     toolpit: true
+  //   },
+  //   labels: [
+  //     "Seg",
+  //     "Ter",
+  //     // "Qua",
+  //     // "Qui",
+  //     // "Sex",
+  //     // "Sáb",
+  //     // "Dom"
+  //   ],
+  //   series: [
+  //     {
+  //       name: 'Visitas',
+  //       color: '#F4BF4F',
+  //       data: [
+  //         43,
+  //         23,
+  //         // 45,
+  //         // 80,
+  //         // 30,
+  //         // 12,
+  //         // 4
+  //       ]
+  //     },
+  //     {
+  //       name: 'Abandonos',
+  //       color: "#ddd",
+  //       data: [
+  //         35,
+  //         3,
+  //         // 35,
+  //         // 12,
+  //         // 85,
+  //         // 11,
+  //         // 5
+  //       ]
+  //     },
+  //   ]
+  // }
 }

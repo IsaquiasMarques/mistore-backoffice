@@ -27,11 +27,11 @@
             }
         </div>
     </div>
-    <div class="chart-canvas relative mt-8 max-h-[17rem] flex justify-between items-start">
+    <div class="chart-canvas relative mt-8 max-h-[17rem] flex justify-start gap-4 items-start">
 
 
         <div class="y-axys">
-            <div class="intervals flex flex-col items-start justify-start gap-y-6">
+            <div class="intervals min-w-[50px] flex flex-col items-start justify-start gap-y-6">
                 @for (item of this.yAxisIntervals; track $index) {
                     <div class="item text-sm text-[#aaa]"
                     >
@@ -44,7 +44,7 @@
                 }
             </div>
         </div>
-        <div class="chart-bars pb-3 relative border-l border-[#EBEBEB] bg-red-40 w-full max-w-[45.375rem] max-h-[300px]">
+        <div class="chart-bars pb-3 relative border-l border-[#EBEBEB] bg-red-40 w-[calc(100%-100px)] max-h-[300px]">
             <div class="underlined-cover w-full h-full flex flex-col gap-y-6 justify-between">
                 @for (item of this.yAxisIntervals; track $index) {
                     <div class="item relative text-sm text-transparent">
