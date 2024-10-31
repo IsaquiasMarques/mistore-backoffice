@@ -9,11 +9,11 @@ import { HorizontalBarChart } from '@shared/interfaces/hz-bar-chart.interface';
 import { IWidget } from '@shared/interfaces/widget.interface';
 
 @Component({
-  selector: 'mi-general-users',
-  templateUrl: './general-users.component.html',
-  styleUrl: './general-users.component.css'
+  selector: 'mi-brands',
+  templateUrl: './brands.component.html',
+  styleUrl: './brands.component.css'
 })
-export class GeneralUsersComponent extends TableComponentExtender {
+export class BrandsIndexComponent extends TableComponentExtender {
   
   activatedRoute = inject(ActivatedRoute);
   loaderService = inject(LoaderService);
@@ -26,10 +26,10 @@ export class GeneralUsersComponent extends TableComponentExtender {
     this.route = '/store/products';
     this.perPage = 6;
     this.withImage = true;
-    this.withTinyText = true;
-    this.imageRadius = 'full';
+    this.imageRadius = 'lg';
+    this.withTinyText = false;
     this.placeholderCount = 5;
-    this.totalItems = this.tableUsers.length;
+    this.totalItems = this.tableBrands.length;
     this.currentPage = 1;
   }
 
@@ -45,7 +45,7 @@ export class GeneralUsersComponent extends TableComponentExtender {
         ref: SVGRefEnum.COINS_HAND,
         color: 'white'
       },
-      headerLabel: 'Total de usuários',
+      headerLabel: 'Total de marcas',
       view_data: true,
       data: {
         main: 836000,
@@ -54,119 +54,16 @@ export class GeneralUsersComponent extends TableComponentExtender {
         footerLabelValue: 283,
         footerLabelText: ' esse mês'
       }
-    },
-    {
-      backgroundColor: 'white',
-      ctaDotsColor: '#858585',
-      mainTextColor: 'black',
-      footerTextColor: '#858585',
-      svgIcon: {
-        visible: false,
-        ref: SVGRefEnum.WALLET,
-        color: 'black'
-      },
-      headerLabel: 'Usuários activos',
-      view_data: true,
-      data: {
-        main: 7453,
-        percentageStatus: WidgetPercentageStatusEnum.ENCREASE,
-        percentageValue: 24,
-        footerLabelValue: 663,
-        footerLabelText: ' essa semana'
-      }
-    },
-    {
-      backgroundColor: 'white',
-      ctaDotsColor: '#858585',
-      mainTextColor: 'black',
-      footerTextColor: '#858585',
-      svgIcon: {
-        visible: false,
-        ref: SVGRefEnum.WALLET,
-        color: 'black'
-      },
-      headerLabel: 'Usuários passivos',
-      view_data: true,
-      data: {
-        main: 5256,
-        percentageStatus: WidgetPercentageStatusEnum.DECREASE,
-        percentageValue: 68,
-        footerLabelValue: -20,
-        footerLabelText: ' esse mês'
-      }
-    },
+    }
   ];
-  
-  horizontalChart: HorizontalBarChart = {
-    details: {
-      title: 'Frequência de visitas na plataforma',
-      description: 'Análise dos dados por visitas e abandonos.',
-      chartUnity: '',
-      toolpit: true
-    },
-    labels: [
-      "Jan",
-      "Fev",
-      // "Mar",
-      // "Abr",
-      // "Mai",
-      // "Jun",
-      // "Jul",
-      // "Ago",
-      // "Set",
-      // "Out",
-      // "Nov",
-      // "Dez"
-    ],
-    series: [
-      {
-        name: 'Visitas',
-        color: '#61C554',
-        data: [
-          10123,
-          13345,
-          // 35235,
-          // 25223,
-          // 64213,
-          // 23000,
-          // 50522,
-          // 23409,
-          // 21345,
-          // 53234,
-          // 34563,
-          // 54322
-        ]
-      },
-      {
-        name: 'Abandonos',
-        color: "#ddd",
-        data: [
-          13000,
-          23000,
-          // 45123,
-          // 35342,
-          // 56000,
-          // 23553,
-          // 70000,
-          // 23409,
-          // 21345,
-          // 64234,
-          // 14563,
-          // 14322
-        ]
-      }
-    ]
-  }
 
-  tableHeader: string[] = ['Nome', 'E-mail', 'Telefone', 'Data de Registro'];
-  tableUsers: any[] = [
+  tableHeader: string[] = ['Logotipo', 'Nome', 'Origem', 'Data de Registro'];
+  tableBrands: any[] = [
     {
-      ID: '234532445',
-      name: 'Mateus Chipapa',
-      imagePath: 'assets/images/profile/profile-2.png',
-      email: 'mateus@email.com',
-      phone: '934 433 455',
-      created_at: '20/10/2024'
+      imagePath: 'assets/images/brands/brand-1.png',
+      name: 'Lacoste',
+      source: 'Internacional',
+      created_at: '22/10/2024'
     }
   ];
 
@@ -217,9 +114,10 @@ export class GeneralUsersComponent extends TableComponentExtender {
           this.selectedItems = [];
           
       }else{
-          this.tableUsers.forEach(element => {
+          this.tableBrands.forEach(element => {
               this.selectedItems.push(element.id);
           });
       }
   }
+
 }

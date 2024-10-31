@@ -3,6 +3,8 @@ import { RouterModule, Routes } from '@angular/router';
 import { MistoreAdminComponent } from '@admin/components/containers/mistore-admin.component';
 import { DashboardComponent } from '@admin/components/views/dashboard/dashboard.component';
 import { GeneralUsersComponent } from './components/views/general-users/general-users.component';
+import { ProductsStatisticsComponent } from './components/views/products-statistics/products-statistics.component';
+import { BrandsIndexComponent } from './components/views/brands/index/brands.component';
 
 const mistoreSignature: string = '- Mistore, Administração';
 
@@ -24,7 +26,27 @@ const routes: Routes = [
       {
         path: 'users',
         component: GeneralUsersComponent,
-        title: `Usuários ${ mistoreSignature }`
+        title: `Usuários ${ mistoreSignature }`,
+      },
+      {
+        path: 'products',
+        component: ProductsStatisticsComponent,
+        title: `Produtos ${ mistoreSignature }`,
+      },
+      {
+        path: 'brands',
+        children: [
+          {
+            path: '',
+            redirectTo: 'index',
+            pathMatch: 'full'
+          },
+          {
+            path: 'index',
+            component: BrandsIndexComponent,
+            title: `Marcas ${ mistoreSignature }`
+          }
+        ]
       }
     ]
   }
