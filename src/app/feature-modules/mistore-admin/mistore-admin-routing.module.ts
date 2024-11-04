@@ -5,6 +5,7 @@ import { DashboardComponent } from '@admin/components/views/dashboard/dashboard.
 import { GeneralUsersComponent } from './components/views/general-users/general-users.component';
 import { ProductsStatisticsComponent } from './components/views/products-statistics/products-statistics.component';
 import { BrandsIndexComponent } from './components/views/brands/index/brands.component';
+import { AdminCategoriesComponent } from './components/views/admin-categories/admin-categories.component';
 
 const mistoreSignature: string = '- Mistore, Administração';
 
@@ -46,6 +47,21 @@ const routes: Routes = [
             component: BrandsIndexComponent,
             title: `Marcas ${ mistoreSignature }`
           }
+        ]
+      },
+      {
+        path: 'categories',
+        children: [
+          {
+            path: '',
+            redirectTo: 'index',
+            pathMatch: 'full'
+          },
+          {
+            path: 'index',
+            component: AdminCategoriesComponent,
+            title: `Categorias ${ mistoreSignature }`
+          },
         ]
       }
     ]

@@ -8,6 +8,7 @@ import { DashboardComponent } from './components/views/dashboard/dashboard.compo
 import { GeneralUsersComponent } from './components/views/general-users/general-users.component';
 import { ProductsStatisticsComponent } from './components/views/products-statistics/products-statistics.component';
 import { BrandsIndexComponent } from './components/views/brands/index/brands.component';
+import { AdminCategoriesComponent } from './components/views/admin-categories/admin-categories.component';
 
 @NgModule({
   declarations: [
@@ -15,7 +16,8 @@ import { BrandsIndexComponent } from './components/views/brands/index/brands.com
     DashboardComponent,
     GeneralUsersComponent,
     ProductsStatisticsComponent,
-    BrandsIndexComponent
+    BrandsIndexComponent,
+    AdminCategoriesComponent
   ],
   imports: [
     SharedModule,
