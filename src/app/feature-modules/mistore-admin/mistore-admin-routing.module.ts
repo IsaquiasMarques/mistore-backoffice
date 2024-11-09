@@ -6,6 +6,7 @@ import { GeneralUsersComponent } from './components/views/general-users/general-
 import { ProductsStatisticsComponent } from './components/views/products-statistics/products-statistics.component';
 import { BrandsIndexComponent } from './components/views/brands/index/brands.component';
 import { AdminCategoriesComponent } from './components/views/admin-categories/admin-categories.component';
+import { CreateBrandComponent } from './components/views/brands/create/create-brand/create-brand.component';
 
 const mistoreSignature: string = '- Mistore, Administração';
 
@@ -36,6 +37,7 @@ const routes: Routes = [
       },
       {
         path: 'brands',
+        title: `Marcas ${ mistoreSignature }`,
         children: [
           {
             path: '',
@@ -45,7 +47,10 @@ const routes: Routes = [
           {
             path: 'index',
             component: BrandsIndexComponent,
-            title: `Marcas ${ mistoreSignature }`
+          },
+          {
+            path: 'create',
+            component: CreateBrandComponent,
           }
         ]
       },

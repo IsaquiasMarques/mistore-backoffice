@@ -1,9 +1,15 @@
-import { Directive } from "@angular/core";
+import { Directive, EventEmitter, Input, Output } from "@angular/core";
 
 @Directive()
 export class DropzoneFunctionalities{
     
   files: any[] = [];
+  @Input() multi: boolean = true;
+  @Output() outcomeFiles: EventEmitter<any[]> = new EventEmitter<any[]>();
+
+  emitOutComeFiles(){
+    this.outcomeFiles.emit(this.files);
+  }
 
   dropzoneOnChange($event: any){
     this.files = $event.files;

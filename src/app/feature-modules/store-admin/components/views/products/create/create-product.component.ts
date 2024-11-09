@@ -4,7 +4,6 @@ import { ColorOption } from '@core/base-models/base/ColorOption.model';
 import { IBrand } from '@core/base-models/base/brands.model';
 import { IProductCategory } from '@core/base-models/base/product-category.model';
 import { IProductSubCategory } from '@core/base-models/base/subcategory.model';
-import { DropzoneFunctionalities } from '@shared/component-classes/dropzone-functionalities.class';
 import { LoaderService } from '@core/services/loader/loader.service';
 import { ProductFacade } from '@store/facades/products/products.facade';
 import { AddProductFacade } from '@store/facades/products/add-product.facade';
@@ -15,7 +14,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
   templateUrl: './create-product.component.html',
   styleUrl: './create-product.component.css'
 })
-export class CreateProductComponent extends DropzoneFunctionalities implements OnInit {
+export class CreateProductComponent implements OnInit {
 
   public loaderService = inject(LoaderService);
   private productFacade = inject(ProductFacade);
@@ -24,6 +23,8 @@ export class CreateProductComponent extends DropzoneFunctionalities implements O
   addProductFormGroup!: FormGroup;
 
   pageLoaderIdentifier = PageLoaderIdentifier;
+
+  files: any[] = [];
 
   selectedBrand!: IBrand[];
   selectedCategory!: IProductCategory[];
