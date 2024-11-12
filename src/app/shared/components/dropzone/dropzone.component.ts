@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { DropzoneFunctionalities } from '@shared/component-classes/dropzone-functionalities.class';
 
 @Component({
@@ -9,4 +9,11 @@ import { DropzoneFunctionalities } from '@shared/component-classes/dropzone-func
 export class DropzoneComponent extends DropzoneFunctionalities {
   @Input({ required: true }) name: string = '';
   @Input() showDimentionsText: boolean = true;
+  @Input() previewFileUrls: boolean = false;
+  @Output() filePreviewUrl: EventEmitter<any[]> = new EventEmitter<any[]>();
+
+  emit(): void{
+    if(!this.previewFileUrls) return;
+    this.filePreviewUrl.emit(this.files);
+  }
 }

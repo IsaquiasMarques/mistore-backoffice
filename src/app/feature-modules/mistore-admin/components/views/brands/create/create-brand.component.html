@@ -45,6 +45,8 @@
                                 [name]="'brand-logo'"
                                 [multi]="false"
                                 [showDimentionsText]="false"
+                                [previewFileUrls]="true"
+                                (filePreviewUrl)="this.logoPreviewUrl = ($event[0])"
                                 (outcomeFiles)="this.logo = $event" />
                             </div>
                         </div>
@@ -59,9 +61,34 @@
                                 [showDimentionsText]="false"
                                 [multi]="false"
                                 [name]="'brand-cover-image'"
+                                [previewFileUrls]="true"
+                                (filePreviewUrl)="this.coverImagePreviewUrl = ($event[0])"
                                 (outcomeFiles)="this.coverImage = $event"/>
                             </div>
                         </div>
+
+                        @if (this.logoPreviewUrl && this.coverImagePreviewUrl) {
+                            <div class="preview-images mt-10">
+                                <div class="upload-section">
+                                    <div class="title mb-5">
+                                        <h5 class="text-xs font-medium">
+                                            Pré-visualizção
+                                        </h5>
+                                    </div>
+                                    <div class="section">
+                                        <div class="image w-full h-[250px] rounded-[10px] overflow-hidden relative">
+                                            <div class="overlay-image w-full h-full absolute top-0 left-0 z-[1]">
+                                                <img [src]="this.coverImagePreviewUrl.previewUrl" class="w-full h-full object-cover object-center" alt="">
+                                                <div class="overlay absolute w-full h-full top-0 left-0 bg-black/60"></div>
+                                            </div>
+                                            <div class="logo-centered absolute top-0 left-0 z-[3] w-full h-full flex justify-center items-center">
+                                                <img [src]="this.logoPreviewUrl.previewUrl" class="" alt="">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        }
                     </div>
                     <div class="col max-w-[50%] w-full py-4 px-6 border bg-white border-[#E9E9E9] rounded-lg">
                         <!-- [formGroup]="addcategoryFormGroup" -->

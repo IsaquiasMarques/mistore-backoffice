@@ -7,5 +7,9 @@ import { Component } from '@angular/core'
 })
 export class CreateBrandComponent {
   logo: any;
+  logoPreviewUrl: any;
+
   coverImage: any;
+  coverImagePreviewUrl: any;
+  
 }

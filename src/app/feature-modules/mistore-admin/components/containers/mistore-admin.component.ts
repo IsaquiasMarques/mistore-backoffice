@@ -66,6 +66,16 @@ export class MistoreAdminComponent extends SidebarExtender implements OnInit, Af
           }
         },
         {
+          icon: { iconRef: 'two-items-list' },
+          label: 'Subcategorias',
+          routeTo: 'subcategories',
+          active: false,
+          bagde: {
+            label: '0',
+            color: BadgeColorEnum.ALERT
+          }
+        },
+        {
           icon: { iconRef: 'alert-triangle' },
           label: 'Denúncias',
           routeTo: 'complaints',

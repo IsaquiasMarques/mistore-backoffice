@@ -5,8 +5,9 @@ import { DashboardComponent } from '@admin/components/views/dashboard/dashboard.
 import { GeneralUsersComponent } from './components/views/general-users/general-users.component';
 import { ProductsStatisticsComponent } from './components/views/products-statistics/products-statistics.component';
 import { BrandsIndexComponent } from './components/views/brands/index/brands.component';
-import { AdminCategoriesComponent } from './components/views/admin-categories/admin-categories.component';
-import { CreateBrandComponent } from './components/views/brands/create/create-brand/create-brand.component';
+import { AdminCategoriesComponent } from './components/views/admin-categories/index/admin-categories.component';
+import { CreateBrandComponent } from './components/views/brands/create/create-brand.component';
+import { CreateAdminCategoriesComponent } from './components/views/admin-categories/create/create-admin-categories.component';
 
 const mistoreSignature: string = '- Mistore, Administração';
 
@@ -67,6 +68,11 @@ const routes: Routes = [
             component: AdminCategoriesComponent,
             title: `Categorias ${ mistoreSignature }`
           },
+          {
+            path: 'create',
+            component: CreateAdminCategoriesComponent,
+            title: `Categorias ${ mistoreSignature }`
+          }
         ]
       }
     ]

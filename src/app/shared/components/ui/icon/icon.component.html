@@ -1,6 +1,6 @@
 <div class="icon-container relative">
     @if (this.theIcon) {
-        @if(this.bagde){
+        @if(this.bagde && this.bagde.label != '0'){
             <div class="badge absolute -top-2 -right-2 p-0 w-5 h-5 flex justify-center items-center rounded-full text-xs text-white"
             [style.backgroundColor]="this.bagde.color"
             >

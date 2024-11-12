@@ -22,7 +22,6 @@ import { OthersComponent } from './components/views/help/childrens/others/others
 import { LooksComponent } from './components/views/looks/index/looks.component';
 import { CreateLookComponent } from './components/views/looks/create/create-look.component';
 
-
 @NgModule({
   declarations: [
     StoreAdminComponent,

@@ -57,7 +57,6 @@ export const SIDEBAR_ICONS: ISidebarIcon[] = [
     },
     {
         ref: { iconRef: '' },
-        
         svg: `assets/svg/static/sidebar-icons/alert-circle.svg`,
         activeSvg: `assets/svg/static/sidebar-icons/alert-circle-white.svg`
     },
@@ -80,6 +79,11 @@ export const SIDEBAR_ICONS: ISidebarIcon[] = [
         ref: { iconRef: 'list' },
         svg: `assets/svg/static/sidebar-icons/list.svg`,
         activeSvg: `assets/svg/static/sidebar-icons/list-white.svg`
+    },
+    {
+        ref: { iconRef: 'two-items-list' },
+        svg: `assets/svg/static/sidebar-icons/two-items-list.svg`,
+        activeSvg: `assets/svg/static/sidebar-icons/two-items-list-white.svg`
     },
     {
         ref: { iconRef: 'alert-triangle' },
