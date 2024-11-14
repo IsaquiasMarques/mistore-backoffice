@@ -17,7 +17,8 @@ export class CreateAdminCategoriesComponent {
     this.categories = [...this.categories, { name: '' }];
   }
 
-  removeCategoryFromFrom($index: number): void{
+  removeCategoryFrom($index: number): void{
+    if(this.categories.length < 2) return;
     this.categories.splice($index,  1);
   }
 

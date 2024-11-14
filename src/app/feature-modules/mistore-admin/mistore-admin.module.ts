@@ -11,6 +11,10 @@ import { BrandsIndexComponent } from './components/views/brands/index/brands.com
 import { AdminCategoriesComponent } from './components/views/admin-categories/index/admin-categories.component';
 import { CreateBrandComponent } from './components/views/brands/create/create-brand.component';
 import { CreateAdminCategoriesComponent } from './components/views/admin-categories/create/create-admin-categories.component';
+import { AdminSubcategoriesComponent } from './components/views/admin-subcategories/index/admin-subcategories.component';
+import { CreateAdminSubcategoriesComponent } from './components/views/admin-subcategories/create/create-admin-subcategories.component';
+import { CreateAdminStoresComponent } from './components/views/stores/create/create-admin-stores.component';
+import { AdminStoresComponent } from './components/views/stores/index/admin-stores.component';
 
 @NgModule({
   declarations: [
@@ -21,7 +25,11 @@ import { CreateAdminCategoriesComponent } from './components/views/admin-categor
     BrandsIndexComponent,
     AdminCategoriesComponent,
     CreateBrandComponent,
-    CreateAdminCategoriesComponent
+    CreateAdminCategoriesComponent,
+    AdminSubcategoriesComponent,
+    CreateAdminSubcategoriesComponent,
+    CreateAdminStoresComponent,
+    AdminStoresComponent
   ],
   imports: [
     SharedModule,

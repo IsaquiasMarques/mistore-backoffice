@@ -8,6 +8,10 @@ import { BrandsIndexComponent } from './components/views/brands/index/brands.com
 import { AdminCategoriesComponent } from './components/views/admin-categories/index/admin-categories.component';
 import { CreateBrandComponent } from './components/views/brands/create/create-brand.component';
 import { CreateAdminCategoriesComponent } from './components/views/admin-categories/create/create-admin-categories.component';
+import { AdminSubcategoriesComponent } from './components/views/admin-subcategories/index/admin-subcategories.component';
+import { CreateAdminSubcategoriesComponent } from './components/views/admin-subcategories/create/create-admin-subcategories.component';
+import { AdminStoresComponent } from './components/views/stores/index/admin-stores.component';
+import { CreateAdminStoresComponent } from './components/views/stores/create/create-admin-stores.component';
 
 const mistoreSignature: string = '- Mistore, Administração';
 
@@ -72,7 +76,47 @@ const routes: Routes = [
             path: 'create',
             component: CreateAdminCategoriesComponent,
             title: `Categorias ${ mistoreSignature }`
-          }
+          },
+        ]
+      },
+      {
+        path: 'subcategories',
+        children: [
+          {
+            path: '',
+            redirectTo: 'index',
+            pathMatch: 'full'
+          },
+          {
+            path: 'index',
+            component: AdminSubcategoriesComponent,
+            title: `Subcategorias ${ mistoreSignature }`
+          },
+          {
+            path: 'create',
+            component: CreateAdminSubcategoriesComponent,
+            title: `Subcategorias ${ mistoreSignature }`
+          },
+        ]
+      },
+      {
+        path: 'store',
+        children: [
+          {
+            path: '',
+            redirectTo: 'index',
+            pathMatch: 'full'
+          },
+          {
+            path: 'index',
+            component: AdminStoresComponent,
+            title: `Lojas ${ mistoreSignature }`,
+          },
+          {
+            path: 'create',
+            component: CreateAdminStoresComponent,
+            title: `Lojas ${ mistoreSignature }`,
+          },
         ]
       }
     ]

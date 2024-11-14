@@ -5,12 +5,12 @@
             <div class="aside">
                 <div class="title mb-4">
                     <h1 class="text-black font-extrabold text-2xl">
-                        Usuários
+                        Lojas
                     </h1>
                 </div>
                 <div class="tiny-text">
                     <p class="text-[#AAA] text-base">
-                        Resumo dos principais dados sobre os usuários
+                        Resumo dos principais dados sobre as lojas
                     </p>
                 </div>
             </div>
@@ -103,18 +103,13 @@
 
     </div>
     <div class="wrapper-content mt-10">
-        <div class="bar-charts flex justify-between items-stretch">
-            <div class="hz-bar p-6 w-full rounded-lg border border-[rgba(233,233,233,0.60)] bg-white">
-                <hz-bar [chartData]="this.horizontalChart" />
-            </div>
-        </div>
 
         <div class="table-section mt-10">
             <div class="table-header px-0 flex justify-between items-start">
                 <div class="table-header-aside">
                     <div class="title mb-4">
                         <h1 class="text-black font-bold text-lg">
-                            Lista de usuários da plataforma
+                            Lista de lojas da plataforma
                         </h1>
                     </div>
                 </div>
@@ -128,9 +123,9 @@
                             Filtrar
                         </button>
                     </div>
-                    <!-- <div class="chip-primary borde bg-black w-fit border-black rounded-lg">
+                    <div class="chip-primary borde bg-black w-fit border-black rounded-lg">
                         <button
-                        [routerLink]="['/store/products/create']"
+                        [routerLink]="['/admin/store/create']"
                         class="text-white font-semibold p-4 text-sm leading-4 flex gap-2 justify-center items-center">
                             <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
                                 <g clip-path="url(#clip0_360_1952)">
@@ -142,9 +137,9 @@
                                 </clipPath>
                                 </defs>
                             </svg>
-                            Adicionar usuário
+                            Adicionar Loja
                         </button>
-                    </div> -->
+                    </div>
         
                 </div>
             </div>
@@ -256,14 +251,16 @@
                                                     <p
                                                     *ngIf="this.withTinyText"
                                                     class="text-sm text-[#aaa] leading-4 limited-text one-line">
-                                                        ID: {{ user.ID }}
+                                                        ID: {{ user.NIF }}
                                                     </p>
                                                 </div>
                                             </div>
                                         </td>
+                                        <td class="py-4 px-6 text-[#828282]">{{ user.category }}</td>
+                                        <td class="py-4 px-6 text-[#828282]">{{ user.products_count }}</td>
+                                        <td class="py-4 px-6 text-[#828282] text-left">{{ user.created_at }}</td>
                                         <td class="py-4 px-6 text-[#828282]">{{ user.email }}</td>
-                                        <td class="py-4 px-6 text-[#828282] text-left">{{ user.phone }}</td>
-                                        <td class="py-4 px-6 text-[#828282] text-right">{{ user.created_at }}</td>
+                                        <td class="py-4 px-6 text-[#828282] text-right">{{ user.phone }}</td>
                                     </tr>
                                 }
                             } @else {
