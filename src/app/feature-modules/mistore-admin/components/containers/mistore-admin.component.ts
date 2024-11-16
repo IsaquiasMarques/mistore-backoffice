@@ -46,7 +46,7 @@ export class MistoreAdminComponent extends SidebarExtender implements OnInit, Af
         {
           icon: { iconRef: 'shopping-bag' },
           label: 'Lojas',
-          routeTo: 'stores',
+          routeTo: 'store',
           active: false
         },
         {
