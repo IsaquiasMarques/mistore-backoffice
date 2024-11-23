@@ -11,6 +11,7 @@ import { environment } from "@env/environment.development";
 import { Paginator } from "@shared/component-classes/pagination/paginator.class";
 import { Transformer } from "@shared/component-classes/transformation/transformer.class";
 import { WidgetPercentageStatusEnum } from "@shared/Enums/widget-percentage-status.enum";
+import { AddProductModel } from "@store/components/views/products/create/create-product.component";
 import { ILook } from "@store/models/looks.model";
 import { IProduct, IProductResponse } from "@store/models/product.model";
 import { StatisticsData } from "@store/models/statistics.model";
@@ -49,6 +50,11 @@ export class ApiService extends APIExtender {
                 };
             })
         );
+    }
+
+    addProduct(product: JSON){
+        console.log(product)
+        this.http.post(`${ environment.backend }/api/products/Product-Insert`, product, { headers: this.headers }).pipe(tap(console.log)).subscribe();
     }
 
     getPromotionProducts(page: number = 1, limit_per_page: number): Observable<IProduct[]>{

@@ -39,53 +39,48 @@ export class CreateProductComponent implements OnInit {
   subCategoriesToSelect: IProductSubCategory[] = [];
   sizes: { id: string, label: string, value: string }[] = [
     {
-      id: 'id',
-      label: 'XS',
-      value: 'extra-small'
-    },
-    {
-      id: 'id',
-      label: 'S',
+      id: '0b03bb36-41bb-4552-825f-6721879d5be7',
+      label: 'SM',
       value: 'small'
     },
     {
-      id: 'id',
-      label: 'M',
+      id: '57f0e8f9-e889-4bf2-8dc7-e0213f67242a',
+      label: 'MS',
       value: 'medium'
     },
     {
-      id: 'id',
-      label: 'L',
-      value: 'large'
+      id: 'e4eacc0c-b75a-42d4-95e1-eae0d8113a39',
+      label: 'Z',
+      value: 'z'
     },
     {
-      id: 'id',
+      id: '457af81b-2e00-4d83-906a-2a86a0dbbada',
       label: 'XL',
       value: 'extra-large'
     },
     {
-      id: 'id',
-      label: '2XL',
+      id: 'e25355d5-ed45-418b-892d-40d4bb5a10a6',
+      label: 'XXL',
       value: 'super-large'
     },
   ];
   colors: ColorOption[] = [
     {
-      id: '#754E53',
-      hexCode: '#754E53',
-      colorName: 'Castanho',
-      selected: true,
-    },
-    {
-      id: '#68183A',
-      hexCode: '#68183A',
-      colorName: 'Bege',
+      id: '301bfb7b-18eb-4736-9682-90bffe0265a8',
+      hexCode: '#ffcc00',
+      colorName: 'Amarelo',
       selected: false,
     },
     {
-      id: '#4CA7F8',
-      hexCode: '#4CA7F8',
-      colorName: 'Azul',
+      id: '3344b865-e2dc-45fc-a4f3-9036444df87b',
+      hexCode: '#FF1493',
+      colorName: 'Deep Pink',
+      selected: false,
+    },
+    {
+      id: '6ce8fddc-8c0f-4cb1-8c8f-ae816a72052b',
+      hexCode: '#FFD700',
+      colorName: 'Gold',
       selected: false,
     }
   ];
@@ -169,42 +164,63 @@ export class CreateProductComponent implements OnInit {
     let theColor = this.colors.find(color => color.id === colorId);
     if(theColor && 'selected' in theColor){
       theColor.selected = !theColor.selected;
+      if(theColor.selected){
+        this.selectedColors.push(theColor);
+      } else {
+        const theIndex = this.selectedColors.findIndex(item => item.id === theColor!.id);
+        if(theIndex >= 0){
+          this.selectedColors.splice(theIndex, 1);
+        }
+      }
     }
   }
 
   submitForm(): void{
-
     // after validation
     const fields: AddProductModel = {
       name: this.addProductFormGroup.get('productName')?.value,
-      price: this.addProductFormGroup.get('price')?.value,
-      qtd: this.addProductFormGroup.get('qtd')?.value,
-      promotion: this.addProductFormGroup.get('promotionRate')?.value,
-      description: this.addProductFormGroup.get('description')?.value,
+      price: parseFloat(this.addProductFormGroup.get('price')!.value),
+      stock_quantity: [parseInt(this.addProductFormGroup.get('qtd')!.value)],
+      stock_status: [this.isAvailable],
+      discount_status: true,
+      discount_rate: (this.addProductFormGroup.get('promotionRate')?.value !== '') ? parseInt(this.addProductFormGroup.get('promotionRate')?.value) : 0,
+      desc: this.addProductFormGroup.get('description')?.value,
       brand_id: this.selectedBrand[0].id,
       category_id: this.selectedCategory[0].id,
       subcategory_id: this.selectedSubCategories[0].id,
-      sizes: this.selectedSizes.flatMap(_ => _.id),
-      colors: this.selectedColors.flatMap(_ => _.id),
-      avalability: this.isAvailable,
-      images: this.files
+      size: this.selectedSizes.flatMap(_ => _.id),
+      color: this.selectedColors.flatMap(_ => _.id),
+      images: this.files.flatMap(_ => _.previewUrl),
+      images_filename: this.files.flatMap(_ => _.name),
+      shop_id: '1c13d9e3-41a3-47c5-83ae-8785441c878b',
+      coverimage: this.files[0].previewUrl,
+      coverimage_filename: '',
+      imagescolor: [],
+      imagescolor_filename: []
     };
 
-    this.addProductFacade.addProduct(fields);
+    this.addProductFacade.addProduct(JSON.parse(JSON.stringify(fields)));
   }
 }
 
 export interface AddProductModel{
   name: string,
   price: number,
-  qtd: number,
-  promotion: number,
-  description: string,
+  stock_quantity: number[],
+  stock_status: boolean[]
+  discount_status: boolean,
+  discount_rate: number,
+  shop_id: string,
+  coverimage: string,
+  coverimage_filename: string,
+  desc: number,
   brand_id: string | undefined,
   category_id: string | undefined,
   subcategory_id: string | undefined,
-  sizes: string[],
-  colors: string[],
-  avalability: boolean,
-  images: File[]
+  size: string[],
+  color: string[],
+  images: string[],
+  images_filename: string[],
+  imagescolor: string[],
+  imagescolor_filename: string[]
 }

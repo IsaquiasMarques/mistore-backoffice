@@ -1,0 +1,284 @@
+<div class="wrapper py-6 px-8">
+    <div class="wrapper-header">
+
+        <div class="top-content flex justify-between items-start">
+            <div class="aside">
+                <div class="title mb-4">
+                    <h1 class="text-black font-extrabold text-2xl">
+                        Publicidades
+                    </h1>
+                </div>
+                <div class="tiny-text">
+                    <p class="text-[#AAA] text-base">
+                        Resumo dos principais dados sobre as publicidades
+                    </p>
+                </div>
+            </div>
+            <div class="actions-chips flex gap-8 justify-start items-center">
+    
+                <!-- <div class="chip border bg-white w-fit border-black rounded-lg">
+                    <button class="text-black font-semibold p-4 text-sm leading-4 flex gap-2 justify-center items-center">
+                        <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M14 6.66683H2M10.6667 1.3335V4.00016M5.33333 1.3335V4.00016M5.2 14.6668H10.8C11.9201 14.6668 12.4802 14.6668 12.908 14.4488C13.2843 14.2571 13.5903 13.9511 13.782 13.5748C14 13.147 14 12.5869 14 11.4668V5.86683C14 4.74672 14 4.18667 13.782 3.75885C13.5903 3.38252 13.2843 3.07656 12.908 2.88482C12.4802 2.66683 11.9201 2.66683 10.8 2.66683H5.2C4.0799 2.66683 3.51984 2.66683 3.09202 2.88482C2.71569 3.07656 2.40973 3.38252 2.21799 3.75885C2 4.18667 2 4.74672 2 5.86683V11.4668C2 12.5869 2 13.147 2.21799 13.5748C2.40973 13.9511 2.71569 14.2571 3.09202 14.4488C3.51984 14.6668 4.0799 14.6668 5.2 14.6668Z" stroke="black" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>                            
+                        Selecionar data
+                    </button>
+                </div>
+                <div class="chip border bg-white border-black w-fit rounded-lg">
+                    <button class="text-black font-semibold p-4 text-sm leading-4 flex gap-2 justify-center items-center">
+                        <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M14 10V10.8C14 11.9201 14 12.4802 13.782 12.908C13.5903 13.2843 13.2843 13.5903 12.908 13.782C12.4802 14 11.9201 14 10.8 14H5.2C4.07989 14 3.51984 14 3.09202 13.782C2.71569 13.5903 2.40973 13.2843 2.21799 12.908C2 12.4802 2 11.9201 2 10.8V10M11.3333 6.66667L8 10M8 10L4.66667 6.66667M8 10V2" stroke="black" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                        Baixar Relatório
+                    </button>
+                </div> -->
+    
+            </div>
+        </div>
+
+    </div>
+    <div class="wrapper-content mt-10">
+
+        <div class="table-section mt-10">
+            <div class="table-header px-0 flex justify-between items-start">
+                <div class="table-header-aside">
+                    <div class="title mb-4">
+                        <h1 class="text-black font-bold text-lg">
+                            Lista das publicidades
+                        </h1>
+                    </div>
+                </div>
+                <div class="table-header-actions-chips flex gap-8 justify-start items-center">
+        
+                    <div class="chip border bg-white w-fit border-[#E9E9E9] rounded-lg">
+                        <button class="text-black font-semibold p-4 text-sm leading-4 flex gap-2 justify-center items-center">
+                            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M4 8H12M2 4H14M6 12H10" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                            Filtrar
+                        </button>
+                    </div>
+                    <div class="chip-primary borde bg-black w-fit border-black rounded-lg">
+                        <button
+                        [routerLink]="['/admin/advertisements/create']"
+                        class="text-white font-semibold p-4 text-sm leading-4 flex gap-2 justify-center items-center">
+                            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <g clip-path="url(#clip0_360_1952)">
+                                <path d="M7.99967 5.3335V10.6668M5.33301 8.00016H10.6663M14.6663 8.00016C14.6663 11.6821 11.6816 14.6668 7.99967 14.6668C4.31778 14.6668 1.33301 11.6821 1.33301 8.00016C1.33301 4.31826 4.31778 1.3335 7.99967 1.3335C11.6816 1.3335 14.6663 4.31826 14.6663 8.00016Z" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                </g>
+                                <defs>
+                                <clipPath id="clip0_360_1952">
+                                <rect width="16" height="16" fill="white"/>
+                                </clipPath>
+                                </defs>
+                            </svg>
+                            Adicionar publicidade
+                        </button>
+                    </div>
+        
+                </div>
+            </div>
+            <div class="table-content relative mt-7">
+                <mi-table
+                [pagination]="true"
+                [route]="this.route"
+                [perPage]="this.perPage"
+                [currentPage]="this.currentPage"
+                [totalItems]="this.totalItems"
+                >
+                    <thead class="bg-[#F8F8F8] sticky z-[5] w-full left-0 text-left"
+                    #theadElementRef
+                    [style.top.px]="TABLE_STICKY_TOP"
+                    slot="table-header"
+                    >
+                        <tr class="text-sm">
+                            <th class="relative py-4 px-6" *ngIf="this.checkbox">
+                                <label class="checkbox-container"
+                                [ngClass]="{
+                                    'all-checked': this.selectedItems.length === this.totalItems,
+                                    'some-checked': this.selectedItems.length > 0  && (this.selectedItems.length < this.totalItems) 
+                                }"
+                                >
+                                    <input type="checkbox"
+                                    (click)="this.toggleSelect()"
+                                    [checked]="this.selectedItems.length > 0"
+                                    >
+                                    <span class="checkmark checkmark-th"></span>
+                                </label>
+                            </th>
+                            <th class="py-4 px-6" *ngFor="let item of this.tableHeader; let l = last"
+                            [ngClass]="{
+                                'text-right': l
+                            }"
+                            >{{ item }}</th>
+                        </tr>
+                    </thead>
+                    <tbody
+                    class="relative"
+                    slot="table-body"
+                    >
+                        @if (!(this.loaderService.getLoadingStatus(this.pageLoaderIdentifier.BRANDS_ADD_PRODUCTS) | async)) {
+                            @if(this.tableAdvertisements.length > 0){
+                                @if (this.selectedItems.length > 0) {
+                                    <tr class="text-sm appear-softly sticky bg-white z-[5] w-full left-0"
+                                    [style.top.px]="selectedDetailsStickyTopSpacing"
+                                    >
+                                        <td colspan="7" class="text-left pl-4 pr-10 py-4 font-medium">
+                                            <div class="selected-details flex justify-between items-center">
+                                                <div class="aside">
+                                                    <p class="text-[#999]">
+                                                        {{ this.selectedItems.length }} / <span class="text-black">{{ this.totalItems }}</span>
+                                                        Selecionado{{ this.selectedItems.length > 1 ? 's' : '' }}
+                                                    </p>
+                                                </div>
+                                                <div class="buttons flex gap-5 justify-center items-center">
+                                                    <button class="">
+                                                        <svg width="34" height="34" viewBox="0 0 34 34" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                            <rect x="0.5" y="0.5" width="33" height="33" rx="3.5" fill="#F8F8F8"/>
+                                                            <rect x="0.5" y="0.5" width="33" height="33" rx="3.5" stroke="#F2F2F2"/>
+                                                            <path d="M24.5002 24.4999H17.8335M9.0835 24.9166L13.7079 23.138C14.0037 23.0242 14.1516 22.9673 14.2899 22.8931C14.4128 22.8271 14.53 22.751 14.6402 22.6654C14.7643 22.5692 14.8763 22.4571 15.1004 22.233L24.5002 12.8333C25.4207 11.9128 25.4207 10.4204 24.5002 9.49993C23.5797 8.57945 22.0873 8.57945 21.1669 9.49992L11.7671 18.8997C11.543 19.1238 11.4309 19.2358 11.3347 19.3599C11.2491 19.4701 11.173 19.5873 11.107 19.7102C11.0328 19.8485 10.9759 19.9964 10.8621 20.2922L9.0835 24.9166ZM9.0835 24.9166L10.7986 20.4574C10.9213 20.1383 10.9827 19.9787 11.0879 19.9057C11.1799 19.8418 11.2937 19.8176 11.4037 19.8386C11.5296 19.8627 11.6505 19.9836 11.8922 20.2253L13.7748 22.1079C14.0166 22.3496 14.1374 22.4705 14.1615 22.5964C14.1825 22.7064 14.1583 22.8202 14.0945 22.9122C14.0214 23.0174 13.8618 23.0788 13.5427 23.2015L9.0835 24.9166Z" stroke="black" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
+                                                        </svg>
+                                                    </button>
+                                                    <button class="">
+                                                        <svg width="34" height="34" viewBox="0 0 34 34" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                            <rect width="34" height="34" rx="4" fill="#E13029"/>
+                                                            <path d="M20.3333 11.9998V11.3332C20.3333 10.3997 20.3333 9.93304 20.1517 9.57652C19.9919 9.26292 19.7369 9.00795 19.4233 8.84816C19.0668 8.6665 18.6001 8.6665 17.6667 8.6665H16.3333C15.3999 8.6665 14.9332 8.6665 14.5767 8.84816C14.2631 9.00795 14.0081 9.26292 13.8483 9.57652C13.6667 9.93304 13.6667 10.3997 13.6667 11.3332V11.9998M15.3333 16.5832V20.7498M18.6667 16.5832V20.7498M9.5 11.9998H24.5M22.8333 11.9998V21.3332C22.8333 22.7333 22.8333 23.4334 22.5608 23.9681C22.3212 24.4386 21.9387 24.821 21.4683 25.0607C20.9335 25.3332 20.2335 25.3332 18.8333 25.3332H15.1667C13.7665 25.3332 13.0665 25.3332 12.5317 25.0607C12.0613 24.821 11.6788 24.4386 11.4392 23.9681C11.1667 23.4334 11.1667 22.7333 11.1667 21.3332V11.9998" stroke="white" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
+                                                        </svg>
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                }
+                                @for (advertisement of this.tableAdvertisements; track $index) {
+                                    <tr class="text-sm appear-softly"
+                                    [ngClass]="{
+                                        'bg-[#F8F8F8]': isSelected(advertisement.id, 'checked')
+                                    }"
+                                    >
+                                        <td class="relative py-4 px-6"
+                                        *ngIf="this.checkbox"
+                                        >
+                                            <label class="checkbox-container">
+                                                <input
+                                                type="checkbox"
+                                                [checked]="isSelected(advertisement.id, 'checked')"
+                                                (click)="selectItem(advertisement.id)"
+                                                >
+                                                <span class="checkmark"></span>
+                                            </label>
+                                        </td>
+                                        <td class="py-4 px-6">
+                                            <div class="advertisement-details flex gap-x-2 justify-start items-center">
+                                                <div class="image w-12 h-12 overflow-hidden"
+                                                *ngIf="this.withImage"
+                                                [ngClass]="{
+                                                    'rounded-full': this.imageRadius == 'full',
+                                                    'rounded': this.imageRadius == 'lg',
+                                                }"
+                                                >
+                                                    <img src="{{ (advertisement.imagePath != '') ? advertisement.imagePath : 'assets/images/advertisements/no-image.png' }}" class="w-full h-full object-cover object-center" alt="">
+                                                </div>
+                                                <div class="advertisement max-w-[10.625rem] flex flex-col gap-y-2 justify-between items-start">
+                                                    <h1 class="text-black text-sm leading-4 font-medium limited-text one-line">
+                                                        {{ advertisement.name }}
+                                                    </h1>
+                                                    <p
+                                                    *ngIf="this.withTinyText"
+                                                    class="text-sm text-[#aaa] leading-4 limited-text one-line">
+                                                        ID: {{ advertisement.ref }}
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td class="py-4 px-6 text-[#828282]">{{ advertisement.destination_page }}</td>
+                                        <td class="py-4 px-6 text-[#828282]">{{ advertisement.duration }}</td>
+                                        <td class="py-4 px-6 text-[#828282] text-right">{{ advertisement.created_at }}</td>
+                                    </tr>
+                                }
+                            } @else {
+                                <tr class="text-sm appear-softly">
+                                    <td colspan="7" class="text-left px-6 py-4 font-medium">
+                                        Sem publicidades cadastrados.
+                                    </td>
+                                </tr>
+                            }
+                        } @else {
+                            @for(placeholder of this.generatePlaceholders(); track $index){
+                                <tr class="text-sm appear-softly">
+                                    <td class="relative py-4 px-6" *ngIf="this.checkbox">
+                                        <label class="checkbox-container relative">
+                                            <span class="checkmark-placeholder placeholder !relative !w-6 !h-6"></span>
+                                        </label>
+                                    </td>
+                                    <td class="py-4 px-6">
+                                        <div class="advertisement-details flex gap-x-2 justify-start items-center">
+                                            <div class="image relative w-12 h-12 overflow-hidden"
+                                            *ngIf="this.withImage"
+                                            [ngClass]="{
+                                                'rounded-full': this.imageRadius == 'full',
+                                                'rounded': this.imageRadius == 'lg',
+                                            }"
+                                            >
+                                                <div class="placeholder"></div>
+                                            </div>
+                                            <div class="advertisement max-w-[10.625rem] flex flex-col gap-y-2 justify-between items-start">
+                                                <h1 class="text-transparent !relative placeholder text-sm leading-4 font-medium limited-text one-line">
+                                                    Texto médio para o skeleton
+                                                </h1>
+                                                <p
+                                                *ngIf="this.withTinyText"
+                                                class="text-sm !relative !w-fit placeholder text-transparent leading-4 limited-text one-line">
+                                                    Texto Pequeno
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td class="py-4 px-6 text-transparent">
+                                        <p class="placeholder !relative !w-fit">Texto pequeno</p>
+                                    </td>
+                                    <td class="py-4 px-6 text-transparent">
+                                        <p class="placeholder !relative !w-fit">Texto pequeno</p>
+                                    </td>
+                                    <td class="py-4 px-6 text-transparent">
+                                        <p class="placeholder !relative !w-fit">Texto pequeno</p>
+                                    </td>
+                                    <td class="py-4 px-6 text-transparent">
+                                        <p class="placeholder !relative !w-fit">Texto pequeno</p>
+                                    </td>
+                                    <td class="py-4 px-6  flex justify-end">
+                                        <button class="chip placeholder text-transparent !relative !w-fit py-1 px-2 rounded-full font-medium">
+                                            Texto pequeno
+                                        </button>
+                                    </td>
+                                </tr>
+                            }
+                        }
+    
+                        <!-- @if (this.selectedItems.length > 0) {
+                            <div class="modal-selected-advertisements fixed ml-6 bottom-10 z-[10] bg-white p-6 w-[360px] h-[240px] rounded-lg shadow-[0px_8px_24px_4px_rgba(0,0,0,0.08)]">
+                                <div class="advertisements-container h-full overflow-y-auto">
+                                    <div class="boxes flex flex-col gap-4 items-start">
+                                        @for (selectedadvertisement of selectedItems; track $index) {
+                                            <div class="box flex justify-start gap-2">
+                                                <div class="image w-10 h-10 relative rounded overflow-hidden">
+                                                    <img [src]="(getTheItem(selectedadvertisement)?.imagePath != '') ? getTheItem(selectedadvertisement)?.imagePath : 'assets/images/advertisements/no-image.png'" class="w-full h-full object-cover object-center" alt="">
+                                                </div>
+                                                <div class="description">
+                                                    <p class="text-xs mb-1 font-medium leading-4 limited-text one-line">{{ getTheItem(selectedadvertisement)?.name}}</p>
+                                                    <p class="text-xs text-[#AAA] limited-text one-line">ID: {{ getTheItem(selectedadvertisement)?.ID }}</p>
+                                                </div>
+                                            </div>
+                                        }
+                                    </div>
+                                </div>
+                            </div>
+                        } -->
+    
+                    </tbody>
+                </mi-table>
+            </div>
+        </div>
+
+    </div>
+</div>

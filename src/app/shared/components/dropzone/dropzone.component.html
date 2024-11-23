@@ -27,7 +27,7 @@
                     </div>
                 }
             </div>
-            <input type="file" accept="jpg,jpeg,png" (change)="dropzoneOnChange($event.target)" (change)="this.emit()" [id]="'file' + this.name" class=" absolute w-full h-full top-0 left-0 invisible" [multiple]="this.multi">
+            <input type="file" accept="jpg,jpeg,png" (change)="dropzoneOnChange($event.target)" (change)="this.emit()" (change)="this.emitOutComeFiles()" [id]="'file' + this.name" class=" absolute w-full h-full top-0 left-0 invisible" [multiple]="this.multi">
         </div>
     </label>
 

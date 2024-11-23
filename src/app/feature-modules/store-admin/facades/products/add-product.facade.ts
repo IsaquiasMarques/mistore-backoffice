@@ -9,7 +9,7 @@ export class AddProductFacade{
     private API = inject(ApiService);
     constructor() { }
 
-    addProduct(product: AddProductModel): void{
-        // 
+    addProduct(product: JSON): void{
+        this.API.addProduct(product);
     }
 }

@@ -12,6 +12,8 @@ import { AdminSubcategoriesComponent } from './components/views/admin-subcategor
 import { CreateAdminSubcategoriesComponent } from './components/views/admin-subcategories/create/create-admin-subcategories.component';
 import { AdminStoresComponent } from './components/views/stores/index/admin-stores.component';
 import { CreateAdminStoresComponent } from './components/views/stores/create/create-admin-stores.component';
+import { ComplaintsComponent } from './components/views/complaints/complaints.component';
+import { AdvertisementsComponent } from './components/views/advertisements/advertisements.component';
 
 const mistoreSignature: string = '- Mistore, Administração';
 
@@ -118,6 +120,16 @@ const routes: Routes = [
             title: `Lojas ${ mistoreSignature }`,
           },
         ]
+      },
+      {
+        path: 'complaints',
+        title: `Denúncias ${ mistoreSignature }`,
+        component: ComplaintsComponent
+      },
+      {
+        path: 'advertisements',
+        title: `Anúncios ${ mistoreSignature }`,
+        component: AdvertisementsComponent
       }
     ]
   }

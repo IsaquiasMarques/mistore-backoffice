@@ -15,6 +15,8 @@ import { AdminSubcategoriesComponent } from './components/views/admin-subcategor
 import { CreateAdminSubcategoriesComponent } from './components/views/admin-subcategories/create/create-admin-subcategories.component';
 import { CreateAdminStoresComponent } from './components/views/stores/create/create-admin-stores.component';
 import { AdminStoresComponent } from './components/views/stores/index/admin-stores.component';
+import { ComplaintsComponent } from './components/views/complaints/complaints.component';
+import { AdvertisementsComponent } from './components/views/advertisements/advertisements.component';
 
 @NgModule({
   declarations: [
@@ -29,7 +31,9 @@ import { AdminStoresComponent } from './components/views/stores/index/admin-stor
     AdminSubcategoriesComponent,
     CreateAdminSubcategoriesComponent,
     CreateAdminStoresComponent,
-    AdminStoresComponent
+    AdminStoresComponent,
+    ComplaintsComponent,
+    AdvertisementsComponent
   ],
   imports: [
     SharedModule,
