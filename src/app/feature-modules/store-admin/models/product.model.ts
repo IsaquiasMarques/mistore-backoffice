@@ -14,13 +14,14 @@ export interface IProductColor{
 
 export interface IProductSize{
     id: string,
+    subcategory_id?: string,
     size: string
 }
 
 export interface IProductSubCategory{
     id: string,
     name: string,
-    parent_id: string
+    parent_id?: string
     slug?: string
 }
 

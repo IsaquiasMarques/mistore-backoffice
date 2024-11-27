@@ -29,12 +29,4 @@ export class ProductFacade{
         return this.api.getBrands();
     };
 
-    categories(): Observable<IProductCategory[]>{
-        return this.api.getCategories();
-    }
-
-    subCategories(categoryId: string): Observable<IProductSubCategory[]>{
-        return this.api.getSubcategories(categoryId);
-    }
-
 }

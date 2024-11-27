@@ -27,6 +27,8 @@ export class SelectComponent implements OnInit, OnChanges, AfterViewInit {
   isSelectExpanded: boolean = false;
   maxHeightOfDropdown: number = 0;
 
+  contentInitiated: boolean = false;
+
   @ViewChild('selectDropdownReference') selectDropdownReference!: ElementRef<HTMLElement>;
 
   ngOnInit(): void {
@@ -36,11 +38,25 @@ export class SelectComponent implements OnInit, OnChanges, AfterViewInit {
   ngOnChanges(changes: SimpleChanges): void {
     this.placeholderDisplay = this.placeholder;
     this.filteredItems = this.items;
+    if(this.items.length > 0){
+      this.countItems();
+    }
+  }
+  
+  ngAfterViewInit(): void {
+    this.countItems();
   }
 
-  ngAfterViewInit(): void {
-    for (let index = 0; index < this.selectDropdownReference.nativeElement.children.length; index++) {
-      this.maxHeightOfDropdown += this.selectDropdownReference.nativeElement.children[index].clientHeight;
+  countItems(){
+    // for (let index = 0; index </ this.selectDropdownReference.nativeElement.children.length; index++) {
+    //   this.maxHeightOfDropdown += this.selectDropdownReference.nativeElement.children[index].clientHeight;
+    // }
+
+    const selectDropdownReference = document.querySelector(`.dropdown-${ this.name }`) as HTMLElement;
+    // console.log(selectDropdownReference)
+    if(!selectDropdownReference) return;
+    for (let index = 0; index < selectDropdownReference.children.length; index++) {
+      this.maxHeightOfDropdown += selectDropdownReference.children[index].clientHeight;
     }
   }
 

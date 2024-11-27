@@ -70,7 +70,7 @@
                                     <mi-select
                                     [label]="'Marca'"
                                     [name]="'select-brand'"
-                                    [items]="this.brandsToSelect"
+                                    [items]="this.brandsToSelect()"
                                     [optionValue]="'id'"
                                     [optionName]="'name'"
                                     [placeholder]="'Seleccione a marca'"
@@ -91,7 +91,7 @@
                                     <mi-select
                                     [label]="'Categoria'"
                                     [name]="'select-category'"
-                                    [items]="this.categoriesToSelect"
+                                    [items]="this.categoriesToSelect()"
                                     [optionValue]="'id'"
                                     [optionName]="'name'"
                                     [placeholder]="'Seleccione a categoria'"
@@ -111,7 +111,7 @@
                                     <mi-select
                                     [label]="'Subcategorias'"
                                     [name]="'select-subcategory'"
-                                    [items]="this.subCategoriesToSelect"
+                                    [items]="this.subCategoriesToSelect()"
                                     [optionValue]="'id'"
                                     [optionName]="'name'"
                                     [multi]="false"
@@ -124,9 +124,9 @@
                                 <mi-select
                                 [label]="'Tamanhos'"
                                 [name]="'select-size'"
-                                [items]="this.sizes"
-                                [optionValue]="'value'"
-                                [optionName]="'label'"
+                                [items]="this.sizes()"
+                                [optionValue]="'id'"
+                                [optionName]="'size'"
                                 [multi]="true"
                                 [placeholder]="'Seleccione os tamanhos'"
                                 (selectedItemsEventEmitter)="this.selectedSizesEventHandler($event)"
@@ -136,7 +136,7 @@
                             <div class="colors">
                                 <div class="title mb-4 text-xs text-black">Cores</div>
                                 <div class="colors-container flex flex-wrap gap-4 justify-start items-center">
-                                    @for (color of colors; track $index) {
+                                    @for (color of colors(); track $index) {
                                         <div class="color flex gap-x-2 justify-start cursor-pointer items-center"
                                         (click)="toggleSelectColor(color.id)"
                                         >

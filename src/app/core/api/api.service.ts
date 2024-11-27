@@ -1,6 +1,7 @@
 import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { IBrand } from "@core/base-models/base/brands.model";
+import { ColorOption } from "@core/base-models/base/ColorOption.model";
 import { IProductCategory } from "@core/base-models/base/product-category.model";
 import { IProductSubCategory } from "@core/base-models/base/subcategory.model";
 import { APIExtender } from "@core/class/api/api-extender.class";
@@ -13,7 +14,7 @@ import { Transformer } from "@shared/component-classes/transformation/transforme
 import { WidgetPercentageStatusEnum } from "@shared/Enums/widget-percentage-status.enum";
 import { AddProductModel } from "@store/components/views/products/create/create-product.component";
 import { ILook } from "@store/models/looks.model";
-import { IProduct, IProductResponse } from "@store/models/product.model";
+import { IProduct, IProductResponse, IProductSize } from "@store/models/product.model";
 import { StatisticsData } from "@store/models/statistics.model";
 import { Observable, delay, map, of, tap, timer } from "rxjs";
 
@@ -89,12 +90,10 @@ export class ApiService extends APIExtender {
     }
     
     getBrands(): Observable<IBrand[]>{
-        // return this.http.get<IBrand[]>(`api/brands`)
-        //                 .pipe(
-        //                     delay(2000),
-        //                     map(_ => BRANDS),
-        //                 );
-        return of(BRANDS).pipe(delay(2000));
+        return this.http.get<IBrand[]>(`${ environment.backend }/api/brands/all`, { headers: this.headers })
+                        .pipe(
+                            map((incoming: any[]) => Transformer.brands(incoming)),
+                        );
     }
 
     getLooks(page: number, limit_per_page: number): Observable<ILook[]>{
@@ -108,21 +107,24 @@ export class ApiService extends APIExtender {
     }
 
     getCategories(): Observable<IProductCategory[]>{
-        // return this.http.get<IProductCategory[]>(`api/categories`)
-        //                 .pipe(
-        //                     // tap(console.log)
-        //                 );
-        return of(CATEGORIES).pipe(delay(2000));
+        return this.http.get<IProductCategory[]>(`${ environment.backend }/api/categories/all`, { headers: this.headers })
+                        .pipe(
+                            map((incoming: any[]) => Transformer.categories(incoming))
+                        );
     }
 
-    getSubcategories(categoryId: string): Observable<IProductSubCategory[]>{
-        // return this.http.get<IProductSubCategory[]>(`api/subcategories?category_id=${ categoryId }`)
-        //                 .pipe(
-        //                     // tap(console.log)
-        //                 );
-        return of(SUB_CATEGORIES).pipe(
-            delay(2000),
-            map(_ => _.filter(subcategory => subcategory.category_id === categoryId))
-        )
+    getSizes(subcategory_id?: string): Observable<IProductSize[]>{
+        const headers = new HttpHeaders().set('apiKey', environment.supabase_key);
+        return this.http.get<IProductSize[]>(`${ environment.supabase_url }/rest/v1/Sizes`, { headers: headers }).pipe(
+            map((incoming: any[]) => Transformer.sizes(incoming)),
+            map(incoming => (subcategory_id) ? incoming.filter(size => size.subcategory_id === subcategory_id) : incoming)
+        );
+    }
+
+    getColors(): Observable<ColorOption[]>{
+        const headers = new HttpHeaders().set('apiKey', environment.supabase_key);
+        return this.http.get<ColorOption[]>(`${ environment.supabase_url }/rest/v1/Colors`, { headers: headers }).pipe(
+            map((incoming: any[]) => Transformer.colors(incoming))
+        );
     }
 }

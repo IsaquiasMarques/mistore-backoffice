@@ -1,3 +1,6 @@
+import { IBrand } from "@core/base-models/base/brands.model";
+import { ColorOption } from "@core/base-models/base/ColorOption.model";
+import { IProductCategory } from "@core/base-models/base/product-category.model";
 import { ProductStatusEnum } from "@store/enums/products-status.enum";
 import { ILook } from "@store/models/looks.model";
 import { IProduct, IProductColor, IProductSize } from "@store/models/product.model";
@@ -51,6 +54,58 @@ export class Transformer{
 
     static looks(incoming: any[]): ILook[]{
         return [];
+    }
+
+    static brands(incoming: any[]): IBrand[]{
+        return incoming.flatMap((i: any) => {
+            return {
+                id: i.id,
+                name: i.name,
+                slug: i.slug,
+                logoPath: i.logo,
+                bgPath: i.bgImage
+            }
+        });
+    }
+
+    static categories(incoming: any[]): IProductCategory[]{
+        return incoming.flatMap((i: any) => {
+            return {
+                id: i.id,
+                name: i.name,
+                slug: i.slug,
+                subcategories: i.subcategories.flatMap((s: any) => {
+                    return {
+                        id: s.id,
+                        name: s.name,
+                        slug: s.slug,
+                        // parent_id: s.category_id
+                        parent_id: i.id
+                    }
+                })
+            }
+        });
+    }
+
+    static sizes(incoming: any[]): IProductSize[]{
+        return incoming.flatMap((i: any) => {
+            return {
+                id: i.id,
+                size: i.size,
+                subcategory_id: i.subcategory_id
+            }
+        });
+    }
+
+    static colors(incoming: any[]): ColorOption[]{
+        return incoming.flatMap((i: any) => {
+            return {
+                id: i.id,
+                hexCode: i.color,
+                colorName: i.description,
+                selected: false
+            }
+        })
     }
 
     static date(date: string, currentSeparator: string, replacementSeparator: string): string{
