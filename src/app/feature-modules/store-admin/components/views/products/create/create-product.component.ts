@@ -12,6 +12,7 @@ import { CategoryFacade } from '@store/facades/category.facade';
 import { SizeFacade } from '@store/facades/size.facade';
 import { ColorFacade } from '@store/facades/color.facade';
 import { IProductSize } from '@store/models/product.model';
+import { map } from 'rxjs';
 
 @Component({
   selector: 'mi-create-product',
@@ -49,6 +50,11 @@ export class CreateProductComponent implements OnInit {
 
   isAvailable: boolean = true;
 
+  showColorModal: boolean = false;
+  theColor: ColorOption | undefined;
+  colorsWithImages: { [color: string]: any[] } = {};
+  imagesColors: any[] = [];
+
   ngOnInit(): void {
     this.loaderService.setLoadingStatus(this.pageLoaderIdentifier.BRANDS_ADD_PRODUCTS, true);
     this.loaderService.setLoadingStatus(this.pageLoaderIdentifier.CATEGORIES_ADD_PRODUCTS, true);
@@ -74,7 +80,14 @@ export class CreateProductComponent implements OnInit {
       }
     });
 
-    this.colorFacade.all().subscribe((incoming: ColorOption[]) => this.colors.set(incoming))
+    this.colorFacade.all().pipe(
+      map(incoming => {
+        // incoming.forEach((ele: ColorOption) => {
+        //   this.colorsWithImages[ele.id] = [];
+        // });
+        return incoming
+      })
+    ).subscribe((incoming: ColorOption[]) => this.colors.set(incoming));
 
     if(!this.selectedCategory){
       this.loaderService.setLoadingStatus(this.pageLoaderIdentifier.SUB_CATEGORIES_ADD_PRODUCTS, false);
@@ -88,6 +101,16 @@ export class CreateProductComponent implements OnInit {
       'description': new FormControl('', [Validators.required])
     })
 
+  }
+
+  addImagesToColor($event: any[]): void{
+    this.colorsWithImages[this.theColor!.id] = $event;
+  }
+
+  hideColorModal($event: boolean): void{
+    if($event){
+      this.showColorModal = false;
+    }
   }
 
   selectedBrandEventHandler($event: any){
@@ -129,11 +152,20 @@ export class CreateProductComponent implements OnInit {
     if(theColor && 'selected' in theColor){
       theColor.selected = !theColor.selected;
       if(theColor.selected){
+        
+        // adiciona as imagens da cor clicada
+        this.showColorModal = true;
+        this.theColor = theColor;
+
         this.selectedColors.push(theColor);
       } else {
         const theIndex = this.selectedColors.findIndex(item => item.id === theColor!.id);
         if(theIndex >= 0){
+
+          // remove as imagens da cor clicada
+          
           this.selectedColors.splice(theIndex, 1);
+
         }
       }
     }

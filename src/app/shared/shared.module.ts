@@ -17,6 +17,7 @@ import { SidebarMenuComponent } from './components/sidebar-menu/sidebar-menu.com
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { FooterComponent } from './components/footer/footer.component';
 import { DropzoneComponent } from './components/dropzone/dropzone.component';
+import { ModalComponent } from './components/modal/modal.component';
 
 @NgModule({
   declarations: [
@@ -35,6 +36,7 @@ import { DropzoneComponent } from './components/dropzone/dropzone.component';
     DragAndDropDirective,
     FooterComponent,
     DropzoneComponent,
+    ModalComponent,
   ],
   imports: [
     CommonModule,
@@ -62,7 +64,8 @@ import { DropzoneComponent } from './components/dropzone/dropzone.component';
     SvgComponent,
     ReplaceByPipe,
     DataFormatPipe,
-    DropzoneComponent
+    DropzoneComponent,
+    ModalComponent
   ],
 })
 export class SharedModule { }

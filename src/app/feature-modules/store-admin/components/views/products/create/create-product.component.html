@@ -256,3 +256,20 @@
         </div>
     </div>
 </div>
+
+<div class="modal">
+    @if (this.theColor !== undefined) {
+        <mi-modal
+        [showModalFromParent]="this.showColorModal"
+        (hideModalOnParent)="this.hideColorModal($event)"
+        >
+            <div class="modal-content w-[500px] rounded-lg overflow-hidden bg-white p-10">
+                <mi-dropzone
+                [showDimentionsText]="true"
+                [showPreviewFiles]="false"
+                [name]="this.theColor!.colorName!"
+                (outcomeFiles)="this.addImagesToColor($event)"/>
+            </div>
+        </mi-modal>
+    }
+</div>
