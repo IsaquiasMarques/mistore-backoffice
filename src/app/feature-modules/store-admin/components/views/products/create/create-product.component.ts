@@ -105,6 +105,15 @@ export class CreateProductComponent implements OnInit {
 
   addImagesToColor($event: any[]): void{
     this.colorsWithImages[this.theColor!.id] = $event;
+    console.log(this.colorsWithImages);
+  }
+
+  imageHasLoaded(colorId: string, index: number){
+    this.colorsWithImages[colorId][index]['hasLoaded'] = true;
+  }
+
+  removeFileItem(colorId: string, index: number){
+    this.colorsWithImages[colorId].splice(index, 1);
   }
 
   hideColorModal($event: boolean): void{

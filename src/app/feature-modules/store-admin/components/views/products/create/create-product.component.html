@@ -46,6 +46,74 @@
                             [name]="'brand-cover-image'"
                             (outcomeFiles)="this.files = $event"/>
                         </div>
+
+                        @if(this.selectedColors.length > 0){
+                            <div class="colors-images-display mt-12">
+                                <div class="title mb-4">
+                                    <h5 class="text-xs font-medium">
+                                        Imagens do produto por cor
+                                    </h5>
+                                </div>
+
+                                @for (color of this.selectedColors; track color.hexCode) {
+                                    <div class="uploaded-files mt-8">
+                                        <div class="files flex flex-col gap-y-6" *ngIf="this.colorsWithImages[color.id] && this.colorsWithImages[color.id].length > 0">                                
+                                            @for (file of this.colorsWithImages[color.id]; track $index) {
+                                                <div class="file p-3 bg-[#f8f8f8] border border-[#e9e9e9] rounded-lg flex gap-x-2 justify-start items-stretch">
+                                                    <div class="image-preview !relative !w-14 !h-12 rounded overflow-hidden"
+                                                    [ngClass]="{
+                                                        'placeholder': !file.hasLoaded
+                                                    }"
+                                                    >
+                                                        <img
+                                                        (load)="imageHasLoaded(color.id, $index)"
+                                                        [ngClass]="{
+                                                            'opacity-0': !file.hasLoaded,
+                                                            'opacity-1': file.hasLoaded,
+                                                        }"
+                                                        src="{{ file.previewUrl }}"
+                                                        class="object-fit duration-[.6s] object-center w-full h-full"
+                                                        alt="">
+                                                    </div>
+                                                    <div class="file-details w-full flex justify-between items-center">
+                                                        <div class="main-content w-[340px]">
+                                                            <div class="filename mb-2">
+                                                                <p class="text-black text-sm font-medium max-w-[340px] limited-text one-line">
+                                                                    {{ file.name }}
+                                                                </p>
+                                                            </div>
+                                                            <div class="tiny-details flex gap-x-2 justify-start items-center">
+                                                                <p class="text-[#aaa] text-sm limited-text one-line">
+                                                                    {{ file.size | dataFormat:2 }}
+                                                                </p>
+                                                                <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                                    <g clip-path="url(#clip0_42_5643)">
+                                                                    <path d="M7.99992 14.6668C11.6818 14.6668 14.6666 11.6821 14.6666 8.00016C14.6666 4.31826 11.6818 1.3335 7.99992 1.3335C4.31802 1.3335 1.33325 4.31826 1.33325 8.00016C1.33325 11.6821 4.31802 14.6668 7.99992 14.6668Z" fill="#61C554"/>
+                                                                    <path d="M4.99992 8.00016L6.99992 10.0002L10.9999 6.00016M14.6666 8.00016C14.6666 11.6821 11.6818 14.6668 7.99992 14.6668C4.31802 14.6668 1.33325 11.6821 1.33325 8.00016C1.33325 4.31826 4.31802 1.3335 7.99992 1.3335C11.6818 1.3335 14.6666 4.31826 14.6666 8.00016Z" stroke="white" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
+                                                                    </g>
+                                                                    <defs>
+                                                                    <clipPath id="clip0_42_5643">
+                                                                    <rect width="16" height="16" fill="white"/>
+                                                                    </clipPath>
+                                                                    </defs>
+                                                                </svg>                                                    
+                                                            </div>
+                                                        </div>
+                                                        <div class="aside-icons">
+                                                            <a (click)="removeFileItem(color.id, $index)" class="cursor-pointer">
+                                                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                                    <path d="M16 6V5.2C16 4.0799 16 3.51984 15.782 3.09202C15.5903 2.71569 15.2843 2.40973 14.908 2.21799C14.4802 2 13.9201 2 12.8 2H11.2C10.0799 2 9.51984 2 9.09202 2.21799C8.71569 2.40973 8.40973 2.71569 8.21799 3.09202C8 3.51984 8 4.0799 8 5.2V6M10 11.5V16.5M14 11.5V16.5M3 6H21M19 6V17.2C19 18.8802 19 19.7202 18.673 20.362C18.3854 20.9265 17.9265 21.3854 17.362 21.673C16.7202 22 15.8802 22 14.2 22H9.8C8.11984 22 7.27976 22 6.63803 21.673C6.07354 21.3854 5.6146 20.9265 5.32698 20.362C5 19.7202 5 18.8802 5 17.2V6" stroke="#999999" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
+                                                                </svg>
+                                                            </a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            }
+                                        </div>
+                                    </div>
+                                }
+                            </div>
+                        }
                     </div>
                     <div class="col max-w-[50%] w-full py-4 px-6 border bg-white border-[#E9E9E9] rounded-lg">
                         <form
@@ -267,6 +335,7 @@
                 <mi-dropzone
                 [showDimentionsText]="true"
                 [showPreviewFiles]="false"
+                [multi]="true"
                 [name]="this.theColor!.colorName!"
                 (outcomeFiles)="this.addImagesToColor($event)"/>
             </div>
