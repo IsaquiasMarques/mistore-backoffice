@@ -6,7 +6,7 @@ import { LOOKS } from '@core/mocks/looks.mock';
 import { LoaderService } from '@core/services/loader/loader.service';
 import { LOOKS_LIMT } from '@shared/constants/data-limit.const';
 import { LookFacade } from '@store/facades/look.facade';
-import { ILook } from '@store/models/looks.model';
+import { ILook, ILookResponse } from '@store/models/looks.model';
 import { takeUntil } from 'rxjs';
 
 @Component({
@@ -41,10 +41,10 @@ implements OnInit {
 
       this.loaderService.setLoadingStatus(PageLoaderIdentifier.LOOKS, true)
       this.lookFacade.looks(this.currentPage, LOOKS_LIMT).pipe(takeUntil(this.unsubscribe)).subscribe({
-        next: (incoming: ILook[]) => {
-          this.looks = incoming;
+        next: (incoming: ILookResponse) => {
+          this.looks = incoming.looks;
           if(this.looks.length > 0){
-            this.totalItems = LOOKS.length;
+            this.totalItems = incoming.total;
             this.searchByTerm();
             this.loaderService.setLoadingStatus(PageLoaderIdentifier.LOOKS, false);
             this.calculatePages();

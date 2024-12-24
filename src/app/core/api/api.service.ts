@@ -3,20 +3,13 @@ import { Injectable } from "@angular/core";
 import { IBrand } from "@core/base-models/base/brands.model";
 import { ColorOption } from "@core/base-models/base/ColorOption.model";
 import { IProductCategory } from "@core/base-models/base/product-category.model";
-import { IProductSubCategory } from "@core/base-models/base/subcategory.model";
 import { APIExtender } from "@core/class/api/api-extender.class";
-import { BRANDS } from "@core/mocks/brands.mock";
-import { CATEGORIES } from "@core/mocks/categories.mock";
-import { SUB_CATEGORIES } from "@core/mocks/subcategories.mock";
 import { environment } from "@env/environment.development";
 import { Paginator } from "@shared/component-classes/pagination/paginator.class";
 import { Transformer } from "@shared/component-classes/transformation/transformer.class";
-import { WidgetPercentageStatusEnum } from "@shared/Enums/widget-percentage-status.enum";
-import { AddProductModel } from "@store/components/views/products/create/create-product.component";
-import { ILook } from "@store/models/looks.model";
+import { ILook, ILookResponse } from "@store/models/looks.model";
 import { IProduct, IProductResponse, IProductSize } from "@store/models/product.model";
-import { StatisticsData } from "@store/models/statistics.model";
-import { Observable, delay, map, of, tap, timer } from "rxjs";
+import { Observable, map, tap } from "rxjs";
 
 @Injectable({
     providedIn: 'root'
@@ -96,14 +89,17 @@ export class ApiService extends APIExtender {
                         );
     }
 
-    getLooks(page: number, limit_per_page: number): Observable<ILook[]>{
-        return this.http.get<ILook[]>(`api/looks`)
-                        .pipe(
-                            // tap(console.log),
-                            map((incomingLooks: ILook[]) => {
-                                return Paginator.paginate(incomingLooks, page, limit_per_page);
-                            })
-                        )
+    getLooks(page: number, limit_per_page: number): Observable<ILookResponse>{
+        const shop_id: string = '9c84acac-6c0b-4d6a-82b7-0a9184d33cee';
+        return this.http.get<ILook[]>(`${ environment.backend }/api/LookApi/GetLookByUser?shop_id=${ this.storeId }&page=${ page }&sortColumn=title&order=asc`,
+            { headers: this.headers }
+        )
+        .pipe(
+            map((incomingLooks: any) => ({
+                total: incomingLooks.look_count,
+                looks: Transformer.looks(incomingLooks.looks)
+            }))
+        )
     }
 
     getCategories(): Observable<IProductCategory[]>{

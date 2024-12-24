@@ -15,13 +15,16 @@ export class Transformer{
             const featureImages: string[] = product.featureimages.flatMap((image: any) => {
                 return image.image
             });
-            const productColors: IProductColor[] = product.product_ColorId.flatMap((color: any) => {
-                return {
-                    id: color.color_id,
-                    color: color.color_name,
-                    hexCode: color.hexacode
-                }
-            });
+            let productColors: IProductColor[] = [];
+            if(product.product_ColorId){
+                 productColors = product.product_ColorId.flatMap((color: any) => {
+                    return {
+                        id: color.color_id,
+                        color: color.color_name,
+                        hexCode: color.hexacode
+                    }
+                });
+            }
 
             // const productSizes: IProductSize[] = (product.product_Size);
             
@@ -34,13 +37,13 @@ export class Transformer{
                 name: product.name,
                 description: product.description,
                 subcategory: {
-                    id: (product.subcategories[0]) ? product.subcategories[0].id : '',
-                    name: (product.subcategories[0]) ? product.subcategories[0].name : 'Não categorizado',
-                    slug: (product.subcategories[0]) ? product.subcategories[0].slug : 'nao-categorizado',
-                    parent_id: (product.subcategories[0]) ? product.subcategories[0].category_id : ''
+                    id: (product.subcategories && product.subcategories[0]) ? product.subcategories[0].id : '',
+                    name: (product.subcategories && product.subcategories[0]) ? product.subcategories[0].name : 'Não categorizado',
+                    slug: (product.subcategories && product.subcategories[0]) ? product.subcategories[0].slug : 'nao-categorizado',
+                    parent_id: (product.subcategories && product.subcategories[0]) ? product.subcategories[0].category_id : ''
                 },
-                quantity: (product.status[0]) ? product.status[0].quantity : 0,
-                status: (product.status[0] && product.status[0].status) ? ProductStatusEnum.AVAILABLE : ProductStatusEnum.UNAVAILABLE,
+                quantity: (product.status && product.status[0]) ? product.status[0].quantity : 0,
+                status: (product.status && product.status[0] && product.status[0].status) ? ProductStatusEnum.AVAILABLE : ProductStatusEnum.UNAVAILABLE,
                 favoritesCount: product.favourite_count,
                 created_at: created_at,
                 price: product.price,
@@ -53,7 +56,21 @@ export class Transformer{
     }
 
     static looks(incoming: any[]): ILook[]{
-        return [];
+        return incoming.flatMap((look: any) => {
+            return {
+                id: look.looks.id,
+                name: look.looks.title,
+                slug: look.looks.slug,
+                description: look.looks.description,
+                images: [
+                    look.looks.imagePath,
+                    look.looks.feature_image_1,
+                    look.looks.feature_image_2,
+                    look.looks.feature_image_3,
+                ],
+                products: Transformer.products(look.productList)
+            }
+        })
     }
 
     static brands(incoming: any[]): IBrand[]{

@@ -50,13 +50,20 @@
                         @if(this.selectedColors.length > 0){
                             <div class="colors-images-display mt-12">
                                 <div class="title mb-4">
-                                    <h5 class="text-xs font-medium">
+                                    <h5 class="text-lg font-bold">
                                         Imagens do produto por cor
                                     </h5>
                                 </div>
 
                                 @for (color of this.selectedColors; track color.hexCode) {
                                     <div class="uploaded-files mt-8">
+                                        <div class="colors w-full mb-4 flex justify-between items-center">
+                                            <h5 class="text-xs">{{ color.colorName }}</h5>
+                                            <div
+                                            class="colored-shape w-[18px] h-[18px] rounded-full"
+                                            [style.backgroundColor]="color.hexCode"
+                                            ></div>
+                                        </div>
                                         <div class="files flex flex-col gap-y-6" *ngIf="this.colorsWithImages[color.id] && this.colorsWithImages[color.id].length > 0">                                
                                             @for (file of this.colorsWithImages[color.id]; track $index) {
                                                 <div class="file p-3 bg-[#f8f8f8] border border-[#e9e9e9] rounded-lg flex gap-x-2 justify-start items-stretch">
@@ -335,7 +342,7 @@
                 <mi-dropzone
                 [showDimentionsText]="true"
                 [showPreviewFiles]="false"
-                [multi]="true"
+                [multi]="false"
                 [name]="this.theColor!.colorName!"
                 (outcomeFiles)="this.addImagesToColor($event)"/>
             </div>
