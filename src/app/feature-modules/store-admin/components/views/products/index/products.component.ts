@@ -13,6 +13,7 @@ import { ProductStatusEnum } from '@store/enums/products-status.enum';
 import { ProductFacade } from '@store/facades/products/products.facade';
 import { IProduct, IProductResponse } from '@store/models/product.model';
 import { StatisticsFacade } from '@store/facades/statistics.facade';
+import { LookProductRelationService } from '@shared/services/look-product.service';
 
 @Component({
   selector: 'mi-products',
@@ -25,6 +26,7 @@ export class ProductsComponent extends TableComponentExtender implements OnInit,
   loaderService = inject(LoaderService);
   productFacade = inject(ProductFacade);
   statisticsFacade = inject(StatisticsFacade);
+  private lookProductRelationshipService = inject(LookProductRelationService);
 
   constructor(){
     super();
@@ -139,9 +141,22 @@ export class ProductsComponent extends TableComponentExtender implements OnInit,
           
       }else{
           this.tableProducts.forEach(element => {
-              this.selectedItems.push(element.id);
+              this.selectedItems.push(element);
           });
       }
+
+      this.lookProductRelationshipService.attachProducts((this.selectedItems) as IProduct[]);
+  }
+
+  override selectItem(item: IProduct){
+      let itemIndex: string | number = this.isSelected(item.id, 'index');
+      if((typeof(itemIndex) === 'number') && itemIndex !== -1){
+          this.selectedItems.splice(itemIndex, 1);
+          return;
+      }
+      this.selectedItems.push(item);
+      
+      this.lookProductRelationshipService.attachProducts((this.selectedItems) as IProduct[]);
   }
   
   // End of Table Component Interface Requirements

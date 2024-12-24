@@ -249,7 +249,7 @@
                                                 <input
                                                 type="checkbox"
                                                 [checked]="isSelected(product.id, 'checked')"
-                                                (click)="selectItem(product.id)"
+                                                (click)="selectItem(product)"
                                                 >
                                                 <span class="checkmark"></span>
                                             </label>
@@ -361,11 +361,11 @@
                                         @for (selectedProduct of selectedItems; track $index) {
                                             <div class="box flex justify-start gap-2">
                                                 <div class="image w-10 h-10 relative rounded overflow-hidden">
-                                                    <img [src]="(getTheItem(selectedProduct)?.imagePath != '') ? getTheItem(selectedProduct)?.imagePath : 'assets/images/products/no-image.png'" class="w-full h-full object-cover object-center" alt="">
+                                                    <img [src]="(selectedProduct.imagePath != '') ? selectedProduct.imagePath : 'assets/images/products/no-image.png'" class="w-full h-full object-cover object-center" alt="">
                                                 </div>
                                                 <div class="description">
-                                                    <p class="text-xs mb-1 font-medium leading-4 limited-text one-line">{{ getTheItem(selectedProduct)?.name}}</p>
-                                                    <p class="text-xs text-[#AAA] limited-text one-line">ID: {{ getTheItem(selectedProduct)?.ID }}</p>
+                                                    <p class="text-xs mb-1 font-medium leading-4 limited-text one-line">{{ selectedProduct.name}}</p>
+                                                    <p class="text-xs text-[#AAA] limited-text one-line">ID: {{ selectedProduct.ID }}</p>
                                                 </div>
                                             </div>
                                         }

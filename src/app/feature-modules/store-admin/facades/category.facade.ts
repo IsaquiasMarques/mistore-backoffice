@@ -1,8 +1,8 @@
-import { computed, inject, Injectable, signal, Signal } from "@angular/core";
-import { ApiService } from "@core/api/api.service";
+import { inject, Injectable } from "@angular/core";
 import { IProductCategory } from "@core/base-models/base/product-category.model";
+import { StoreApi } from "@store/api/store.api.service";
 import { IProductSubCategory } from "@store/models/product.model";
-import { BehaviorSubject, map, Observable, of, take } from "rxjs";
+import { BehaviorSubject, map, Observable } from "rxjs";
 
 @Injectable({
     providedIn: 'root'
@@ -10,7 +10,7 @@ import { BehaviorSubject, map, Observable, of, take } from "rxjs";
 export class CategoryFacade{
 
     private categories$ = new BehaviorSubject<IProductCategory[]>([]);
-    private API = inject(ApiService);
+    private API = inject(StoreApi);
 
     constructor(){
         this.categoriesWithSubcategories();

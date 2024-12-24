@@ -10,9 +10,9 @@ import { map, Observable } from "rxjs";
     providedIn: 'root'
 })
 export class StatisticsApiService extends APIExtender{
-
-    private http = inject(HttpClient);
     
+    storeId: string = '1c13d9e3-41a3-47c5-83ae-8785441c878b';
+
     getProductsPageStatistics(): Observable<StatisticsData>{
         return this.http.get<StatisticsData>(`${ environment.backend }/api/products/Get-totalproduct?id=${ this.storeId }`, { headers: this.headers })
                 .pipe(

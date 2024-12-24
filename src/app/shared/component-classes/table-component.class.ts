@@ -1,7 +1,6 @@
 import { inject } from "@angular/core";
 import { TableItemSelection } from "@core/services/table/item-selection.service";
 
-
 export class TableComponentExtender{
     
     TABLE_STICKY_TOP!: number;
@@ -18,11 +17,11 @@ export class TableComponentExtender{
 
     pages: number[] = [];
 
-    selectedItems: string[] = [];
+    selectedItems: any[] = [];
 
     protected itemsSelectionService = inject(TableItemSelection);
 
-    selectItem(itemId: string){
+    selectItem(itemId: any){
         let itemIndex: string | number = this.isSelected(itemId, 'index');
         if((typeof(itemIndex) === 'number') && itemIndex !== -1){
             this.selectedItems.splice(itemIndex, 1);
@@ -31,7 +30,6 @@ export class TableComponentExtender{
         this.selectedItems.push(itemId);
     }
 
-    
     getTheItem(id: string): any | undefined{
         return this.itemsSelectionService.getItems().find(item => item.id === id);
     }

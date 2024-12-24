@@ -1,17 +1,15 @@
 import { Injectable, inject } from "@angular/core";
-import { ApiService } from "@core/api/api.service";
 import { Observable } from "rxjs";
 import { IProduct, IProductResponse } from "../../models/product.model";
-import { IProductCategory } from "@core/base-models/base/product-category.model";
-import { IProductSubCategory } from "@core/base-models/base/subcategory.model";
 import { IBrand } from "@core/base-models/base/brands.model";
+import { StoreApi } from "@store/api/store.api.service";
 
 @Injectable({
     providedIn: 'root'
 })
 export class ProductFacade{
 
-    private api = inject(ApiService);
+    private api = inject(StoreApi);
 
     products(page: number, limit: number): Observable<IProductResponse>{
         return this.api.getProducts(page, limit);

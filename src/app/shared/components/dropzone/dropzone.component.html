@@ -1,5 +1,5 @@
 <div class="dropzone w-full">
-    <label [for]="'file' + this.name">
+    <label [for]="'file-' + this.name">
         <div
         appDragAndDrop
         (fileDropped)="this.dropzoneOnChange($event)"
@@ -27,7 +27,7 @@
                     </div>
                 }
             </div>
-            <input type="file" accept="jpg,jpeg,png" (change)="dropzoneOnChange($event.target)" (change)="this.emit()" (change)="this.emitOutComeFiles()" [id]="'file' + this.name" class=" absolute w-full h-full top-0 left-0 invisible" [multiple]="this.multi">
+            <input type="file" accept="jpg,jpeg,png" (change)="dropzoneOnChange($event.target)" (change)="this.emit()" (change)="this.emitOutComeFiles()" [id]="'file-' + this.name" class=" absolute w-full h-full top-0 left-0 invisible" [multiple]="this.multi">
         </div>
     </label>
 
