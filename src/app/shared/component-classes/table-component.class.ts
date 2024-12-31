@@ -35,7 +35,7 @@ export class TableComponentExtender{
     }
 
     isSelected(itemId: string, returningString: 'checked' | 'index'): string | number{
-        let itemIndexOnSelection = this.selectedItems.findIndex(item => item === itemId);
+        let itemIndexOnSelection = this.selectedItems.findIndex(item => item.id === itemId);
 
         switch(returningString){
             case 'checked':

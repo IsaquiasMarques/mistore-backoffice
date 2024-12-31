@@ -88,7 +88,6 @@ export class StoreApi extends APIExtender {
     }
 
     getLooks(page: number, limit_per_page: number): Observable<ILookResponse>{
-        const shop_id: string = '9c84acac-6c0b-4d6a-82b7-0a9184d33cee';
         return this.http.get<ILook[]>(`${ environment.backend }/api/LookApi/GetLookByUser?shop_id=${ this.storeId }&page=${ page }&sortColumn=title&order=asc`,
             { headers: this.headers }
         )
@@ -101,6 +100,7 @@ export class StoreApi extends APIExtender {
     }
 
     createLook(look: JSON): Observable<any>{
+        this.headers = new HttpHeaders().set('Content-Type', 'text/json');
         return this.http.post(`${ environment.backend }/api/LookApi/InsertLook`, look, { headers: this.headers });
     }
 
