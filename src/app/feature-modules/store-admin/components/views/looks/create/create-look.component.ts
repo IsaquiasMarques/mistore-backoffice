@@ -38,8 +38,14 @@ export class CreateLookComponent implements OnInit {
 
   submit(): void{
     if(this.createLookFormGroup.invalid) return;
-    if(!(this.selectedProducts$().length > 0)) return;
-    if(!(this.selectedLookImages.length > 0)) return;
+    if(!(this.selectedProducts$().length > 0)){
+      this.alertService.add("Seleccione os produtos para criar o look", LogStatus.ERROR)
+      return;
+    };
+    if(!(this.selectedLookImages.length > 0)){
+      this.alertService.add("Seleccione os produtos para criar o look", LogStatus.ERROR)
+      return;
+    }
 
     const look = {
       shop_id: '1c13d9e3-41a3-47c5-83ae-8785441c878b',
