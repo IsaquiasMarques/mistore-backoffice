@@ -1,10 +1,11 @@
-import { Component, computed, inject, OnInit, Signal } from '@angular/core';
+import { Component, computed, inject, OnInit, signal, Signal } from '@angular/core';
 import { PageLoaderIdentifier } from '@shared/Enums/page-loader-id.enum';
 import { LoaderService } from '@core/services/loader/loader.service';
 import { LookProductRelationService } from '@shared/services/look-product.service';
 import { IProduct } from '@store/models/product.model';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { LookFacade } from '@store/facades/look.facade';
+import { AlertService, LogStatus } from '@core/services/alert/alert.service';
 
 @Component({
   selector: 'mi-create-look',
@@ -20,9 +21,13 @@ export class CreateLookComponent implements OnInit {
   private lookFacade = inject(LookFacade);
   private lookProductRelationshipService = inject(LookProductRelationService);
 
+  private alertService = inject(AlertService);
+
   selectedLookImages: any[] = [];
 
   createLookFormGroup!: FormGroup;
+
+  isCreating = signal(false);
 
   ngOnInit(): void {
     this.createLookFormGroup = new FormGroup({
@@ -49,12 +54,17 @@ export class CreateLookComponent implements OnInit {
 
     console.log(look)
 
+    this.isCreating.set(true);
     this.lookFacade.create(JSON.stringify(look)).subscribe({
       next: (response) => {
         console.log(response)
+        this.alertService.add("Look adicionado com êxito", LogStatus.SUCCESS);
+        this.isCreating.set(false);
       },
       error: (error) => {
-        console.error(error)
+        this.alertService.add(error, LogStatus.ERROR);
+        this.isCreating.set(false);
+        console.error(error);
       }
     });
 

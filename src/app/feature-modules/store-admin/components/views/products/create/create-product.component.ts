@@ -13,6 +13,7 @@ import { SizeFacade } from '@store/facades/size.facade';
 import { ColorFacade } from '@store/facades/color.facade';
 import { IProductSize } from '@store/models/product.model';
 import { map } from 'rxjs';
+import { AlertService, LogStatus } from '@core/services/alert/alert.service';
 
 @Component({
   selector: 'mi-create-product',
@@ -27,6 +28,7 @@ export class CreateProductComponent implements OnInit {
   private sizeFacade = inject(SizeFacade);
   private colorFacade = inject(ColorFacade);
   private addProductFacade = inject(AddProductFacade);
+  private alertService = inject(AlertService);
 
   addProductFormGroup!: FormGroup;
 
@@ -54,6 +56,8 @@ export class CreateProductComponent implements OnInit {
   theColor: ColorOption | undefined;
   colorsWithImages: { [color: string]: any[] } = {};
   imagesColors: any[] = [];
+
+  isCreating = signal(false);
 
   ngOnInit(): void {
     this.loaderService.setLoadingStatus(this.pageLoaderIdentifier.BRANDS_ADD_PRODUCTS, true);
@@ -195,7 +199,7 @@ export class CreateProductComponent implements OnInit {
       size: this.selectedSizes.flatMap(_ => _.id),
       color: this.selectedColors.flatMap(_ => _.id),
       images: this.files.flatMap(_ => (_.previewUrl).replace(/^data:image\/[a-zA-Z]+;base64,/, '')),
-      images_filename: this.files.flatMap(_ => _.name),
+      image_filename: this.files.flatMap(_ => _.name),
       shop_id: '1c13d9e3-41a3-47c5-83ae-8785441c878b',
       coverimage: (this.files[0].previewUrl).replace(/^data:image\/[a-zA-Z]+;base64,/, ''),
       coverimage_filename: this.files[0].name,
@@ -203,7 +207,18 @@ export class CreateProductComponent implements OnInit {
       imagescolor_filename: Object.values(this.colorsWithImages).flatMap((images: any[]) => images.map(image => image.name))
     };
 
-    this.addProductFacade.addProduct(JSON.parse(JSON.stringify(fields)));
+    this.isCreating.set(true);
+    this.addProductFacade.addProduct(JSON.parse(JSON.stringify(fields))).subscribe({
+      next: repsonse => {
+        this.alertService.add("Produto adicionado com êxito", LogStatus.SUCCESS);
+        this.isCreating.set(false);
+      },
+      error: error => {
+        this.alertService.add(error, LogStatus.ERROR);
+        this.isCreating.set(false);
+        console.error(error);
+      }
+    });
   }
 }
 
@@ -224,7 +239,7 @@ export interface AddProductModel{
   size: string[],
   color: string[],
   images: string[],
-  images_filename: string[],
+  image_filename: string[],
   imagescolor: string[],
   imagescolor_filename: string[]
 }

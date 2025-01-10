@@ -125,6 +125,7 @@
                     <div class="col max-w-[50%] w-full py-4 px-6 border bg-white border-[#E9E9E9] rounded-lg">
                         <form
                         [formGroup]="addProductFormGroup"
+                        (submit)="this.submitForm()"
                         class="form flex flex-col gap-y-8">
                             <div class="input flex flex-col gap-y-3">
                                 <label for="productName" class="text-xs font-medium">Nome do Produto</label>
@@ -318,8 +319,12 @@
                                 <button class="cancel p-4 text-[#999] text-sm leading-4 rounded-lg">
                                     Cancelar
                                 </button>
-                                <button (click)="this.submitForm()" class="send p-4 bg-black text-white text-sm leading-4 rounded-lg">
-                                    Publicar produto
+                                <button type="submit" [disabled]="this.isCreating()" class="min-w-[150px] p-4 flex justify-center items-center bg-black text-white text-sm leading-4 rounded-lg">
+                                    @if (this.isCreating()) {
+                                        <mi-spinner />
+                                    } @else {
+                                        Publicar produto
+                                    }
                                 </button>
                             </div>
 

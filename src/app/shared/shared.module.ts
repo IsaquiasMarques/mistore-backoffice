@@ -18,6 +18,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { FooterComponent } from './components/footer/footer.component';
 import { DropzoneComponent } from './components/dropzone/dropzone.component';
 import { ModalComponent } from './components/modal/modal.component';
+import { AlertComponent } from './components/alert/alert.component';
+import { SpinnerComponent } from './components/spinner/spinner.component';
 
 @NgModule({
   declarations: [
@@ -37,6 +39,8 @@ import { ModalComponent } from './components/modal/modal.component';
     FooterComponent,
     DropzoneComponent,
     ModalComponent,
+    AlertComponent,
+    SpinnerComponent,
   ],
   imports: [
     CommonModule,
@@ -65,7 +69,9 @@ import { ModalComponent } from './components/modal/modal.component';
     ReplaceByPipe,
     DataFormatPipe,
     DropzoneComponent,
-    ModalComponent
+    ModalComponent,
+    AlertComponent,
+    SpinnerComponent
   ],
 })
 export class SharedModule { }

@@ -119,8 +119,12 @@
                                 <button
                                 [disabled]="this.createLookFormGroup.invalid"
                                 type="submit"
-                                class="send p-4 text-sm leading-4 bg-black disabled:bg-black/80 duration-[.3s] text-white rounded-lg">
-                                    Publicar look
+                                class="send p-4 min-w-[150px] text-sm leading-4 bg-black disabled:bg-black/80 duration-[.3s] text-white rounded-lg">
+                                    @if (this.isCreating()) {
+                                        <mi-spinner />
+                                    } @else {
+                                        Publicar look
+                                    }
                                 </button>
                             </div>
 

@@ -44,9 +44,8 @@ export class StoreApi extends APIExtender {
         );
     }
 
-    addProduct(product: JSON){
-        console.log(product)
-        this.http.post(`${ environment.backend }/api/products/Product-Insert`, product, { headers: this.headers }).pipe(tap(console.log)).subscribe();
+    addProduct(product: JSON): Observable<any>{
+        return this.http.post(`${ environment.backend }/api/products/Product-Insert`, product, { headers: this.headers });
     }
 
     getPromotionProducts(page: number = 1, limit_per_page: number): Observable<IProduct[]>{

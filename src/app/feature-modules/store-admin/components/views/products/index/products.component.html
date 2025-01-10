@@ -266,7 +266,7 @@
                                                     <img src="{{ (product.imagePath != '') ? product.imagePath : 'assets/images/products/no-image.png' }}" class="w-full h-full object-cover object-center" alt="">
                                                 </div>
                                                 <div class="product max-w-[10.625rem] flex flex-col gap-y-2 justify-between items-start">
-                                                    <h1 class="text-black text-sm leading-4 font-medium limited-text one-line">
+                                                    <h1 class="text-black text-sm leading-4 font-medium limited-text one-line" [title]="product.name">
                                                         {{ product.name }}
                                                     </h1>
                                                     <p
