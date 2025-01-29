@@ -21,6 +21,7 @@ import { DevolutionComponent } from './components/views/help/childrens/devolutio
 import { OthersComponent } from './components/views/help/childrens/others/others.component';
 import { LooksComponent } from './components/views/looks/index/looks.component';
 import { CreateLookComponent } from './components/views/looks/create/create-look.component';
+import { EditLookComponent } from './components/views/looks/edit/edit-look.component';
 
 @NgModule({
   declarations: [
@@ -41,6 +42,7 @@ import { CreateLookComponent } from './components/views/looks/create/create-look
     OthersComponent,
     LooksComponent,
     CreateLookComponent,
+    EditLookComponent,
   ],
   imports: [
     SharedModule,

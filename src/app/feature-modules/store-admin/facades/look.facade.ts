@@ -1,6 +1,6 @@
 import { inject, Injectable } from "@angular/core";
 import { StoreApi } from "@store/api/store.api.service";
-import { ILookResponse } from "@store/models/looks.model";
+import { ILook, ILookResponse } from "@store/models/looks.model";
 import { Observable } from "rxjs";
 
 @Injectable({
@@ -13,7 +13,12 @@ export class LookFacade{
         return this.api.getLooks(page, limit_per_page);
     }
 
+    look(id: string): Observable<ILook[]>{
+        return this.api.getLookById(id);
+    }
+
     create(look: any): Observable<any>{
         return this.api.createLook(look);
     }
+
 }

@@ -26,7 +26,7 @@ export class AlertService {
       this.logsSignal.update(logs => logs = this.logs);
   }
 
-  private removeMessageAfterTimeInSeconds(log: Log, timer: number = 3){
+  private removeMessageAfterTimeInSeconds(log: Log, timer: number = 5){
       this.removeTimeOut = setTimeout(() => {
           let logIndex = this.logs.findIndex(item => item.identifier === log.identifier);
           if(logIndex === -1) return;

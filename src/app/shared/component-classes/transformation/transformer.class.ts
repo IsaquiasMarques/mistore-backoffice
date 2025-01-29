@@ -72,7 +72,7 @@ export class Transformer{
             }
         })
     }
-
+    
     static brands(incoming: any[]): IBrand[]{
         return incoming.flatMap((i: any) => {
             return {

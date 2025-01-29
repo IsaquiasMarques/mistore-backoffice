@@ -9,6 +9,7 @@ import { DropzoneFunctionalities } from '@shared/component-classes/dropzone-func
 export class DropzoneComponent extends DropzoneFunctionalities {
   @Input({ required: true }) name: string = '';
   @Input() showDimentionsText: boolean = true;
+  @Input() showBiggerSvg: boolean = true;
   @Input() showPreviewFiles: boolean = true;
   @Input() previewFileUrls: boolean = false;
   @Output() filePreviewUrl: EventEmitter<any[]> = new EventEmitter<any[]>();

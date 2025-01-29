@@ -1,0 +1,33 @@
+@if (this.images.length > 0) {
+    <div class="images-gallery mb-8 flex flex-col gap-4">
+        <div class="preview-image relative w-full h-[332px] overflow-hidden rounded-lg">
+            <div class="overlay absolute z-[3] w-full h-full flex justify-end items-start p-4">
+                <button class="">
+                    <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <rect width="32" height="32" rx="16" fill="black" fill-opacity="0.3"/>
+                        <g clip-path="url(#clip0_2920_4185)">
+                        <path d="M22.0001 22H16.6668M9.66675 22.3334L13.3663 20.9105C13.6029 20.8195 13.7212 20.774 13.8319 20.7146C13.9302 20.6618 14.0239 20.6009 14.1121 20.5324C14.2114 20.4554 14.301 20.3658 14.4803 20.1865L22.0001 12.6667C22.7365 11.9303 22.7365 10.7364 22.0001 10C21.2637 9.26366 20.0698 9.26366 19.3334 10L11.8136 17.5199C11.6343 17.6991 11.5447 17.7888 11.4677 17.888C11.3993 17.9762 11.3383 18.0699 11.2856 18.1682C11.2262 18.2789 11.1806 18.3972 11.0896 18.6339L9.66675 22.3334ZM9.66675 22.3334L11.0388 18.766C11.137 18.5107 11.1861 18.3831 11.2703 18.3246C11.3439 18.2735 11.4349 18.2542 11.5229 18.271C11.6236 18.2902 11.7203 18.3869 11.9137 18.5803L13.4198 20.0864C13.6132 20.2798 13.7099 20.3765 13.7291 20.4772C13.7459 20.5652 13.7266 20.6562 13.6755 20.7298C13.617 20.814 13.4894 20.8631 13.2341 20.9613L9.66675 22.3334Z" stroke="white" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
+                        </g>
+                        <defs>
+                        <clipPath id="clip0_2920_4185">
+                        <rect width="16" height="16" fill="white" transform="translate(8 8)"/>
+                        </clipPath>
+                        </defs>
+                    </svg>
+                </button>
+            </div>
+            <img [src]="this.images[this.activeImageIndex()]" class="w-full h-full z-[1] object-cover object-center" alt="">
+        </div>
+        <div class="scroller w-full overflow-x-auto">
+            <div class="tiny-images w-max flex gap-4 justify-start items-stretch">
+                @for (image of images; track $index) {
+                    <div
+                    (click)="this.changeImage($index)"
+                    class="box cursor-pointer w-[88px] h-[88px] rounded-lg overflow-hidden">
+                        <img [src]="image" class="w-full h-full object-cover object-center" alt="">
+                    </div>
+                } @empty {}
+            </div>
+        </div>
+    </div>
+}

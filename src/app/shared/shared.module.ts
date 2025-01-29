@@ -20,6 +20,8 @@ import { DropzoneComponent } from './components/dropzone/dropzone.component';
 import { ModalComponent } from './components/modal/modal.component';
 import { AlertComponent } from './components/alert/alert.component';
 import { SpinnerComponent } from './components/spinner/spinner.component';
+import { LookComponent } from './components/cards/look/look.component';
+import { HorizontalGalleryComponent } from './components/horizontal-gallery/horizontal-gallery.component';
 
 @NgModule({
   declarations: [
@@ -41,6 +43,8 @@ import { SpinnerComponent } from './components/spinner/spinner.component';
     ModalComponent,
     AlertComponent,
     SpinnerComponent,
+    LookComponent,
+    HorizontalGalleryComponent,
   ],
   imports: [
     CommonModule,
@@ -71,7 +75,9 @@ import { SpinnerComponent } from './components/spinner/spinner.component';
     DropzoneComponent,
     ModalComponent,
     AlertComponent,
-    SpinnerComponent
+    SpinnerComponent,
+    LookComponent,
+    HorizontalGalleryComponent
   ],
 })
 export class SharedModule { }

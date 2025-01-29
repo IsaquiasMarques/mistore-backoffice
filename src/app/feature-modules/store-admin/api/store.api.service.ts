@@ -98,6 +98,13 @@ export class StoreApi extends APIExtender {
         )
     }
 
+    getLookById(id: string): Observable<ILook[]>{
+        return this.http.get<ILook[]>(`${ environment.backend }/api/LookApi/GetByIdlookDetails?id=${ id }`, { headers: this.headers })
+                        .pipe(
+                            map(incoming => Transformer.looks(incoming))
+                        )
+    }
+
     createLook(look: JSON): Observable<any>{
         this.headers = new HttpHeaders().set('Content-Type', 'text/json');
         return this.http.post(`${ environment.backend }/api/LookApi/InsertLook`, look, { headers: this.headers });

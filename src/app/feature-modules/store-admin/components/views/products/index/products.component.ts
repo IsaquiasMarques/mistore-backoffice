@@ -1,5 +1,5 @@
-import { Component, ElementRef, OnDestroy, OnInit, ViewChild, inject } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { Component, ElementRef, OnDestroy, OnInit, ViewChild, WritableSignal, inject, signal } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 import { PageLoaderIdentifier } from '@shared/Enums/page-loader-id.enum';
 import { WidgetPercentageStatusEnum } from '@shared/Enums/widget-percentage-status.enum';
 import { TableComponentExtender } from '@shared/component-classes/table-component.class';
@@ -14,6 +14,9 @@ import { ProductFacade } from '@store/facades/products/products.facade';
 import { IProduct, IProductResponse } from '@store/models/product.model';
 import { StatisticsFacade } from '@store/facades/statistics.facade';
 import { LookProductRelationService } from '@shared/services/look-product.service';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { LookFacade } from '@store/facades/look.facade';
+import { AlertService, LogStatus } from '@core/services/alert/alert.service';
 
 @Component({
   selector: 'mi-products',
@@ -25,6 +28,9 @@ export class ProductsComponent extends TableComponentExtender implements OnInit,
   activatedRoute = inject(ActivatedRoute);
   loaderService = inject(LoaderService);
   productFacade = inject(ProductFacade);
+  private alertService = inject(AlertService);
+  private router = inject(Router);
+  lookFacade = inject(LookFacade);
   statisticsFacade = inject(StatisticsFacade);
   private lookProductRelationshipService = inject(LookProductRelationService);
 
@@ -112,6 +118,10 @@ export class ProductsComponent extends TableComponentExtender implements OnInit,
 
   pageLoaderIdentifier = PageLoaderIdentifier;
 
+  createLookFromProductFormGroup!: FormGroup;
+  isCreatingLook: WritableSignal<boolean> = signal(false);
+  showCreateLookModal$: WritableSignal<boolean> = signal(false);
+
   ngOnInit(): void {
     this.activatedRoute.queryParamMap.subscribe(queryParam => {
       const pageParam = parseInt(queryParam.get('page') ?? '1');
@@ -121,6 +131,10 @@ export class ProductsComponent extends TableComponentExtender implements OnInit,
     this.generatePlaceholders();
     
     this.getWidgetsDatas();
+
+    this.createLookFromProductFormGroup = new FormGroup({
+      'title': new FormControl('', [ Validators.required, Validators.maxLength(30) ])
+    })
   }
 
   // Start of Table Component Interface Requirements
@@ -133,6 +147,10 @@ export class ProductsComponent extends TableComponentExtender implements OnInit,
 
   ngOnDestroy(): void {
     
+  }
+
+  changeCreateLookModalStatus(status: boolean): void{
+    this.showCreateLookModal$.set(status)
   }
 
   toggleSelect(): void{
@@ -198,6 +216,36 @@ export class ProductsComponent extends TableComponentExtender implements OnInit,
           this.loaderService.loaderActionAfterTryFetching(this.pageLoaderIdentifier.PRODUCTS);
         }
       },
+    });
+  }
+
+  createLook(): void{
+    if(this.createLookFromProductFormGroup.invalid) return;
+    if(!(this.selectedItems.length > 0)) return;
+
+    const look = {
+      shop_id: '1c13d9e3-41a3-47c5-83ae-8785441c878b',
+      title: this.createLookFromProductFormGroup.get('title')?.value,
+      description: null,
+      main_image: null,
+      feature_image_1: null,
+      feature_image_2: null,
+      feature_image_3: null,
+      product_id: this.selectedItems.map(product => product.id)
+    }
+
+    this.isCreatingLook.set(true);
+    this.lookFacade.create(look).subscribe({
+      next: response => {
+        console.log(response);
+        this.router.navigate(['/store/looks']);
+        this.isCreatingLook.set(false);
+      },
+      error: error => {
+        console.error(error);
+        this.alertService.add(error.message, LogStatus.ERROR);
+        this.isCreatingLook.set(false);
+      }
     });
   }
 

@@ -1,0 +1,147 @@
+<div class="wrapper py-6 px-8">
+    <div class="wrapper-header">
+
+        <div class="top-content flex justify-between items-start">
+        </div>
+    </div>
+    <div class="wrapper-content mt-10">
+        <div class="section mt-10 py-6 w-full rounded-lg border border-[rgba(233,233,233,0.60)] bg-white flex flex-col gap-y-0">
+            
+            <div class="header px-6 flex justify-between items-center">
+                <div class="header-aside">
+                    <div class="title mb-0">
+                        <h1 class="text-black font-bold text-lg">
+                            Editar Look
+                        </h1>
+                    </div>
+                    <div class="tiny-text">
+                        <p class="text-[#AAA] text-base">
+                        </p>
+                    </div>
+                </div>
+                <div class="header-actions-chips flex gap-8 justify-start items-center">
+        
+                    <!-- <div class="chip borders bg-white w-fit borders-[#E9E9E9] rounded-lg">
+                        <button class="text-black font-semibold p-4 flex gap-2 justify-center items-center">
+                            <svg width="30" height="30" viewBox="0 0 30 30" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M15.0003 9.66675V20.3334M9.66699 15.0001H20.3337M28.3337 15.0001C28.3337 22.3639 22.3641 28.3334 15.0003 28.3334C7.63653 28.3334 1.66699 22.3639 1.66699 15.0001C1.66699 7.63628 7.63653 1.66675 15.0003 1.66675C22.3641 1.66675 28.3337 7.63628 28.3337 15.0001Z" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                        </button>
+                    </div> -->
+        
+                </div>
+            </div>
+            <div class="content relative py-8 px-6">
+                <div class="row flex gap-6 justify-start items-stretch">
+                    <div class="col max-w-[50%] w-full py-4 px-6 border outline-offset-[10px] bg-white border-[#E9E9E9] rounded-lg">
+                        <div class="upload-section">
+                            <div class="title mb-5">
+                                <h5 class="text-xs font-medium">
+                                    Imagens adicionadas
+                                </h5>
+                            </div>
+
+                            <div class="images-gallery mb-0 flex flex-col gap-4">
+                                <mi-horizontal-gallery
+                                [images]="[ 'assets/images/products/image-2.png', 'assets/images/products/image-1.png' ]"
+                                />
+                            </div>
+
+                            <div class="dropzone">
+                                <mi-dropzone
+                                [name]="'looks-images'"
+                                [showBiggerSvg]="false"
+                                [previewFileUrls]="true"
+                                (outcomeFiles)="this.selectedLookImages = $event"
+                                />
+                            </div>
+                        </div>
+                        <div class="selected-products mt-4 flex justify-between items-center">
+                            @if(this.selectedProducts$().length > 0){
+                                <div class="products-rounded relative flex gap-6 justify-between items-center">
+                                    <div class="images flex justify-start items-center">
+                                        @for (product of this.selectedProducts$(); track $index) {
+                                            <div class="product-image w-8 h-8 relative rounded-full border-[1px] border-white overflow-hidden"
+                                            [style.zIndex]="this.selectedProducts$().length - $index"
+                                            [ngClass]="{
+                                                '-ml-5': $index > 0
+                                            }"
+                                            >
+                                                <img
+                                                [src]="product.imagePath" alt="">
+                                            </div>
+                                        } @empty {
+                                        }
+                                    </div>
+                                    <div class="selected-count">
+                                        <p class="text-[#999] text-sm limited-text one-line">
+                                            {{ this.selectedProducts$().length }} seleccionado{{ this.selectedProducts$().length > 1 ? 's' : '' }}
+                                        </p>
+                                    </div>
+                                </div>
+                            } @else {
+                                <p class="text-[#999] text-sm limited-text one-line">Seleccione os produtos para criar o look</p>
+                            }
+                            <div class="button">
+                                <button
+                                [routerLink]="(this.selectedProducts$().length > 0) ? ['/route-displaying-the-beloging-products'] : ['/store/products']"
+                                class="px-4 py-3 text-sm text-black font-semibold rounded-lg border border-black">
+                                    Ver produtos
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col max-w-[50%] w-full py-4 px-6 border bg-white border-[#E9E9E9] rounded-lg">
+                        <form
+                        [formGroup]="this.editLookFormGroup"
+                        (submit)="submit()"
+                        class="form flex flex-col gap-y-8">
+                            <div class="input flex flex-col gap-y-3">
+                                <label for="title" class="text-xs font-medium">Título do Look</label>
+                                <input type="text"
+                                maxlength="30"
+                                class="placeholder:text-xs duration-[.3s] text-xs placeholder:text-[#999] focus:outline-none p-[14px] text-[#999] bg-[#F8F8F8] border border-[#E9E9E9] rounded-lg"
+                                [ngClass]="{
+                                    '!border-red-500': this.editLookFormGroup.get('title')?.invalid && this.editLookFormGroup.get('title')?.touched
+                                }"
+                                formControlName="title" placeholder="Look Fashion Win" id="title">
+                            </div>
+
+                            <div class="description input flex flex-col gap-y-3">
+                                <label for="description" class="text-xs font-medium">Descrição</label>
+                                <textarea rows="5"
+                                class="placeholder:text-xs duration-[.3s] resize-none text-xs placeholder:text-[#999] focus:outline-none p-[14px] text-[#999] bg-[#F8F8F8] border border-[#E9E9E9] rounded-lg"
+                                maxlength="30"
+                                [ngClass]="{
+                                    '!border-red-500': this.editLookFormGroup.get('description')?.invalid && this.editLookFormGroup.get('description')?.touched
+                                }"
+                                formControlName="description"
+                                placeholder="Moda Casual para festa"
+                                id="description"></textarea>
+                            </div>
+
+                            <div class="buttons flex justify-between items-center mt-8">
+                                <button class="cancel p-4 text-sm leading-4 text-[#999] rounded-lg">
+                                    Cancelar
+                                </button>
+                                <button
+                                [disabled]="this.editLookFormGroup.invalid"
+                                type="submit"
+                                class="send p-4 min-w-[150px] text-sm leading-4 bg-black disabled:bg-black/80 duration-[.3s] text-white rounded-lg">
+                                    @if (this.isEditing()) {
+                                        <mi-spinner />
+                                    } @else {
+                                        Publicar look
+                                    }
+                                </button>
+                            </div>
+
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+</div>

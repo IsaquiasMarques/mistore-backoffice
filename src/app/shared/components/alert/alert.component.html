@@ -1,61 +1,67 @@
 @for (log of this.alertService.logsSignal(); track $index) {
-<div class="log-panel appear-softly-from-top flex gap-2 border-l-8 justify-start items-start pl-4 pr-6 w-[368px] py-4 font-outfit text-base"
-[ngClass]="{
-    'bg-[rgba(225,48,41,0.10)] border-[#E13029]': log.status === this.logStatus.ERROR,
-    'bg-[rgba(40,136,83,0.10)] border-[#288853]': log.status === this.logStatus.SUCCESS,
-    'bg-[rgba(50,154,247,0.10)] border-[#329AF7]': log.status === this.logStatus.INFO,
-    'bg-[rgba(233,162,24,0.10)] border-[#E9A218]': log.status === this.logStatus.WARNING,
-    'border-[#626262]': log.status === this.logStatus.DEFAULT,
-}"
->
-    <div class="aside">
-        @switch (log.status) {
-            @case (logStatus.SUCCESS) {
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
-                    <path d="M7.5 12L10.5 15L16.5 9M22 12C22 17.5228 17.5228 22 12 22C6.47715 22 2 17.5228 2 12C2 6.47715 6.47715 2 12 2C17.5228 2 22 6.47715 22 12Z" stroke="#288853" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                </svg>
-            }
-            @case (logStatus.ERROR) {
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
-                    <path d="M12 8V12M12 16H11.99M2 12C2 6.47715 6.47715 2 12 2C17.5228 2 22 6.47715 22 12C22 17.5228 17.5228 22 12 22C6.47715 22 2 17.5228 2 12Z" stroke="#E13029" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                </svg>
-            }
-            @case (logStatus.WARNING) {
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
-                    <path d="M12 16V12M12 8H12.01M22 12C22 17.5228 17.5228 22 12 22C6.47715 22 2 17.5228 2 12C2 6.47715 6.47715 2 12 2C17.5228 2 22 6.47715 22 12Z" stroke="#E9A218" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                </svg>
-            }
-            @case (logStatus.INFO) {
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
-                    <path d="M9.09 9C9.3251 8.33167 9.78915 7.76811 10.4 7.40913C11.0108 7.05016 11.7289 6.91894 12.4272 7.03871C13.1255 7.15849 13.7588 7.52152 14.2151 8.06353C14.6713 8.60553 14.9211 9.29152 14.92 10C14.92 12 11.92 13 11.92 13M12 17H12.01M22 12C22 17.5228 17.5228 22 12 22C6.47715 22 2 17.5228 2 12C2 6.47715 6.47715 2 12 2C17.5228 2 22 6.47715 22 12Z" stroke="#329AF7" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                </svg>
-            }
-            @case (logStatus.DEFAULT) {}
-        }
-    </div>
-    <div class="content">
-        <div class="panel-header mb-2">
-            @switch (log.status) {
-                @case (logStatus.SUCCESS) {
-                    <h1 class="text-[#288853] text-base font-semibold">Sucesso</h1>
+    <div class="alert-container appear-softly-from-top bg-white"
+    [ngClass]="{
+        'mt-4': !$first
+    }"
+    >
+        <div class="log-panel flex gap-2 border-l-8 justify-start items-start pl-4 pr-6 w-[368px] py-4 font-outfit text-base"
+        [ngClass]="{
+            'bg-[rgba(225,48,41,0.10)] border-[#E13029]': log.status === this.logStatus.ERROR,
+            'bg-[rgba(40,136,83,0.10)] border-[#288853]': log.status === this.logStatus.SUCCESS,
+            'bg-[rgba(50,154,247,0.10)] border-[#329AF7]': log.status === this.logStatus.INFO,
+            'bg-[rgba(233,162,24,0.10)] border-[#E9A218]': log.status === this.logStatus.WARNING,
+            'border-[#626262]': log.status === this.logStatus.DEFAULT,
+        }"
+        >
+            <div class="aside">
+                @switch (log.status) {
+                    @case (logStatus.SUCCESS) {
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+                            <path d="M7.5 12L10.5 15L16.5 9M22 12C22 17.5228 17.5228 22 12 22C6.47715 22 2 17.5228 2 12C2 6.47715 6.47715 2 12 2C17.5228 2 22 6.47715 22 12Z" stroke="#288853" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    }
+                    @case (logStatus.ERROR) {
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+                            <path d="M12 8V12M12 16H11.99M2 12C2 6.47715 6.47715 2 12 2C17.5228 2 22 6.47715 22 12C22 17.5228 17.5228 22 12 22C6.47715 22 2 17.5228 2 12Z" stroke="#E13029" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    }
+                    @case (logStatus.WARNING) {
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+                            <path d="M12 16V12M12 8H12.01M22 12C22 17.5228 17.5228 22 12 22C6.47715 22 2 17.5228 2 12C2 6.47715 6.47715 2 12 2C17.5228 2 22 6.47715 22 12Z" stroke="#E9A218" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    }
+                    @case (logStatus.INFO) {
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+                            <path d="M9.09 9C9.3251 8.33167 9.78915 7.76811 10.4 7.40913C11.0108 7.05016 11.7289 6.91894 12.4272 7.03871C13.1255 7.15849 13.7588 7.52152 14.2151 8.06353C14.6713 8.60553 14.9211 9.29152 14.92 10C14.92 12 11.92 13 11.92 13M12 17H12.01M22 12C22 17.5228 17.5228 22 12 22C6.47715 22 2 17.5228 2 12C2 6.47715 6.47715 2 12 2C17.5228 2 22 6.47715 22 12Z" stroke="#329AF7" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    }
+                    @case (logStatus.DEFAULT) {}
                 }
-                @case (logStatus.ERROR) {
-                    <h1 class="text-[#E13029] text-base font-semibold">Erro</h1>
-                }
-                @case (logStatus.WARNING) {
-                    <h1 class="text-[#E9A218] text-base font-semibold">Atenção</h1>
-                }
-                @case (logStatus.INFO) {
-                    <h1 class="text-[#329AF7] text-base font-semibold">Informação</h1>
-                }
-                @case (logStatus.DEFAULT) {}
-            }
+            </div>
+            <div class="content">
+                <div class="panel-header mb-2">
+                    @switch (log.status) {
+                        @case (logStatus.SUCCESS) {
+                            <h1 class="text-[#288853] text-base font-semibold">Sucesso</h1>
+                        }
+                        @case (logStatus.ERROR) {
+                            <h1 class="text-[#E13029] text-base font-semibold">Erro</h1>
+                        }
+                        @case (logStatus.WARNING) {
+                            <h1 class="text-[#E9A218] text-base font-semibold">Atenção</h1>
+                        }
+                        @case (logStatus.INFO) {
+                            <h1 class="text-[#329AF7] text-base font-semibold">Informação</h1>
+                        }
+                        @case (logStatus.DEFAULT) {}
+                    }
+                </div>
+                <div class="panel-body">
+                    <p class="text-black/60">
+                        {{ log.message }}
+                    </p>
+                </div>
+            </div>
         </div>
-        <div class="panel-body">
-            <p class="text-black/60">
-                {{ log.message }}
-            </p>
-        </div>
     </div>
-</div>
 }
