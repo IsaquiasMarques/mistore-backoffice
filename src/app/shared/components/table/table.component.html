@@ -27,7 +27,7 @@
                     <button class="w-11 h-full font-medium text-sm"
                     [ngClass]="{ 'active': this.currentPage === page}"
                     [routerLink]="[this.route]"
-                    [queryParams]="{ page: page }"
+                    [queryParams]="queryParams(page)"
                     > {{ page }} </button>
                 </div>
             }

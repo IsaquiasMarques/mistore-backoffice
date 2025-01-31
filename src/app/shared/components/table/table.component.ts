@@ -7,11 +7,10 @@ import { Component, ElementRef, Input, OnChanges, OnInit, SimpleChanges, ViewChi
 })
 export class TableComponent implements OnInit, OnChanges {
   
-  TABLE_STICKY_TOP: number = 100;
-
   @Input() pagination: boolean = true;
   @Input() perPage: number = 4;
   @Input() route: string = '';
+  @Input() queryParamName: string = 'page';
   @Input() totalItems: number = 0;
   @Input() currentPage: number = 1;
 
@@ -28,6 +27,10 @@ export class TableComponent implements OnInit, OnChanges {
 
   ngOnChanges(changes: SimpleChanges): void {
     this.calculatePages();
+  }
+
+  queryParams(page: number) {
+    return { [this.queryParamName]: page };
   }
 
   calculatePages(){
