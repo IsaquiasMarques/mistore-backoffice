@@ -14,6 +14,7 @@ export class LoaderHandler{
         'categories-add-products': new BehaviorSubject(false),
         'subcategories-add-products': new BehaviorSubject(false),
         'looks': new BehaviorSubject(false),
+        'looks-on-draft': new BehaviorSubject(false),
     }
 
     toggleLoadingStatus(identifier: PageLoaderIdentifier): void{

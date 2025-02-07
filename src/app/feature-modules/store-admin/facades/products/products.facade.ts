@@ -1,8 +1,9 @@
 import { Injectable, inject } from "@angular/core";
-import { Observable } from "rxjs";
+import { Observable, of, tap } from "rxjs";
 import { IProduct, IProductResponse } from "../../models/product.model";
 import { IBrand } from "@core/base-models/base/brands.model";
 import { StoreApi } from "@store/api/store.api.service";
+import { ProductsData } from "@core/data/store/products.data";
 
 @Injectable({
     providedIn: 'root'
@@ -10,9 +11,19 @@ import { StoreApi } from "@store/api/store.api.service";
 export class ProductFacade{
 
     private api = inject(StoreApi);
+    private productsData = inject(ProductsData);
 
     products(page: number, limit: number): Observable<IProductResponse>{
-        return this.api.getProducts(page, limit);
+        const cached$ = this.productsData.dataOfPage(page);
+        if(cached$().products && cached$().products.length > 0){
+            return of(cached$());
+        }
+
+        return this.api.getProducts(page, limit).pipe(
+            tap((response: IProductResponse) => {
+                this.productsData.paginatedData(page, response.total, response.products);
+            })
+        );
     }
 
     promotionProducts(page: number, limit: number): Observable<IProduct[]>{

@@ -9,7 +9,7 @@ import { PageLoaderIdentifier } from '@shared/Enums/page-loader-id.enum';
 import { SVGRefEnum } from '@shared/Enums/svg-ref.enum';
 import { LookProductRelationService } from '@shared/services/look-product.service';
 import { ProductStatusEnum } from '@store/enums/products-status.enum';
-import { LookFacade } from '@store/facades/look.facade';
+import { LookFacade } from '@store/facades/looks/look.facade';
 import { ProductFacade } from '@store/facades/products/products.facade';
 import { IProduct, IProductResponse } from '@store/models/product.model';
 import { combineLatest } from 'rxjs';
@@ -23,7 +23,7 @@ export class EditLookComponent extends TableComponentExtender implements OnInit,
   
   constructor(){
     super();
-    this.TABLE_STICKY_TOP = 100;
+    this.TABLE_STICKY_TOP = 0;
     this.checkbox = true;
     this.pagination = true;
     this.route = './';
@@ -91,8 +91,7 @@ export class EditLookComponent extends TableComponentExtender implements OnInit,
 
   toggleSelect(): void{
       if(this.selectedItems.length > 0){
-          this.selectedItems = [];
-          
+        this.unselectAll();
       }else{
           this.tableProducts.forEach(element => {
               this.selectedItems.push(element);
@@ -100,6 +99,16 @@ export class EditLookComponent extends TableComponentExtender implements OnInit,
       }
 
       this.lookProductRelationshipService.attachProducts((this.selectedItems) as IProduct[]);
+  }
+
+  cancel(): void{
+    this.changeProductsModalVisibility(false);
+    this.unselectAll();
+    this.lookProductRelationshipService.attachProducts(this.selectedItems);
+  }
+
+  save(): void{
+    this.changeProductsModalVisibility(false);
   }
 
   override selectItem(item: IProduct){

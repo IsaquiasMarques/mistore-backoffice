@@ -7,5 +7,6 @@ export enum PageLoaderIdentifier{
     BRANDS_ADD_PRODUCTS = 'brands-add-products',
     CATEGORIES_ADD_PRODUCTS = 'categories-add-products',
     SUB_CATEGORIES_ADD_PRODUCTS = 'subcategories-add-products',
-    LOOKS = 'looks'
+    LOOKS = 'looks',
+    LOOKS_ON_DRAFT = 'looks-on-draft'
 }

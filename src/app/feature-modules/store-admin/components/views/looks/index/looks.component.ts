@@ -5,7 +5,7 @@ import { PageLoaderIdentifier } from '@shared/Enums/page-loader-id.enum';
 import { LOOKS } from '@core/mocks/looks.mock';
 import { LoaderService } from '@core/services/loader/loader.service';
 import { LOOKS_LIMT } from '@shared/constants/data-limit.const';
-import { LookFacade } from '@store/facades/look.facade';
+import { LookFacade } from '@store/facades/looks/look.facade';
 import { ILook, ILookResponse } from '@store/models/looks.model';
 import { takeUntil } from 'rxjs';
 
@@ -25,66 +25,111 @@ implements OnInit {
 
   searchTerm = signal<string>('');
 
-  looks: ILook[] = [];
-  displayableLooks: ILook[] = [];
-  currentPage: number = 1;
-  totalItems: number = 0;
+  allLooks: ILook[] = [];
+  displayableAllLooks: ILook[] = [];
+
+  draftLooks: ILook[] = [];
+
+  currentPageAllLooks: number = 1;
+  currentPageDraftLooks: number = 1;
+
+  totalItemsAllLooks: number = 0;
+  totalItemsDraftLooks: number = 0;
   
-  pages: number[] = [];
-  selectedItems: string[] = [];
+  allLooksPages: number[] = [];
+  draftLooksPages: number[] = [];
   
   placeholderCount: number = 8;
 
   ngOnInit(): void {
     this.activatedRoute.queryParamMap.subscribe(query => {
-      this.currentPage = parseInt(query.get('page') ?? '1');
+      this.currentPageAllLooks = parseInt(query.get('page') ?? '1');
 
-      this.loaderService.setLoadingStatus(PageLoaderIdentifier.LOOKS, true)
-      this.lookFacade.looks(this.currentPage, LOOKS_LIMT).pipe(takeUntil(this.unsubscribe)).subscribe({
-        next: (incoming: ILookResponse) => {
-          this.looks = incoming.looks;
-          if(this.looks.length > 0){
-            this.totalItems = incoming.total;
-            this.searchByTerm();
-            this.loaderService.setLoadingStatus(PageLoaderIdentifier.LOOKS, false);
-            this.calculatePages();
-          } else {
-            this.loaderService.loaderActionAfterTryFetching(PageLoaderIdentifier.LOOKS);
-          }
-        }
-      })
+      this.getDraftLooks();
+      this.getAllLooks();
     });
   }
 
-  searchByTerm(): void{
-    let filtered = this.looks.filter(item => item.name.toLocaleLowerCase().includes(this.searchTerm().toLocaleLowerCase()));
-    this.displayableLooks = (this.searchTerm().length > 0) ? filtered : this.looks; 
+  private getDraftLooks(): void{
+    this.loaderService.setLoadingStatus(PageLoaderIdentifier.LOOKS_ON_DRAFT, true)
+    this.lookFacade.looksOnDraft(this.currentPageAllLooks, 4).pipe(takeUntil(this.unsubscribe)).subscribe({
+      next: (incoming: ILookResponse) => {
+        this.draftLooks = incoming.looks;
+        if(this.draftLooks.length > 0){
+          this.totalItemsDraftLooks = incoming.total;
+          this.loaderService.setLoadingStatus(PageLoaderIdentifier.LOOKS_ON_DRAFT, false);
+          this.calculatePagesForDraftLooks();
+        } else {
+          this.loaderService.loaderActionAfterTryFetching(PageLoaderIdentifier.LOOKS_ON_DRAFT);
+        }
+      }
+    })
   }
 
-  calculatePages(){
+  private getAllLooks(): void{
+    this.loaderService.setLoadingStatus(PageLoaderIdentifier.LOOKS, true)
+    this.lookFacade.looks(this.currentPageAllLooks, LOOKS_LIMT).pipe(takeUntil(this.unsubscribe)).subscribe({
+      next: (incoming: ILookResponse) => {
+        this.allLooks = incoming.looks;
+        if(this.allLooks.length > 0){
+          this.totalItemsAllLooks = incoming.total;
+          this.searchByTerm();
+          this.loaderService.setLoadingStatus(PageLoaderIdentifier.LOOKS, false);
+          this.calculatePagesForAllLooks();
+        } else {
+          this.loaderService.loaderActionAfterTryFetching(PageLoaderIdentifier.LOOKS);
+        }
+      }
+    })
+  }
+
+  searchByTerm(): void{
+    let filtered = this.allLooks.filter(item => item.name.toLocaleLowerCase().includes(this.searchTerm().toLocaleLowerCase()));
+    this.displayableAllLooks = (this.searchTerm().length > 0) ? filtered : this.allLooks; 
+  }
+  
+  calculatePagesForAllLooks(){
     let pagesCount = 0;
-    let remain = this.totalItems % LOOKS_LIMT;
+    let remain = this.totalItemsAllLooks % LOOKS_LIMT;
 
     if(remain === 0){
-        pagesCount = Math.floor(this.totalItems / LOOKS_LIMT);
+        pagesCount = Math.floor(this.totalItemsAllLooks / LOOKS_LIMT);
 
     }else{
-        pagesCount = Math.floor(this.totalItems / LOOKS_LIMT) + 1;
+        pagesCount = Math.floor(this.totalItemsAllLooks / LOOKS_LIMT) + 1;
     }
 
     for (let index = 1; index <= pagesCount; index++) {
-        let page = this.pages.find(item => item === index);
+        let page = this.allLooksPages.find(item => item === index);
         if(!page){
-            this.pages.push(index);
+            this.allLooksPages.push(index);
         }else{
             return;
         }
     }
 
   }
+  
+  calculatePagesForDraftLooks(){
+    let pagesCount = 0;
+    let remain = this.totalItemsDraftLooks % LOOKS_LIMT;
 
-  generatePlaceholders(): number[]{
-      return Array.from({ length: this.placeholderCount });
+    if(remain === 0){
+        pagesCount = Math.floor(this.totalItemsDraftLooks / LOOKS_LIMT);
+
+    }else{
+        pagesCount = Math.floor(this.totalItemsDraftLooks / LOOKS_LIMT) + 1;
+    }
+
+    for (let index = 1; index <= pagesCount; index++) {
+        let page = this.draftLooksPages.find(item => item === index);
+        if(!page){
+            this.draftLooksPages.push(index);
+        }else{
+            return;
+        }
+    }
+
   }
 
 }

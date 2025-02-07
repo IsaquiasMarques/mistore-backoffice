@@ -15,7 +15,7 @@ import { IProduct, IProductResponse } from '@store/models/product.model';
 import { StatisticsFacade } from '@store/facades/statistics.facade';
 import { LookProductRelationService } from '@shared/services/look-product.service';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { LookFacade } from '@store/facades/look.facade';
+import { LookFacade } from '@store/facades/looks/look.facade';
 import { AlertService, LogStatus } from '@core/services/alert/alert.service';
 
 @Component({
@@ -219,7 +219,7 @@ export class ProductsComponent extends TableComponentExtender implements OnInit,
     });
   }
 
-  createLook(): void{
+  draftingLook(): void{
     if(this.createLookFromProductFormGroup.invalid) return;
     if(!(this.selectedItems.length > 0)) return;
 
@@ -231,18 +231,17 @@ export class ProductsComponent extends TableComponentExtender implements OnInit,
       feature_image_1: null,
       feature_image_2: null,
       feature_image_3: null,
-      product_id: this.selectedItems.map(product => product.id)
+      product_id: this.selectedItems
     }
 
     this.isCreatingLook.set(true);
-    this.lookFacade.create(look).subscribe({
+    this.lookFacade.createDraft(look).subscribe({
       next: response => {
-        console.log(response);
+        this.alertService.add(response.message, LogStatus.SUCCESS);
         this.router.navigate(['/store/looks']);
         this.isCreatingLook.set(false);
       },
       error: error => {
-        console.error(error);
         this.alertService.add(error.message, LogStatus.ERROR);
         this.isCreatingLook.set(false);
       }

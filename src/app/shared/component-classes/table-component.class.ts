@@ -30,6 +30,10 @@ export class TableComponentExtender{
         this.selectedItems.push(itemId);
     }
 
+    unselectAll(): void{
+        this.selectedItems = [];
+    }
+
     getTheItem(id: string): any | undefined{
         return this.itemsSelectionService.getItems().find(item => item.id === id);
     }

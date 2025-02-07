@@ -44,118 +44,27 @@
             </div>
         </div>
     </div>
-    <div class="wrapper-content mt-10">
-        <div class="content-header flex mb-6 justify-between items-center">
-            <h3 class="text-base text-black font-medium">
-                Todos os looks
-            </h3>
-            <div class="pagination p-[10px] flex gap-1 justify-start items-center">
-                <div class="prev w-6 h-6">
-                    <button
-                    [disabled]="this.currentPage === this.pages[0]"
-                    [routerLink]="['/store/looks']"
-                    [queryParams]="{ page: this.currentPage - 1 }"
-                    [queryParamsHandling]="'merge'"
-                    class="">
-                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M15 18L9 12L15 6" [attr.stroke]="(this.currentPage === this.pages[0]) ? '#AAAAAA' : 'black'" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                        </svg>
-                    </button>
-                </div>
-                <div class="pages h-6 flex">
-                    <p class="text-black text-base font-medium tracking-[0.1px]">
-                        <span class="text-[#aaa]">{{ this.currentPage }}/</span>{{ this.pages.length }}
-                    </p>
-                </div>
-                <div class="next w-6 h-6">
-                    <button
-                    [disabled]="this.currentPage === this.pages[this.pages.length - 1]"
-                    [routerLink]="['/store/looks']"
-                    [queryParams]="{ page: this.currentPage + 1 }"
-                    [queryParamsHandling]="'merge'"
-                    class=""
-                    >
-                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M9 18L15 12L9 6" [attr.stroke]="(this.currentPage === this.pages[this.pages.length - 1]) ? '#AAAAAA' : 'black'" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                        </svg>
-                    </button>
-                </div>
-            </div>
-        </div>
-
-        <div class="looks-container">
-            <div class="looks flex flex-wrap gap-6 justify-start items-stretch">
-
-                @if(!(this.loaderService.getLoadingStatus(this.pageLoaderIdentifier.LOOKS) | async)){
-                    @if (displayableLooks.length > 0) {
-                        @for (look of displayableLooks; track $index) {
-                            <mi-look [look]="look" />
-                        }
-                    } @else {
-                        <div class="">
-                            <p class="">Sem dados para mostrar</p>
-                        </div>
-                    }
-                } @else {
-                    @for(placeholder of this.generatePlaceholders(); track $index){
-                        <div class="box relative w-[270px] p-3 rounded-lg border border-[#E9E9E9]">
-                            <div class="box-header rounded overflow-hidden">
-                                <div class="check-container absolute w-full p-3">
-                                    <div class="checkbox">
-                                        <button class="">
-                                            <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                <rect width="32" height="32" rx="16" fill="black" fill-opacity="0.3"/>
-                                                <path d="M8.5 12.5C8.5 11.0999 8.5 10.3998 8.77248 9.86502C9.01217 9.39462 9.39462 9.01217 9.86502 8.77248C10.3998 8.5 11.0999 8.5 12.5 8.5H19.5C20.9001 8.5 21.6002 8.5 22.135 8.77248C22.6054 9.01217 22.9878 9.39462 23.2275 9.86502C23.5 10.3998 23.5 11.0999 23.5 12.5V19.5C23.5 20.9001 23.5 21.6002 23.2275 22.135C22.9878 22.6054 22.6054 22.9878 22.135 23.2275C21.6002 23.5 20.9001 23.5 19.5 23.5H12.5C11.0999 23.5 10.3998 23.5 9.86502 23.2275C9.39462 22.9878 9.01217 22.6054 8.77248 22.135C8.5 21.6002 8.5 20.9001 8.5 19.5V12.5Z" stroke="white" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
-                                            </svg>
-                                        </button>
-                                    </div>
-                                </div>
-                                <div class="image !w-full !h-[180px] placeholder !relative"></div>
-                            </div>
-                            <div class="box-content mt-3 flex flex-col gap-y-5 justify-between">
-                                <div class="look-details placeholder !relative !w-fit">
-                                    <p class="text-transparent tracking-[0.1px] leading-6 limited-text two-lines">
-                                        Placeholder description
-                                    </p>
-                                </div>
-                                <div class="products-rounded relative flex gap-6 justify-between items-center">
-                                    <div class="images flex justify-start items-center">
-                                        @for (product of [0, 0, 0, 0]; track $index) {
-                                            <div class="product-image !w-8 !h-8 placeholder !relative rounded-full border-[1px] border-white overflow-hidden"
-                                            [style.zIndex]="[0, 0, 0, 0, 0, 0, 0, 0].length - $index"
-                                            [ngClass]="{
-                                                '-ml-5': $index > 0
-                                            }"
-                                            >
-                                                
-                                            </div>
-                                        }
-                                    </div>
-                                    <div class="selected-count placeholder !relative !w-fit">
-                                        <p class="text-[#999] text-sm text-transparent limited-text one-line">
-                                            Placeholder apenas
-                                        </p>
-                                    </div>
-                                </div>
-                                <div class="actions flex justify-between items-center">
-                                    <div class="edit">
-                                        <button class="px-1 py-3 text-sm placeholder !relative text-transparent rounded-lg">
-                                            Placeholder
-                                        </button>
-                                    </div>
-                                    <div class="dynamic-action">
-                                        <button class="px-4 py-3 text-sm placeholder !relative text-transparent rounded-lg">
-                                            placeholder
-                                        </button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    }
-                }
-                
-            </div>
-        </div>
-
+    
+    <div class="looks-on-draft-wrapper-content mt-10">
+        <mi-look-wrapper
+        [title]="'Looks em draft'"
+        [looks]="this.draftLooks"
+        [totalItems]="this.totalItemsDraftLooks"
+        [currentPage]="this.currentPageDraftLooks"
+        [isLoading]="this.loaderService.getLoadingStatus(this.pageLoaderIdentifier.LOOKS_ON_DRAFT) | async"
+        [pages]="this.draftLooksPages"
+        [placeholderCount]="4"
+        />
+    </div>
+    
+    <div class="all-looks-wrapper-content mt-10">
+        <mi-look-wrapper
+        [title]="'Todos os looks'"
+        [looks]="this.displayableAllLooks"
+        [totalItems]="this.totalItemsAllLooks"
+        [currentPage]="this.currentPageAllLooks"
+        [isLoading]="this.loaderService.getLoadingStatus(this.pageLoaderIdentifier.LOOKS) | async"
+        [pages]="this.allLooksPages"
+        />
     </div>
 </div>

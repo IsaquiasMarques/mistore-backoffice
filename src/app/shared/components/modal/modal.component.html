@@ -1,5 +1,5 @@
 <div class="modal-bg w-full h-full fixed top-0 left-0 z-[101] bg-black/50"
-(click)="this.hideModal()"
+(click)="this.hideModalFromBg()"
 [ngClass]="{
     'hidden': (!this.showModalBackground() && this.firstTimeOpeningModal()),
     'disappear': (!this.showModalBackground() && !this.firstTimeOpeningModal()),

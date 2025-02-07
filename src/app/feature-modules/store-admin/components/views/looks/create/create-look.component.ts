@@ -4,7 +4,7 @@ import { LoaderService } from '@core/services/loader/loader.service';
 import { LookProductRelationService } from '@shared/services/look-product.service';
 import { IProduct } from '@store/models/product.model';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { LookFacade } from '@store/facades/look.facade';
+import { LookFacade } from '@store/facades/looks/look.facade';
 import { AlertService, LogStatus } from '@core/services/alert/alert.service';
 
 @Component({

@@ -9,6 +9,7 @@ import { ModalSupporter } from '@core/class/modal-supporter.class';
 })
 export class ModalComponent extends ModalSupporter implements OnInit, OnChanges {
   @Input() showModalFromParent: boolean = false;
+  @Input() hideOnBgClick: boolean = true;
   @Output() hideModalOnParent = new EventEmitter<boolean>();
 
   constructor(
@@ -37,6 +38,13 @@ export class ModalComponent extends ModalSupporter implements OnInit, OnChanges 
   }
 
   hideModal(){
+    this.showModalBackground.set(false);
+    this.hideModalOnParent.emit(true);
+    this.toggleOverflowHiddenBodyElement(false);
+  }
+
+  hideModalFromBg(){
+    if(!this.hideOnBgClick) return;
     this.showModalBackground.set(false);
     this.hideModalOnParent.emit(true);
     this.toggleOverflowHiddenBodyElement(false);

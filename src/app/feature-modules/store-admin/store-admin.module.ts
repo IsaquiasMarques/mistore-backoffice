@@ -22,6 +22,7 @@ import { OthersComponent } from './components/views/help/childrens/others/others
 import { LooksComponent } from './components/views/looks/index/looks.component';
 import { CreateLookComponent } from './components/views/looks/create/create-look.component';
 import { EditLookComponent } from './components/views/looks/edit/edit-look.component';
+import { WrapperComponent } from './components/views/looks/index/wrapper/wrapper.component';
 
 @NgModule({
   declarations: [
@@ -43,6 +44,7 @@ import { EditLookComponent } from './components/views/looks/edit/edit-look.compo
     LooksComponent,
     CreateLookComponent,
     EditLookComponent,
+    WrapperComponent,
   ],
   imports: [
     SharedModule,

@@ -55,6 +55,35 @@ export class Transformer{
         });
     }
 
+    static draftLooks(incoming: any[]): any{
+        return incoming.flatMap((draft: any) => {
+
+            let images: string[] = [];
+
+            if(draft.main_image){
+                images = [ ...images, draft.main_image];
+            }
+            if(draft.feature_image_1){
+                images = [ ...images, draft.feature_image_1];
+            }
+            if(draft.feature_image_2){
+                images = [ ...images, draft.feature_image_2];
+            }
+            if(draft.feature_image_3){
+                images = [ ...images, draft.feature_image_3];
+            }
+
+            return {
+                id: draft.id ?? '',
+                name: draft.title ?? '',
+                slug: draft.slug ?? '',
+                description: draft.description ?? '',
+                images: images,
+                products: draft.product_id
+            }
+        })
+    }
+
     static looks(incoming: any[]): ILook[]{
         return incoming.flatMap((look: any) => {
             return {
