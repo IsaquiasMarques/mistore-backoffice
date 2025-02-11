@@ -1,7 +1,8 @@
 import { Injectable } from "@angular/core";
 import { Transformer } from "@shared/component-classes/transformation/transformer.class";
 import { ILook, ILookResponse } from "@store/models/looks.model";
-import { Observable, of, throwError } from "rxjs";
+import { IProduct } from "@store/models/product.model";
+import { Observable, of, switchMap, throwError } from "rxjs";
 
 @Injectable({
     providedIn: 'root'
@@ -21,8 +22,18 @@ export class DraftingLookFacade{
         return of({ code: 200, message: 'Look criado êxito, continue a editar para publicar' })
     }
 
-    get looksOnDraft(): any[] {
-        return JSON.parse(localStorage.getItem(this.localStorageDraftKey) || '[]');
+    get looksOnDraft(): Observable<any[]> {
+        return of(JSON.parse(localStorage.getItem(this.localStorageDraftKey) || '[]'));
+    }
+
+    private lookOnDraftUnTransformed(id: string):Observable<any>{
+        const items: any[] = JSON.parse(localStorage.getItem(this.localStorageDraftKey) || '[]');
+        return of(items.filter(item => item.id === id));
+    }
+    
+    lookOnDraft(id: string):Observable<any>{
+        const items: any[] = JSON.parse(localStorage.getItem(this.localStorageDraftKey) || '[]');
+        return of(Transformer.draftLooks(items.filter(item => item.id === id)));
     }
 
     paginatedDraftLooks(page: number, limit: number): Observable<ILookResponse> {
@@ -41,6 +52,29 @@ export class DraftingLookFacade{
             looks: Transformer.draftLooks(paginatedLooks),
             total: drafts.length
         });
+    }
+
+    updateLookProducts(look_id: string, products: IProduct[]): Observable<any>{
+        return this.lookOnDraftUnTransformed(look_id).pipe(
+            switchMap(look => {
+                if (!look) {
+                    return throwError(() => new Error('Look não encontrado.'));
+                }
+    
+                // Atualizar os produtos do look
+                look.product_id = products;
+    
+                // Atualizar no localStorage
+                const drafts: any[] = JSON.parse(localStorage.getItem(this.localStorageDraftKey) || '[]');
+                const updatedDrafts = drafts.map(existingLook =>
+                    existingLook.id === look_id ? { ...existingLook, product_id: products } : existingLook
+                );
+    
+                localStorage.setItem(this.localStorageDraftKey, JSON.stringify(updatedDrafts));
+    
+                return of({ success: true, message: 'Produtos do look em draft atualizados com sucesso.' });
+            })
+        );
     }
 
 }

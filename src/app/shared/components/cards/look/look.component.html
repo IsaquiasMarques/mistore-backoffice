@@ -22,7 +22,7 @@
     <div class="box-content mt-3 flex flex-col gap-y-5 justify-between">
         <div class="look-details">
             <p class="text-base text-black tracking-[0.1px] leading-6 limited-text two-lines">
-                {{ look.name }} {{ (look.description.length > 0) ? ' - ' : '' + look.description }}
+                {{ look.name }} {{ (look.description && look.description.length > 0) ? ' - ' + look.description : '' }}
             </p>
         </div>
         <div class="products-rounded relative flex gap-6 justify-between items-center">
@@ -47,7 +47,11 @@
         </div>
         <div class="actions flex justify-between items-center">
             <div class="edit">
-                <a [routerLink]="['/store/looks/edit/' + look.id ]" class="px-1 cursor-pointer py-3 text-sm text-black font-semibold rounded-lg">
+                <a
+                [routerLink]="[this.route + look.id ]"
+                [queryParams]="this.queryParams"
+                (click)="this.linkRelatedProducts()"
+                class="px-1 cursor-pointer py-3 text-sm text-black font-semibold rounded-lg">
                     Editar
                 </a>
             </div>

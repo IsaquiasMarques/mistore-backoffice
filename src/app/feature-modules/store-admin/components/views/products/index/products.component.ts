@@ -17,6 +17,8 @@ import { LookProductRelationService } from '@shared/services/look-product.servic
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { LookFacade } from '@store/facades/looks/look.facade';
 import { AlertService, LogStatus } from '@core/services/alert/alert.service';
+import { UUIDGenerator } from '@core/services/uuid-generator.service';
+import { catchError, delay, map, throwError } from 'rxjs';
 
 @Component({
   selector: 'mi-products',
@@ -133,7 +135,7 @@ export class ProductsComponent extends TableComponentExtender implements OnInit,
     this.getWidgetsDatas();
 
     this.createLookFromProductFormGroup = new FormGroup({
-      'title': new FormControl('', [ Validators.required, Validators.maxLength(30) ])
+      'title': new FormControl('', [ Validators.required, Validators.maxLength(50) ])
     })
   }
 
@@ -223,10 +225,16 @@ export class ProductsComponent extends TableComponentExtender implements OnInit,
     if(this.createLookFromProductFormGroup.invalid) return;
     if(!(this.selectedItems.length > 0)) return;
 
+    const titleField: string = this.createLookFromProductFormGroup.get('title')!.value;
+    const splitted = titleField.split('-');
+    const title = splitted[0];
+    const description = (splitted.length > 1) ? splitted[1] : null;
+
     const look = {
       shop_id: '1c13d9e3-41a3-47c5-83ae-8785441c878b',
-      title: this.createLookFromProductFormGroup.get('title')?.value,
-      description: null,
+      id: UUIDGenerator.generate(),
+      title: title,
+      description: description,
       main_image: null,
       feature_image_1: null,
       feature_image_2: null,
@@ -235,16 +243,24 @@ export class ProductsComponent extends TableComponentExtender implements OnInit,
     }
 
     this.isCreatingLook.set(true);
-    this.lookFacade.createDraft(look).subscribe({
+    this.lookFacade.createDraft(look).pipe(
+      delay(300),
+      map(incoming => {
+        this.changeCreateLookModalStatus(false);
+        return incoming;
+      }),
+      delay(200),
+      catchError(error => throwError(() => error))
+    ).subscribe({
       next: response => {
         this.alertService.add(response.message, LogStatus.SUCCESS);
-        this.router.navigate(['/store/looks']);
         this.isCreatingLook.set(false);
+        this.router.navigate(['/store/looks']);
       },
       error: error => {
         this.alertService.add(error.message, LogStatus.ERROR);
         this.isCreatingLook.set(false);
-      }
+      },
     });
   }
 

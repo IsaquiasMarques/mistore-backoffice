@@ -8,7 +8,7 @@
                 <button
                 [disabled]="this.currentPage === this.pages[0]"
                 [routerLink]="['/store/looks']"
-                [queryParams]="{ page: this.currentPage - 1 }"
+                [queryParams]="queryParamName | queryParams:this.currentPage-1"
                 [queryParamsHandling]="'merge'"
                 class="">
                     <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -25,7 +25,7 @@
                 <button
                 [disabled]="this.currentPage === this.pages[this.pages.length - 1]"
                 [routerLink]="['/store/looks']"
-                [queryParams]="{ page: this.currentPage + 1 }"
+                [queryParams]="queryParamName | queryParams:this.currentPage+1"
                 [queryParamsHandling]="'merge'"
                 class=""
                 >
@@ -43,7 +43,10 @@
             @if(!isLoading){
                 @if (looks.length > 0) {
                     @for (look of looks; track $index) {
-                        <mi-look [look]="look" />
+                        <mi-look
+                        [look]="look"
+                        [queryParams]="this.queryParams"
+                        />
                     }
                 } @else {
                     <div class="">

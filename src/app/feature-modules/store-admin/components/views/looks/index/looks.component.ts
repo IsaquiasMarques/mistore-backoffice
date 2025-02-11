@@ -30,20 +30,27 @@ implements OnInit {
 
   draftLooks: ILook[] = [];
 
-  currentPageAllLooks: number = 1;
   currentPageDraftLooks: number = 1;
+  currentPageAllLooks: number = 1;
+  currentPagePublishedLooks: number = 1;
+  currentPageDeletedLooks: number = 1;
 
-  totalItemsAllLooks: number = 0;
   totalItemsDraftLooks: number = 0;
+  totalItemsAllLooks: number = 0;
+  totalItemsPublishedLooks: number = 0;
+  totalItemsDeletedLooks: number = 0;
   
-  allLooksPages: number[] = [];
   draftLooksPages: number[] = [];
-  
-  placeholderCount: number = 8;
+  allLooksPages: number[] = [];
+  publishedLooksPages: number[] = [];
+  deletedLooksPages: number[] = [];
 
   ngOnInit(): void {
     this.activatedRoute.queryParamMap.subscribe(query => {
-      this.currentPageAllLooks = parseInt(query.get('page') ?? '1');
+      this.currentPageDraftLooks = parseInt(query.get('draft_page') ?? '1');
+      this.currentPageAllLooks = parseInt(query.get('all_looks_page') ?? '1');
+      this.currentPagePublishedLooks = parseInt(query.get('published_looks_page') ?? '1');
+      this.currentPageDeletedLooks = parseInt(query.get('deleted_looks_page') ?? '1');
 
       this.getDraftLooks();
       this.getAllLooks();
@@ -52,7 +59,7 @@ implements OnInit {
 
   private getDraftLooks(): void{
     this.loaderService.setLoadingStatus(PageLoaderIdentifier.LOOKS_ON_DRAFT, true)
-    this.lookFacade.looksOnDraft(this.currentPageAllLooks, 4).pipe(takeUntil(this.unsubscribe)).subscribe({
+    this.lookFacade.looksOnDraft(this.currentPageDraftLooks, 4).pipe(takeUntil(this.unsubscribe)).subscribe({
       next: (incoming: ILookResponse) => {
         this.draftLooks = incoming.looks;
         if(this.draftLooks.length > 0){

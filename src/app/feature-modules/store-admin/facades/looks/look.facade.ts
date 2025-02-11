@@ -2,8 +2,9 @@ import { inject, Injectable } from "@angular/core";
 import { LooksData } from "@core/data/store/looks.data";
 import { StoreApi } from "@store/api/store.api.service";
 import { ILook, ILookResponse } from "@store/models/looks.model";
-import { catchError, Observable, of, tap, throwError } from "rxjs";
+import { catchError, map, Observable, of, tap, throwError } from "rxjs";
 import { DraftingLookFacade } from "./drafts.facade";
+import { IProduct } from "@store/models/product.model";
 
 @Injectable({
     providedIn: 'root'
@@ -39,6 +40,21 @@ export class LookFacade{
 
     looksOnDraft(page: number, limit: number): Observable<ILookResponse>{
         return this.draftingLook.paginatedDraftLooks(page, limit);
+    }
+
+    lookOnDraft(id: string): Observable<ILook>{
+        return this.draftingLook.lookOnDraft(id).pipe(
+            map(incoming => {
+                if(!(incoming.length > 0)){
+                    throw new Error("Não existe look em draft com este id: " + id);
+                }
+                return incoming[0];
+            })
+        );
+    }
+
+    updateProductsOfLookOnDraft(look_id: string, products: IProduct[]): Observable<any>{
+        return this.draftingLook.updateLookProducts(look_id, products);
     }
 
     create(look: any): Observable<any>{

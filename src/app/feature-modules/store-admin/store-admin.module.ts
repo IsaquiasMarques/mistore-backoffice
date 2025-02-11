@@ -23,6 +23,7 @@ import { LooksComponent } from './components/views/looks/index/looks.component';
 import { CreateLookComponent } from './components/views/looks/create/create-look.component';
 import { EditLookComponent } from './components/views/looks/edit/edit-look.component';
 import { WrapperComponent } from './components/views/looks/index/wrapper/wrapper.component';
+import { QueryParamsPipe } from './pipes/query-params.pipe';
 
 @NgModule({
   declarations: [
@@ -45,6 +46,7 @@ import { WrapperComponent } from './components/views/looks/index/wrapper/wrapper
     CreateLookComponent,
     EditLookComponent,
     WrapperComponent,
+    QueryParamsPipe,
   ],
   imports: [
     SharedModule,

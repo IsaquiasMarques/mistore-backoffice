@@ -1,6 +1,6 @@
 import { AfterViewInit, Component, computed, ElementRef, inject, OnInit, Signal, signal, ViewChild } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { ActivatedRoute, Params } from '@angular/router';
+import { ActivatedRoute, Params, Router } from '@angular/router';
 import { AlertService, LogStatus } from '@core/services/alert/alert.service';
 import { LoaderService } from '@core/services/loader/loader.service';
 import { TableComponentExtender } from '@shared/component-classes/table-component.class';
@@ -11,6 +11,7 @@ import { LookProductRelationService } from '@shared/services/look-product.servic
 import { ProductStatusEnum } from '@store/enums/products-status.enum';
 import { LookFacade } from '@store/facades/looks/look.facade';
 import { ProductFacade } from '@store/facades/products/products.facade';
+import { ILook } from '@store/models/looks.model';
 import { IProduct, IProductResponse } from '@store/models/product.model';
 import { combineLatest } from 'rxjs';
 
@@ -40,12 +41,16 @@ export class EditLookComponent extends TableComponentExtender implements OnInit,
   public pageLoaderIdentifier = PageLoaderIdentifier;
   public selectedProducts$: Signal<IProduct[]> = computed(() => this.lookProductRelationshipService.selectedProductsToAttachOnNewLook$());
 
+  private temporaryProductsActions: { action: 'added' | 'removed', product: IProduct, index?: number }[] = [];
+
   private lookFacade = inject(LookFacade);
   private productFacade = inject(ProductFacade);
   private lookProductRelationshipService = inject(LookProductRelationService);
 
   private alertService = inject(AlertService);
   private activatedRoute = inject(ActivatedRoute);
+
+  private router = inject(Router);
 
   selectedLookImages: any[] = [];
 
@@ -54,6 +59,9 @@ export class EditLookComponent extends TableComponentExtender implements OnInit,
   isEditing = signal(false);
 
   showProductsModal = signal(false);
+
+  theLook!: ILook;
+  isDraft: boolean = false;
 
   productStatusEnum = ProductStatusEnum;
   svgRefEnum = SVGRefEnum;
@@ -71,9 +79,10 @@ export class EditLookComponent extends TableComponentExtender implements OnInit,
     .subscribe(([params, queryParams]) => {
 
       const id = params.get('id') ?? null;
+      const lookType = queryParams.get('type') ?? 'normal';
 
       if(!id) return;
-      this.getTheLook(id);
+      this.getTheLook(id, lookType);
 
       const productsListingActivePage = queryParams.get('product_modal_page');
       if(productsListingActivePage){
@@ -103,23 +112,73 @@ export class EditLookComponent extends TableComponentExtender implements OnInit,
 
   cancel(): void{
     this.changeProductsModalVisibility(false);
-    this.unselectAll();
+    this.revertTemporaryActions(this.temporaryProductsActions);
     this.lookProductRelationshipService.attachProducts(this.selectedItems);
   }
 
   save(): void{
     this.changeProductsModalVisibility(false);
+    this.temporaryProductsActions = [];
+    this.lookProductRelationshipService.attachProducts((this.selectedItems) as IProduct[]);
+    // actualizar os productos do look em draft
+    if(this.isDraft){
+      this.lookFacade.updateProductsOfLookOnDraft(this.theLook.id, this.lookProductRelationshipService.selectedProductsToAttachOnNewLook$()).subscribe({
+        next: response => {
+          this.alertService.add(response.message, LogStatus.SUCCESS);
+        },
+        error: error => {
+          console.error(error.message);
+          this.alertService.add(error.message, LogStatus.ERROR);
+        }
+      });
+    }
   }
 
   override selectItem(item: IProduct){
       let itemIndex: string | number = this.isSelected(item.id, 'index');
       if((typeof(itemIndex) === 'number') && itemIndex !== -1){
           this.selectedItems.splice(itemIndex, 1);
+          this.tmpSelectionAction(item, 'removed', itemIndex);
+          console.log("console 1: ", this.temporaryProductsActions, this.selectedItems);
           return;
       }
-      this.selectedItems.push(item);
       
-      this.lookProductRelationshipService.attachProducts((this.selectedItems) as IProduct[]);
+      this.tmpSelectionAction(item, 'added');
+
+      console.log("console 2: ", this.temporaryProductsActions, this.selectedItems);
+      this.selectedItems.push(item);
+  }
+
+  revertTemporaryActions(actions: { action: 'added' | 'removed', product: IProduct, index?: number }[]): void{
+    actions.forEach(action => {
+      const theProductIndex = this.selectedItems.findIndex(selectedProduct => selectedProduct.id === action.product.id);
+      switch(action.action){
+        case 'added':
+          if (theProductIndex !== -1) {
+              this.selectedItems.splice(theProductIndex, 1);
+          }
+          break;
+        case 'removed':
+          // se foi removido ele deve adicionar o item exatamente no seu index
+          if(action.index !== undefined && action.index !== null){
+            this.selectedItems.splice(action.index, 0, action.product);
+          }
+          break;
+        default:
+          break;
+      }
+    })
+
+    this.lookProductRelationshipService.attachProducts(this.selectedItems);
+  }
+
+  tmpSelectionAction(product: IProduct, action: 'added' | 'removed', index?: number): void{
+    const ind = this.temporaryProductsActions.findIndex(it => it.product.id === product.id);
+    if(ind === -1){
+      this.temporaryProductsActions.push({ action, product, index });
+    } else {
+      this.temporaryProductsActions.splice(ind, 1);
+    }
   }
 
   getProducts(page: number, limit: number){
@@ -144,22 +203,52 @@ export class EditLookComponent extends TableComponentExtender implements OnInit,
   changeProductsModalVisibility(status: boolean): void{
     if(status){
       this.getProducts(this.currentPage, PRODUCTS_LIMIT);
+      this.selectedItems = this.lookProductRelationshipService.selectedProductsToAttachOnNewLook$();
     }
     this.showProductsModal.set(status);
   }
 
-  getTheLook(id: string): void{
-    this.lookFacade.look(id).subscribe({
-      next: incoming => {
-        console.log(incoming);
-      },
-      error: error => {
-        console.error(error);
-        this.alertService.add(error.message, LogStatus.ERROR);
-      }
-    })
+  getTheLook(id: string, type: string): void{
+    switch(type){
+      case 'draft':
+        this.isDraft = true;
+        this.lookFacade.lookOnDraft(id).subscribe({
+          next: incoming => {
+            this.theLook = incoming;
+
+            this.fullfillFormInputs();
+            if(!(this.lookProductRelationshipService.selectedProductsToAttachOnNewLook$().length > 0)){
+              this.lookProductRelationshipService.attachProducts(this.theLook.products);
+            }
+
+          },
+          error: error => {
+            console.error(error);
+            this.alertService.add(error.message, LogStatus.ERROR);
+            this.router.navigate(['/store/looks']);
+          }
+        })
+        break;
+      default:
+        this.isDraft = false;
+        this.lookFacade.look(id).subscribe({
+          next: incoming => {
+            console.log(incoming);
+          },
+          error: error => {
+            console.error(error);
+            this.alertService.add(error.message, LogStatus.ERROR);
+          }
+        })
+        break;
+    }
   }
 
+  fullfillFormInputs(): void{
+    this.editLookFormGroup.get('title')?.setValue(this.theLook.name);
+    this.editLookFormGroup.get('description')?.setValue(this.theLook.description);
+  }
+  
   submit(): void{
     if(this.editLookFormGroup.invalid) return;
     if(!(this.selectedProducts$().length > 0)){

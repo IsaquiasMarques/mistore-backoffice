@@ -1,4 +1,5 @@
 import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
+import { Params } from '@angular/router';
 import { LOOKS_LIMT } from '@shared/constants/data-limit.const';
 import { ILook } from '@store/models/looks.model';
 
@@ -15,9 +16,11 @@ export class WrapperComponent implements OnChanges {
   @Input() limit: number = 0;
   
   @Input() looks: ILook[] = [];
-
+  
   @Input() isLoading: boolean | null = false;
-
+  
+  @Input() queryParams: Params | null = null;
+  @Input() queryParamName = 'page';
   @Input() pages: number[] = [];
   selectedItems: string[] = [];
   

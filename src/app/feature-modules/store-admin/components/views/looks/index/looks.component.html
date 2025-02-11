@@ -1,6 +1,5 @@
 <div class="wrapper py-6 px-8">
     <div class="wrapper-header">
-
         <div class="top-content flex justify-between items-start">
             <div class="aside">
                 <div class="title mb-4">
@@ -45,17 +44,21 @@
         </div>
     </div>
     
-    <div class="looks-on-draft-wrapper-content mt-10">
-        <mi-look-wrapper
-        [title]="'Looks em draft'"
-        [looks]="this.draftLooks"
-        [totalItems]="this.totalItemsDraftLooks"
-        [currentPage]="this.currentPageDraftLooks"
-        [isLoading]="this.loaderService.getLoadingStatus(this.pageLoaderIdentifier.LOOKS_ON_DRAFT) | async"
-        [pages]="this.draftLooksPages"
-        [placeholderCount]="4"
-        />
-    </div>
+    @if (this.draftLooks.length > 0) {
+        <div class="looks-on-draft-wrapper-content mt-10">
+            <mi-look-wrapper
+            [title]="'Looks em draft'"
+            [looks]="this.draftLooks"
+            [totalItems]="this.totalItemsDraftLooks"
+            [currentPage]="this.currentPageDraftLooks"
+            [isLoading]="this.loaderService.getLoadingStatus(this.pageLoaderIdentifier.LOOKS_ON_DRAFT) | async"
+            [pages]="this.draftLooksPages"
+            [queryParams]="{ type: 'draft' }"
+            [queryParamName]="'draft_page'"
+            [placeholderCount]="4"
+            />
+        </div>
+    }
     
     <div class="all-looks-wrapper-content mt-10">
         <mi-look-wrapper
@@ -65,6 +68,7 @@
         [currentPage]="this.currentPageAllLooks"
         [isLoading]="this.loaderService.getLoadingStatus(this.pageLoaderIdentifier.LOOKS) | async"
         [pages]="this.allLooksPages"
+        [queryParamName]="'all_looks_page'"
         />
     </div>
 </div>
