@@ -61,4 +61,12 @@ export class LookFacade{
         return this.api.createLook(look);
     }
 
+    removeFromDraft(look_id: string): Observable<any>{
+        return this.draftingLook.removeLookFromDraft(look_id);
+    }
+
+    deleteLook(look: any): Observable<any>{
+        return this.api.deleteLook(look);
+    }
+
 }

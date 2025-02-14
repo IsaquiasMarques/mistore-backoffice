@@ -1,4 +1,4 @@
-import { Component, inject, OnInit, signal } from '@angular/core';
+import { ChangeDetectorRef, Component, inject, OnInit, signal } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Unsubscriber } from '@shared/component-classes/subcriber/unsubscriber.class';
 import { PageLoaderIdentifier } from '@shared/Enums/page-loader-id.enum';
@@ -7,7 +7,9 @@ import { LoaderService } from '@core/services/loader/loader.service';
 import { LOOKS_LIMT } from '@shared/constants/data-limit.const';
 import { LookFacade } from '@store/facades/looks/look.facade';
 import { ILook, ILookResponse } from '@store/models/looks.model';
-import { takeUntil } from 'rxjs';
+import { catchError, forkJoin, Observable, takeUntil, tap, throwError } from 'rxjs';
+import { AlertService, LogStatus } from '@core/services/alert/alert.service';
+import { LookStatus } from '@store/enums/look-status.enum';
 
 @Component({
   selector: 'mi-looks',
@@ -19,11 +21,17 @@ extends Unsubscriber
 implements OnInit {
   private lookFacade = inject(LookFacade);
   private activatedRoute = inject(ActivatedRoute);
+  private alertService = inject(AlertService);
   
   loaderService = inject(LoaderService);
   pageLoaderIdentifier = PageLoaderIdentifier;
 
+  changeDetectorRef = inject(ChangeDetectorRef);
+
   searchTerm = signal<string>('');
+
+  selectedLooks: ILook[] = [];
+  unselectAllSelectedLooks: boolean = false;
 
   allLooks: ILook[] = [];
   displayableAllLooks: ILook[] = [];
@@ -90,12 +98,30 @@ implements OnInit {
     })
   }
 
+  unselectLooks(): void{
+    this.unselectAllSelectedLooks = true;
+    this.changeDetectorRef.detectChanges();
+  }
+
+  parentSelectionHandler(event: { action: 'select' | 'remove', look: ILook }): void{
+    this.unselectAllSelectedLooks = false;
+
+    if(event.action === 'select'){
+      this.selectedLooks = [ ...this.selectedLooks, event.look ];
+    } else {
+      const index = this.selectedLooks.findIndex(selectedLook => selectedLook.id === event.look.id );
+      if(index !== -1){
+        this.selectedLooks.splice(index, 1);
+      }
+    }
+  }
+
   searchByTerm(): void{
     let filtered = this.allLooks.filter(item => item.name.toLocaleLowerCase().includes(this.searchTerm().toLocaleLowerCase()));
     this.displayableAllLooks = (this.searchTerm().length > 0) ? filtered : this.allLooks; 
   }
   
-  calculatePagesForAllLooks(){
+  private calculatePagesForAllLooks(){
     let pagesCount = 0;
     let remain = this.totalItemsAllLooks % LOOKS_LIMT;
 
@@ -117,7 +143,7 @@ implements OnInit {
 
   }
   
-  calculatePagesForDraftLooks(){
+  private calculatePagesForDraftLooks(){
     let pagesCount = 0;
     let remain = this.totalItemsDraftLooks % LOOKS_LIMT;
 
@@ -137,6 +163,49 @@ implements OnInit {
         }
     }
 
+  }
+
+  deleteLooks(): void{
+
+    if(this.selectedLooks.length === 0) return;
+
+    const deleteRequests: any[] = this.selectedLooks.map((look, index) => {
+
+      return this.lookFacade.deleteLook(
+        this.generateLookJson(look)
+      ).pipe(
+        tap(() => {
+          this.alertService.add(`Look: ${ look.name } foi eliminado com êxito.`, LogStatus.SUCCESS);
+          this.selectedLooks[index].status = LookStatus.DELETED;
+          this.selectedLooks.splice(index, 1);
+        }),
+        catchError(error => {
+          this.alertService.add(`Erro ao eliminar o look: ${look.name}`, LogStatus.ERROR);
+          return throwError(() => error);
+        })
+      )
+    });
+
+    forkJoin(deleteRequests).subscribe({
+      next: response => {
+        this.selectedLooks = [...this.selectedLooks];
+      },
+      error: error => {
+        console.error("Erro ao deletar os looks:", error);
+      }
+    })
+
+  }
+
+  private generateLookJson(look: ILook): any {
+      return {
+          userid: "1c13d9e3-41a3-47c5-83ae-8785441c878b", // Pode ser dinâmico se necessário
+          id: look.id,
+          filenameimagePath: look.filenames?.[0] || undefined,
+          filenamefeature_image_1: look.filenames?.[1] || undefined,
+          filenamefeature_image_2: look.filenames?.[2] || undefined,
+          filenamefeature_image_3: look.filenames?.[3] || undefined,
+      };
   }
 
 }

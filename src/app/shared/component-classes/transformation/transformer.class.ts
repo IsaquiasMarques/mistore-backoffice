@@ -1,6 +1,7 @@
 import { IBrand } from "@core/base-models/base/brands.model";
 import { ColorOption } from "@core/base-models/base/ColorOption.model";
 import { IProductCategory } from "@core/base-models/base/product-category.model";
+import { LookStatus } from "@store/enums/look-status.enum";
 import { ProductStatusEnum } from "@store/enums/products-status.enum";
 import { ILook } from "@store/models/looks.model";
 import { IProduct, IProductColor, IProductSize } from "@store/models/product.model";
@@ -8,7 +9,6 @@ import { IProduct, IProductColor, IProductSize } from "@store/models/product.mod
 export class Transformer{
 
     static products(incoming: any[]): IProduct[]{
-        
         return incoming.flatMap((product) => {
 
             const created_at = this.date((product.dateTime).split('T')[0], '-', '/');
@@ -79,6 +79,7 @@ export class Transformer{
                 slug: draft.slug ?? '',
                 description: draft.description ?? '',
                 images: images,
+                status: draft.status,
                 products: draft.product_id
             }
         })
@@ -91,11 +92,18 @@ export class Transformer{
                 name: look.looks.title,
                 slug: look.looks.slug,
                 description: look.looks.description,
+                status: LookStatus.PUBLISHED,
                 images: [
                     look.looks.imagePath,
                     look.looks.feature_image_1,
                     look.looks.feature_image_2,
                     look.looks.feature_image_3,
+                ],
+                filenames: [
+                    look.looks.filename_main_img,
+                    look.looks.filename_feature_image_1,
+                    look.looks.filename_feature_image_2,
+                    look.looks.filename_feature_image_3,
                 ],
                 products: Transformer.products(look.productList)
             }

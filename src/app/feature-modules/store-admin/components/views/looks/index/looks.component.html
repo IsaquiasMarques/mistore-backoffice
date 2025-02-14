@@ -43,6 +43,39 @@
             </div>
         </div>
     </div>
+
+    @if ((this.selectedLooks.length > 0)) {
+        <div class="selection-panel appear-softly mt-6 sticky top-[104px] z-[10] bg-[#F8F8F8] rounded-lg py-2 px-4 flex justify-between items-center">
+            <div class="count">
+                {{ this.selectedLooks.length }} looks seleccionados
+            </div>
+            <div class="actions flex gap-4 justify-center items-center">
+                <div class="unselect h-[34px]">
+                    <button class="" (click)="this.unselectLooks()">
+                        <svg width="34" height="34" viewBox="0 0 34 34" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <rect width="34" height="34" rx="4" fill="#F1AD1D" fill-opacity="0.1"/>
+                            <g clip-path="url(#clip0_775_3604)">
+                            <path d="M13.667 16.9998H20.3337M25.3337 16.9998C25.3337 21.6022 21.6027 25.3332 17.0003 25.3332C12.398 25.3332 8.66699 21.6022 8.66699 16.9998C8.66699 12.3975 12.398 8.6665 17.0003 8.6665C21.6027 8.6665 25.3337 12.3975 25.3337 16.9998Z" stroke="#F1AD1D" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
+                            </g>
+                            <defs>
+                            <clipPath id="clip0_775_3604">
+                            <rect width="20" height="20" fill="white" transform="translate(7 7)"/>
+                            </clipPath>
+                            </defs>
+                        </svg>
+                    </button>
+                </div>
+                <div class="delete h-[34px]">
+                    <button class="" (click)="this.deleteLooks()">
+                        <svg width="34" height="34" viewBox="0 0 34 34" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <rect width="34" height="34" rx="4" fill="#E13029"/>
+                            <path d="M20.3333 11.9998V11.3332C20.3333 10.3997 20.3333 9.93304 20.1517 9.57652C19.9919 9.26292 19.7369 9.00795 19.4233 8.84816C19.0668 8.6665 18.6001 8.6665 17.6667 8.6665H16.3333C15.3999 8.6665 14.9332 8.6665 14.5767 8.84816C14.2631 9.00795 14.0081 9.26292 13.8483 9.57652C13.6667 9.93304 13.6667 10.3997 13.6667 11.3332V11.9998M15.3333 16.5832V20.7498M18.6667 16.5832V20.7498M9.5 11.9998H24.5M22.8333 11.9998V21.3332C22.8333 22.7333 22.8333 23.4334 22.5608 23.9681C22.3212 24.4386 21.9387 24.821 21.4683 25.0607C20.9335 25.3332 20.2335 25.3332 18.8333 25.3332H15.1667C13.7665 25.3332 13.0665 25.3332 12.5317 25.0607C12.0613 24.821 11.6788 24.4386 11.4392 23.9681C11.1667 23.4334 11.1667 22.7333 11.1667 21.3332V11.9998" stroke="white" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+    }
     
     @if (this.draftLooks.length > 0) {
         <div class="looks-on-draft-wrapper-content mt-10">
@@ -56,6 +89,8 @@
             [queryParams]="{ type: 'draft' }"
             [queryParamName]="'draft_page'"
             [placeholderCount]="4"
+            (selectionEventEmitter)="this.parentSelectionHandler($event)"
+            [unSelectAllLooksFromParent]="this.unselectAllSelectedLooks"
             />
         </div>
     }
@@ -69,6 +104,8 @@
         [isLoading]="this.loaderService.getLoadingStatus(this.pageLoaderIdentifier.LOOKS) | async"
         [pages]="this.allLooksPages"
         [queryParamName]="'all_looks_page'"
+        (selectionEventEmitter)="this.parentSelectionHandler($event)"
+        [unSelectAllLooksFromParent]="this.unselectAllSelectedLooks"
         />
     </div>
 </div>

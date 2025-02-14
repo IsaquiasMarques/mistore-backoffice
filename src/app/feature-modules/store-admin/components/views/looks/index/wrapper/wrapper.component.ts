@@ -1,4 +1,4 @@
-import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
+import { Component, EventEmitter, Input, OnChanges, Output, SimpleChanges } from '@angular/core';
 import { Params } from '@angular/router';
 import { LOOKS_LIMT } from '@shared/constants/data-limit.const';
 import { ILook } from '@store/models/looks.model';
@@ -26,8 +26,15 @@ export class WrapperComponent implements OnChanges {
   
   @Input() placeholderCount: number = 8;  
 
+  @Output() selectionEventEmitter: EventEmitter<{ action: 'select' | 'remove', look: ILook }> = new EventEmitter<{ action: 'select' | 'remove', look: ILook }>();
+  @Input() unSelectAllLooksFromParent: boolean = false;
+
   ngOnChanges(changes: SimpleChanges): void {
 
+  }
+
+  lookSelectionHandler(event: { action: 'select' | 'remove', look: ILook }): void{
+    this.selectionEventEmitter.emit(event);
   }
 
   generatePlaceholders(): number[]{

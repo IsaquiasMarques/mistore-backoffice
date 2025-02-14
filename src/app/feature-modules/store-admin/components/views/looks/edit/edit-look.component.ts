@@ -13,7 +13,7 @@ import { LookFacade } from '@store/facades/looks/look.facade';
 import { ProductFacade } from '@store/facades/products/products.facade';
 import { ILook } from '@store/models/looks.model';
 import { IProduct, IProductResponse } from '@store/models/product.model';
-import { combineLatest } from 'rxjs';
+import { combineLatest, map, of, switchMap, tap } from 'rxjs';
 
 @Component({
   selector: 'mi-edit-look',
@@ -272,14 +272,23 @@ export class EditLookComponent extends TableComponentExtender implements OnInit,
       product_id: this.selectedProducts$().map(product => product.id)
     }
 
-    console.log(look)
-
     this.isEditing.set(true);
-    this.lookFacade.create(JSON.stringify(look)).subscribe({
+    this.lookFacade.create(JSON.stringify(look))
+    .pipe(
+      switchMap(response => {
+        if(this.isDraft){
+          return this.lookFacade.removeFromDraft(this.theLook.id).pipe(
+            map(() => response)
+          );
+        }
+        return of(response);
+      })
+    )
+    .subscribe({
       next: (response) => {
-        console.log(response)
-        this.alertService.add("Look adicionado com êxito", LogStatus.SUCCESS);
+        this.alertService.add("Look publicado com êxito", LogStatus.SUCCESS);
         this.isEditing.set(false);
+        this.router.navigate(['/store/looks']);
       },
       error: (error) => {
         this.alertService.add(error, LogStatus.ERROR);

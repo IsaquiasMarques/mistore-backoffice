@@ -46,6 +46,8 @@
                         <mi-look
                         [look]="look"
                         [queryParams]="this.queryParams"
+                        (selectEventEmitter)="this.lookSelectionHandler($event)"
+                        [unSelectAllLooksFromParent]="this.unSelectAllLooksFromParent"
                         />
                     }
                 } @else {

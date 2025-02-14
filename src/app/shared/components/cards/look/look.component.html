@@ -1,15 +1,16 @@
-<div class="box relative w-[270px] appear-softly p-3 rounded-lg border border-[#E9E9E9]">
-    
+<div class="box relative w-[270px] h-full appear-softly p-3 rounded-lg border border-[#E9E9E9]">
     @if (look.images && look.images.length > 0) {
-        <div class="box-header rounded overflow-hidden">
-            <div class="check-container absolute w-full p-3">
-                <div class="checkbox">
-                    <button class="">
-                        <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <rect width="32" height="32" rx="16" fill="black" fill-opacity="0.3"/>
-                            <path d="M8.5 12.5C8.5 11.0999 8.5 10.3998 8.77248 9.86502C9.01217 9.39462 9.39462 9.01217 9.86502 8.77248C10.3998 8.5 11.0999 8.5 12.5 8.5H19.5C20.9001 8.5 21.6002 8.5 22.135 8.77248C22.6054 9.01217 22.9878 9.39462 23.2275 9.86502C23.5 10.3998 23.5 11.0999 23.5 12.5V19.5C23.5 20.9001 23.5 21.6002 23.2275 22.135C22.9878 22.6054 22.6054 22.9878 22.135 23.2275C21.6002 23.5 20.9001 23.5 19.5 23.5H12.5C11.0999 23.5 10.3998 23.5 9.86502 23.2275C9.39462 22.9878 9.01217 22.6054 8.77248 22.135C8.5 21.6002 8.5 20.9001 8.5 19.5V12.5Z" stroke="white" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
-                        </svg>
-                    </button>
+        <div class="box-header relative rounded overflow-hidden">
+            <div class="check-container flex justify-start absolute w-full p-3">
+                <div class="checkbox relative bg-black/30 w-8 h-8 flex justify-center items-center rounded-full overflow-hidden">
+                    <label class="checkbox-container relative">
+                        <input
+                        type="checkbox"
+                        [checked]="this.select"
+                        (click)="toggleLookSelection(!this.select, look)"
+                        >
+                        <span class="checkmark !w-5 !h-5"></span>
+                    </label>
                 </div>
             </div>
             <div class="image w-full h-[180px]">
@@ -19,7 +20,11 @@
             </div>
         </div>
     }
-    <div class="box-content mt-3 flex flex-col gap-y-5 justify-between">
+    <div class="box-content mt-3 flex flex-col gap-y-5 justify-between"
+    [ngClass]="{
+        'h-[calc(100%-calc(180px+12px))]': look.images && look.images.length > 0
+    }"
+    >
         <div class="look-details">
             <p class="text-base text-black tracking-[0.1px] leading-6 limited-text two-lines">
                 {{ look.name }} {{ (look.description && look.description.length > 0) ? ' - ' + look.description : '' }}
@@ -46,20 +51,69 @@
             </div>
         </div>
         <div class="actions flex justify-between items-center">
-            <div class="edit">
-                <a
-                [routerLink]="[this.route + look.id ]"
-                [queryParams]="this.queryParams"
-                (click)="this.linkRelatedProducts()"
-                class="px-1 cursor-pointer py-3 text-sm text-black font-semibold rounded-lg">
-                    Editar
-                </a>
-            </div>
-            <div class="dynamic-action">
-                <button class="px-4 py-3 text-sm text-white bg-black font-semibold rounded-lg">
-                    Continuar
-                </button>
-            </div>
+            @switch (this.look.status) {
+                @case (this.lookStatus.DRAFT) {
+                    <div class="edit">
+                        <a
+                        [routerLink]="[this.route + look.id ]"
+                        [queryParams]="this.queryParams"
+                        (click)="this.linkRelatedProducts()"
+                        class="px-1 cursor-pointer py-3 text-sm text-black font-semibold rounded-lg">
+                            Editar
+                        </a>
+                    </div>
+                    <div class="dynamic-action">
+                        <button class="px-4 py-3 text-sm text-white bg-black font-semibold rounded-lg">
+                            Continuar
+                        </button>
+                    </div>
+                }
+                @case (this.lookStatus.PUBLISHED) {
+                    <div class="delete">
+                        <a
+                        [routerLink]="[this.route + look.id ]"
+                        [queryParams]="this.queryParams"
+                        (click)="this.linkRelatedProducts()"
+                        class="px-1 cursor-pointer py-3 text-sm text-black font-semibold rounded-lg">
+                            Visualizar
+                        </a>
+                    </div>
+                    <div class="dynamic-action">
+                        <button class="px-4 py-3 flex gap-2 items-center justify-center text-sm text-[#288853] bg-[#E9FAF5] font-semibold rounded-lg">
+                            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <g clip-path="url(#clip0_740_2765)">
+                                <path d="M5.00016 8.00016L7.00016 10.0002L11.0002 6.00016M14.6668 8.00016C14.6668 11.6821 11.6821 14.6668 8.00016 14.6668C4.31826 14.6668 1.3335 11.6821 1.3335 8.00016C1.3335 4.31826 4.31826 1.3335 8.00016 1.3335C11.6821 1.3335 14.6668 4.31826 14.6668 8.00016Z" stroke="#288853" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                </g>
+                                <defs>
+                                <clipPath id="clip0_740_2765">
+                                <rect width="16" height="16" fill="white"/>
+                                </clipPath>
+                                </defs>
+                            </svg>
+                            Publicado
+                        </button>
+                    </div>
+                }
+                @case (this.lookStatus.DELETED) {
+                    <div class="delete">
+                        <a
+                        [routerLink]="[this.route + look.id ]"
+                        [queryParams]="this.queryParams"
+                        (click)="this.linkRelatedProducts()"
+                        class="px-1 cursor-pointer py-3 text-sm text-black font-semibold rounded-lg">
+                            Visualizar
+                        </a>
+                    </div>
+                    <div class="dynamic-action">
+                        <button class="px-4 py-3 flex gap-2 items-center justify-center text-sm text-[#E13029] bg-[rgba(225,48,41,0.10)] font-semibold rounded-lg">
+                            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M11.3332 4.6665L4.6665 11.3332M4.6665 4.6665L11.3332 11.3332" stroke="#E13029" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                            Apagado
+                        </button>
+                    </div>
+                }
+            }
         </div>
     </div>
 </div>

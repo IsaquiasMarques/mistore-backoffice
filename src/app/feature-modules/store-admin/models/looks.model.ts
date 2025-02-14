@@ -12,6 +12,7 @@ export interface ILook{
     slug: string,
     description: string,
     images: string[],
+    filenames?: string[],
     products: IProduct[],
     status?: LookStatus
 }

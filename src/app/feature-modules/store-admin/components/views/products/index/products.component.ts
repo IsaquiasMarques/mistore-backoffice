@@ -19,6 +19,7 @@ import { LookFacade } from '@store/facades/looks/look.facade';
 import { AlertService, LogStatus } from '@core/services/alert/alert.service';
 import { UUIDGenerator } from '@core/services/uuid-generator.service';
 import { catchError, delay, map, throwError } from 'rxjs';
+import { LookStatus } from '@store/enums/look-status.enum';
 
 @Component({
   selector: 'mi-products',
@@ -234,6 +235,7 @@ export class ProductsComponent extends TableComponentExtender implements OnInit,
       shop_id: '1c13d9e3-41a3-47c5-83ae-8785441c878b',
       id: UUIDGenerator.generate(),
       title: title,
+      status: LookStatus.DRAFT,
       description: description,
       main_image: null,
       feature_image_1: null,

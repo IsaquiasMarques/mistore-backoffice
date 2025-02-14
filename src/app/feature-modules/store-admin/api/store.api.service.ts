@@ -131,4 +131,12 @@ export class StoreApi extends APIExtender {
             map((incoming: any[]) => Transformer.colors(incoming))
         );
     }
+
+    deleteLook(look: any): Observable<any>{
+        const options = {
+            body: look,
+            headers: { 'Content-Type': 'application/json' }
+        };
+        return this.http.delete<any>(`${ environment.backend }/api/LookApi/DeleteLook`, options);
+    }
 }

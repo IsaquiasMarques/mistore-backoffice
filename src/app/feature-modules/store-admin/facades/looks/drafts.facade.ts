@@ -77,4 +77,21 @@ export class DraftingLookFacade{
         );
     }
 
+    removeLookFromDraft(look_id: string): Observable<any> {
+        // Recupera os drafts do localStorage
+        const drafts: any[] = JSON.parse(localStorage.getItem(this.localStorageDraftKey) || '[]');
+    
+        // Filtra para remover o look correspondente
+        const updatedDrafts = drafts.filter(look => look.id !== look_id);
+    
+        // Se o look não for encontrado, lança um erro
+        if (updatedDrafts.length === drafts.length) {
+            return throwError(() => new Error('Look não encontrado.'));
+        }
+    
+        // Atualiza o localStorage com a nova lista
+        localStorage.setItem(this.localStorageDraftKey, JSON.stringify(updatedDrafts));
+    
+        return of({ success: true, message: 'Look removido com sucesso.' });
+    }
 }

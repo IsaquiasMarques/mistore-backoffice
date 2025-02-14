@@ -1,6 +1,7 @@
 export enum LookStatus{
-    ALLOWED = 'allowed',
+    PUBLISHED = 'published',
     DENIED = 'denied',
     ON_HOLD = 'on-hold',
-    DELETED = 'deleted'
+    DELETED = 'deleted',
+    DRAFT = 'draft'
 }
