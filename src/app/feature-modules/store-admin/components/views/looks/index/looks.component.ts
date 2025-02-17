@@ -165,25 +165,33 @@ implements OnInit {
 
   }
 
+  emptyDraftList(): void{
+    this.lookFacade.emptyDraftList();
+    this.alertService.add("Todos os looks em draft foram eliminados com êxito.", LogStatus.SUCCESS);
+    this.getDraftLooks();
+  }
+
   deleteLooks(): void{
 
     if(this.selectedLooks.length === 0) return;
 
     const deleteRequests: any[] = this.selectedLooks.map((look, index) => {
+      const deletionAction = (look.status === LookStatus.DRAFT)
+                            ? this.lookFacade.removeFromDraft(look.id)
+                            : this.lookFacade.deleteLook( this.generateLookJson(look) );
 
-      return this.lookFacade.deleteLook(
-        this.generateLookJson(look)
-      ).pipe(
+      return deletionAction.pipe(
         tap(() => {
           this.alertService.add(`Look: ${ look.name } foi eliminado com êxito.`, LogStatus.SUCCESS);
           this.selectedLooks[index].status = LookStatus.DELETED;
           this.selectedLooks.splice(index, 1);
+          this.unselectLooks();
         }),
         catchError(error => {
           this.alertService.add(`Erro ao eliminar o look: ${look.name}`, LogStatus.ERROR);
           return throwError(() => error);
         })
-      )
+      );
     });
 
     forkJoin(deleteRequests).subscribe({

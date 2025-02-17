@@ -19,6 +19,7 @@ export class WrapperComponent implements OnChanges {
   
   @Input() isLoading: boolean | null = false;
   
+  @Input() routeTo: string = '/store/looks/edit/';
   @Input() queryParams: Params | null = null;
   @Input() queryParamName = 'page';
   @Input() pages: number[] = [];

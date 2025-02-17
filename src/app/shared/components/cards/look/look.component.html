@@ -55,17 +55,19 @@
                 @case (this.lookStatus.DRAFT) {
                     <div class="edit">
                         <a
-                        [routerLink]="[this.route + look.id ]"
-                        [queryParams]="this.queryParams"
+                        [routerLink]="[this.route + 'draft/' + look.id ]"
                         (click)="this.linkRelatedProducts()"
                         class="px-1 cursor-pointer py-3 text-sm text-black font-semibold rounded-lg">
                             Editar
                         </a>
                     </div>
                     <div class="dynamic-action">
-                        <button class="px-4 py-3 text-sm text-white bg-black font-semibold rounded-lg">
+                        <a
+                        [routerLink]="[this.route + look.id ]"
+                        [queryParams]="this.queryParams"
+                        class="px-4 py-3 block text-sm text-white bg-black font-semibold rounded-lg">
                             Continuar
-                        </button>
+                        </a>
                     </div>
                 }
                 @case (this.lookStatus.PUBLISHED) {

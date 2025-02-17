@@ -12,6 +12,7 @@ import { CreateProductComponent } from './components/views/products/create/creat
 import { LooksComponent } from './components/views/looks/index/looks.component';
 import { CreateLookComponent } from './components/views/looks/create/create-look.component';
 import { EditLookComponent } from './components/views/looks/edit/edit-look.component';
+import { EditLookDraftComponent } from './components/views/looks/draft/edit-look-draft.component';
 
 const mistoreSignature: string = '- Mistore, Conta de Loja';
 
@@ -52,6 +53,11 @@ const routes: Routes = [
             path: 'create',
             title: `Adicionar look ${ mistoreSignature }`,
             component: CreateLookComponent
+          },
+          {
+            path: 'edit/draft/:id',
+            title: `Editar look ${ mistoreSignature }`,
+            component: EditLookDraftComponent
           },
           {
             path: 'edit/:id',

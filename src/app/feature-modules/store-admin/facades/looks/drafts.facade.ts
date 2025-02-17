@@ -77,6 +77,29 @@ export class DraftingLookFacade{
         );
     }
 
+    editLookOnDraft(look: any): Observable<any>{
+        return this.lookOnDraftUnTransformed(look.id).pipe(
+            switchMap(storedLook => {
+                if (!storedLook) {
+                    return throwError(() => new Error('Look não encontrado.'));
+                }
+
+                const drafts: any[] = JSON.parse(localStorage.getItem(this.localStorageDraftKey) || '[]');
+                const updatedDrafts = drafts.map(existingLook =>
+                    existingLook.id === look.id ? { ...existingLook, title: look.name, description: look.description } : existingLook
+                );
+    
+                localStorage.setItem(this.localStorageDraftKey, JSON.stringify(updatedDrafts));
+
+                return of({ success: true, message: `Look ${ look.name } editado com êxito` });
+            })
+        );
+    }
+
+    emptyDraftList(): void {
+        localStorage.removeItem(this.localStorageDraftKey);
+    }
+
     removeLookFromDraft(look_id: string): Observable<any> {
         // Recupera os drafts do localStorage
         const drafts: any[] = JSON.parse(localStorage.getItem(this.localStorageDraftKey) || '[]');

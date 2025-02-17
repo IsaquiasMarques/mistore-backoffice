@@ -38,6 +38,10 @@ export class LookFacade{
         );
     }
 
+    emptyDraftList(): void{
+        this.draftingLook.emptyDraftList();
+    }
+
     looksOnDraft(page: number, limit: number): Observable<ILookResponse>{
         return this.draftingLook.paginatedDraftLooks(page, limit);
     }
@@ -53,12 +57,18 @@ export class LookFacade{
         );
     }
 
+    editLookOnDraft(look: any): Observable<any>{
+        return this.draftingLook.editLookOnDraft(look);
+    }
+
     updateProductsOfLookOnDraft(look_id: string, products: IProduct[]): Observable<any>{
         return this.draftingLook.updateLookProducts(look_id, products);
     }
 
-    create(look: any): Observable<any>{
-        return this.api.createLook(look);
+    publish(look: any): Observable<any>{
+        return this.api.publishLook(look).pipe(
+            tap(() => this.looksData.clearData()),
+        );
     }
 
     removeFromDraft(look_id: string): Observable<any>{

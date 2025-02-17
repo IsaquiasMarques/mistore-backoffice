@@ -61,7 +61,7 @@ export class CreateLookComponent implements OnInit {
     console.log(look)
 
     this.isCreating.set(true);
-    this.lookFacade.create(JSON.stringify(look)).subscribe({
+    this.lookFacade.publish(JSON.stringify(look)).subscribe({
       next: (response) => {
         console.log(response)
         this.alertService.add("Look adicionado com êxito", LogStatus.SUCCESS);

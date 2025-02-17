@@ -21,6 +21,11 @@ export class LooksData implements StoredataInterface{
         }));
     }
 
+    clearData(): boolean{
+        this.paginatedLooks.set({ total: 0, pages: { 0: [] } });
+        return true;
+    }
+
     nonPaginatedData(total:  number, data: any[]): void {
         this.generalLooks.set(
             {

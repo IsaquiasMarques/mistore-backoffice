@@ -78,7 +78,13 @@
     }
     
     @if (this.draftLooks.length > 0) {
+        
+        
         <div class="looks-on-draft-wrapper-content mt-10">
+            <button (click)="this.emptyDraftList()" class="text-white bg-red-500 rounded font-semibold py-3 px-4 text-sm leading-4 flex gap-2 justify-center items-center">
+                Botão temporário para apagar os looks em draft
+            </button>
+
             <mi-look-wrapper
             [title]="'Looks em draft'"
             [looks]="this.draftLooks"
@@ -86,6 +92,7 @@
             [currentPage]="this.currentPageDraftLooks"
             [isLoading]="this.loaderService.getLoadingStatus(this.pageLoaderIdentifier.LOOKS_ON_DRAFT) | async"
             [pages]="this.draftLooksPages"
+            [routeTo]="'/store/looks/edit/draft/'"
             [queryParams]="{ type: 'draft' }"
             [queryParamName]="'draft_page'"
             [placeholderCount]="4"

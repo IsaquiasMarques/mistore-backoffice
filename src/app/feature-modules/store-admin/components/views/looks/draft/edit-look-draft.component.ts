@@ -1,6 +1,6 @@
-import { AfterViewInit, Component, computed, ElementRef, inject, OnInit, Signal, signal, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, computed, inject, OnInit, Signal, signal } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { ActivatedRoute, Params, Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { AlertService, LogStatus } from '@core/services/alert/alert.service';
 import { LoaderService } from '@core/services/loader/loader.service';
 import { TableComponentExtender } from '@shared/component-classes/table-component.class';
@@ -13,14 +13,14 @@ import { LookFacade } from '@store/facades/looks/look.facade';
 import { ProductFacade } from '@store/facades/products/products.facade';
 import { ILook } from '@store/models/looks.model';
 import { IProduct, IProductResponse } from '@store/models/product.model';
-import { combineLatest, map, of, switchMap, tap } from 'rxjs';
+import { combineLatest, switchMap, map, of } from 'rxjs';
 
 @Component({
-  selector: 'mi-edit-look',
-  templateUrl: './edit-look.component.html',
-  styleUrl: './edit-look.component.css'
+  selector: 'mi-edit-look-draft',
+  templateUrl: './edit-look-draft.component.html',
+  styleUrl: './edit-look-draft.component.css'
 })
-export class EditLookComponent extends TableComponentExtender implements OnInit, AfterViewInit {
+export class EditLookDraftComponent extends TableComponentExtender implements OnInit, AfterViewInit {
   
   constructor(){
     super();
@@ -52,16 +52,13 @@ export class EditLookComponent extends TableComponentExtender implements OnInit,
 
   private router = inject(Router);
 
-  selectedLookImages: any[] = [];
-
-  editLookFormGroup!: FormGroup;
+  editLookOnDraftFormGroup!: FormGroup;
 
   isEditing = signal(false);
 
   showProductsModal = signal(false);
 
   theLook!: ILook;
-  isDraft: boolean = false;
 
   productStatusEnum = ProductStatusEnum;
   svgRefEnum = SVGRefEnum;
@@ -70,19 +67,18 @@ export class EditLookComponent extends TableComponentExtender implements OnInit,
   tableProducts: IProduct[] = [];
 
   ngOnInit(): void {
-    this.editLookFormGroup = new FormGroup({
+    this.editLookOnDraftFormGroup = new FormGroup({
       'title': new FormControl('', [ Validators.required, Validators.maxLength(30) ]),
-      'description': new FormControl('', [ Validators.required, Validators.maxLength(30) ])
+      'description': new FormControl('', [ Validators.maxLength(30) ])
     })
 
     combineLatest([this.activatedRoute.paramMap, this.activatedRoute.queryParamMap])
     .subscribe(([params, queryParams]) => {
 
       const id = params.get('id') ?? null;
-      const lookType = queryParams.get('type') ?? 'normal';
 
       if(!id) return;
-      this.getTheLook(id, lookType);
+      this.getTheLook(id);
 
       const productsListingActivePage = queryParams.get('product_modal_page');
       if(productsListingActivePage){
@@ -120,18 +116,17 @@ export class EditLookComponent extends TableComponentExtender implements OnInit,
     this.changeProductsModalVisibility(false);
     this.temporaryProductsActions = [];
     this.lookProductRelationshipService.attachProducts((this.selectedItems) as IProduct[]);
+
     // actualizar os productos do look em draft
-    if(this.isDraft){
-      this.lookFacade.updateProductsOfLookOnDraft(this.theLook.id, this.lookProductRelationshipService.selectedProductsToAttachOnNewLook$()).subscribe({
-        next: response => {
-          this.alertService.add(response.message, LogStatus.SUCCESS);
-        },
-        error: error => {
-          console.error(error.message);
-          this.alertService.add(error.message, LogStatus.ERROR);
-        }
-      });
-    }
+    this.lookFacade.updateProductsOfLookOnDraft(this.theLook.id, this.lookProductRelationshipService.selectedProductsToAttachOnNewLook$()).subscribe({
+      next: response => {
+        this.alertService.add(response.message, LogStatus.SUCCESS);
+      },
+      error: error => {
+        console.error(error.message);
+        this.alertService.add(error.message, LogStatus.ERROR);
+      }
+    });
   }
 
   override selectItem(item: IProduct){
@@ -139,11 +134,11 @@ export class EditLookComponent extends TableComponentExtender implements OnInit,
       if((typeof(itemIndex) === 'number') && itemIndex !== -1){
           this.selectedItems.splice(itemIndex, 1);
           this.tmpSelectionAction(item, 'removed', itemIndex);
+          console.log("console 1: ", this.temporaryProductsActions, this.selectedItems);
           return;
       }
       
       this.tmpSelectionAction(item, 'added');
-
       this.selectedItems.push(item);
   }
 
@@ -206,85 +201,49 @@ export class EditLookComponent extends TableComponentExtender implements OnInit,
     this.showProductsModal.set(status);
   }
 
-  getTheLook(id: string, type: string): void{
-    switch(type){
-      case 'draft':
-        this.isDraft = true;
-        this.lookFacade.lookOnDraft(id).subscribe({
-          next: incoming => {
-            this.theLook = incoming;
+  getTheLook(id: string): void{
+    this.lookFacade.lookOnDraft(id).subscribe({
+      next: incoming => {
+        this.theLook = incoming;
 
-            this.fullfillFormInputs();
-            if(!(this.lookProductRelationshipService.selectedProductsToAttachOnNewLook$().length > 0)){
-              this.lookProductRelationshipService.attachProducts(this.theLook.products);
-            }
+        this.fullfillFormInputs();
+        if(!(this.lookProductRelationshipService.selectedProductsToAttachOnNewLook$().length > 0)){
+          this.lookProductRelationshipService.attachProducts(this.theLook.products);
+        }
 
-          },
-          error: error => {
-            console.error(error);
-            this.alertService.add(error.message, LogStatus.ERROR);
-            this.router.navigate(['/store/looks']);
-          }
-        })
-        break;
-      default:
-        this.isDraft = false;
-        this.lookFacade.look(id).subscribe({
-          next: incoming => {
-            // 
-          },
-          error: error => {
-            console.error(error);
-            this.alertService.add(error.message, LogStatus.ERROR);
-          }
-        })
-        break;
-    }
+      },
+      error: error => {
+        console.error(error);
+        this.alertService.add(error.message, LogStatus.ERROR);
+        this.router.navigate(['/store/looks']);
+      }
+    });
   }
 
   fullfillFormInputs(): void{
-    this.editLookFormGroup.get('title')?.setValue(this.theLook.name);
-    this.editLookFormGroup.get('description')?.setValue(this.theLook.description);
+    this.editLookOnDraftFormGroup.get('title')?.setValue(this.theLook.name);
+    if(this.theLook.description.length > 0)
+      this.editLookOnDraftFormGroup.get('description')?.setValue(this.theLook.description);
   }
   
   submit(): void{
-    if(this.editLookFormGroup.invalid) return;
+    if(this.editLookOnDraftFormGroup.invalid) return;
     if(!(this.selectedProducts$().length > 0)){
       this.alertService.add("Seleccione os produtos para criar o look", LogStatus.ERROR)
       return;
     };
 
-    if(!(this.selectedLookImages.length > 0)){
-      this.alertService.add("Seleccione os produtos para criar o look", LogStatus.ERROR)
-      return;
-    }
-
     const look = {
-      shop_id: '1c13d9e3-41a3-47c5-83ae-8785441c878b',
-      title: this.editLookFormGroup.get('title')?.value,
-      description: this.editLookFormGroup.get('description')?.value,
-      main_image: (this.selectedLookImages[0]) ? (this.selectedLookImages[0].previewUrl).replace(/^data:image\/[a-zA-Z]+;base64,/, '') : null,
-      feature_image_1: (this.selectedLookImages[1]) ? (this.selectedLookImages[1].previewUrl).replace(/^data:image\/[a-zA-Z]+;base64,/, '') : null,
-      feature_image_2: (this.selectedLookImages[2]) ? (this.selectedLookImages[2].previewUrl).replace(/^data:image\/[a-zA-Z]+;base64,/, '') : null,
-      feature_image_3: (this.selectedLookImages[3]) ? (this.selectedLookImages[3].previewUrl).replace(/^data:image\/[a-zA-Z]+;base64,/, '') : null,
-      product_id: this.selectedProducts$().map(product => product.id)
+      id: this.theLook.id,
+      name: this.editLookOnDraftFormGroup.get('title')?.value,
+      description: this.editLookOnDraftFormGroup.get('description')?.value
     }
 
     this.isEditing.set(true);
-    this.lookFacade.publish(JSON.stringify(look))
-    .pipe(
-      switchMap(response => {
-        if(this.isDraft){
-          return this.lookFacade.removeFromDraft(this.theLook.id).pipe(
-            map(() => response)
-          );
-        }
-        return of(response);
-      })
-    )
+    this.lookFacade.editLookOnDraft(look)
     .subscribe({
       next: (response) => {
-        this.alertService.add("Look publicado com êxito", LogStatus.SUCCESS);
+        this.alertService.add(response.message, LogStatus.SUCCESS);
         this.isEditing.set(false);
         this.router.navigate(['/store/looks']);
       },
@@ -296,5 +255,4 @@ export class EditLookComponent extends TableComponentExtender implements OnInit,
     });
 
   }
-
 }

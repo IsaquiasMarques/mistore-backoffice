@@ -105,9 +105,9 @@ export class StoreApi extends APIExtender {
                         )
     }
 
-    createLook(look: JSON): Observable<any>{
-        this.headers = new HttpHeaders().set('Content-Type', 'text/json');
-        return this.http.post(`${ environment.backend }/api/LookApi/InsertLook`, look, { headers: this.headers });
+    publishLook(look: JSON): Observable<any>{
+        const localHeaders = new HttpHeaders().set('Content-Type', 'text/json');
+        return this.http.post(`${ environment.backend }/api/LookApi/InsertLook`, look, { headers: localHeaders });
     }
 
     getCategories(): Observable<IProductCategory[]>{
