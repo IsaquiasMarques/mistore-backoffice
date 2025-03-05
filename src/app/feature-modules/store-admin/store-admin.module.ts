@@ -25,6 +25,7 @@ import { EditLookComponent } from './components/views/looks/edit/edit-look.compo
 import { WrapperComponent } from './components/views/looks/index/wrapper/wrapper.component';
 import { QueryParamsPipe } from './pipes/query-params.pipe';
 import { EditLookDraftComponent } from './components/views/looks/draft/edit-look-draft.component';
+import { SeeLookComponent } from './components/views/looks/see-look/see-look.component';
 
 @NgModule({
   declarations: [
@@ -49,6 +50,7 @@ import { EditLookDraftComponent } from './components/views/looks/draft/edit-look
     WrapperComponent,
     QueryParamsPipe,
     EditLookDraftComponent,
+    SeeLookComponent,
   ],
   imports: [
     SharedModule,

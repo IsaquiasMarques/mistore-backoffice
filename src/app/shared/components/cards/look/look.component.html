@@ -73,7 +73,7 @@
                 @case (this.lookStatus.PUBLISHED) {
                     <div class="delete">
                         <a
-                        [routerLink]="[this.route + look.id ]"
+                        [routerLink]="['/store/looks/see/' + this.look.id]"
                         [queryParams]="this.queryParams"
                         (click)="this.linkRelatedProducts()"
                         class="px-1 cursor-pointer py-3 text-sm text-black font-semibold rounded-lg">

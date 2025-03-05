@@ -30,7 +30,7 @@ export class StoreApi extends APIExtender {
     }
 
     getProducts(page: number = 1, limit_per_page: number): Observable<IProductResponse>{
-        return this.http.get<IProductResponse>(`${ environment.backend }/api/products/GET-ListOfProductsClient?id=${ this.storeId }&page=${ page }`,
+        return this.http.get<IProductResponse>(`${ environment.backend }/api/products/GET-ListOfProductsClient?id=${ this.storeId }&page=${ page }&page_size=${ limit_per_page }`,
             { headers: this.headers }
         )
         .pipe(
@@ -87,7 +87,7 @@ export class StoreApi extends APIExtender {
     }
 
     getLooks(page: number, limit_per_page: number): Observable<ILookResponse>{
-        return this.http.get<ILook[]>(`${ environment.backend }/api/LookApi/GetLookByUser?shop_id=${ this.storeId }&page=${ page }&sortColumn=title&order=asc`,
+        return this.http.get<ILook[]>(`${ environment.backend }/api/LookApi/GetLookByUser?shop_id=${ this.storeId }&page=${ page }&page_size=${ limit_per_page }&sortColumn=created_at&order=desc`,
             { headers: this.headers }
         )
         .pipe(
@@ -101,13 +101,18 @@ export class StoreApi extends APIExtender {
     getLookById(id: string): Observable<ILook[]>{
         return this.http.get<ILook[]>(`${ environment.backend }/api/LookApi/GetByIdlookDetails?id=${ id }`, { headers: this.headers })
                         .pipe(
-                            map(incoming => Transformer.looks(incoming))
+                            map((incoming: any) => Transformer.looks(incoming.looks))
                         )
     }
 
-    publishLook(look: JSON): Observable<any>{
+    publishLook(look: any): Observable<any>{
         const localHeaders = new HttpHeaders().set('Content-Type', 'text/json');
         return this.http.post(`${ environment.backend }/api/LookApi/InsertLook`, look, { headers: localHeaders });
+    }
+
+    editLook(look: any): Observable<any>{
+        const localHeaders = new HttpHeaders().set('Content-Type', 'text/json');
+        return this.http.post(`${ environment.backend }/api/LookApi?look_id=${ look.look_id }&user_id=${ look.user_id }`, look, { headers: localHeaders });
     }
 
     getCategories(): Observable<IProductCategory[]>{

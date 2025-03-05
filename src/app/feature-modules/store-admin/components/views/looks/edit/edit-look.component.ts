@@ -69,6 +69,8 @@ export class EditLookComponent extends TableComponentExtender implements OnInit,
   tableHeader: string[] = ['Produto', 'Categoria', 'Quantidade', 'Data de Registro', 'Preço', 'Estado'];
   tableProducts: IProduct[] = [];
 
+  oldLookProducts: IProduct[] = [];
+
   ngOnInit(): void {
     this.editLookFormGroup = new FormGroup({
       'title': new FormControl('', [ Validators.required, Validators.maxLength(30) ]),
@@ -213,6 +215,7 @@ export class EditLookComponent extends TableComponentExtender implements OnInit,
         this.lookFacade.lookOnDraft(id).subscribe({
           next: incoming => {
             this.theLook = incoming;
+            this.oldLookProducts = this.theLook.products;
 
             this.fullfillFormInputs();
             if(!(this.lookProductRelationshipService.selectedProductsToAttachOnNewLook$().length > 0)){
@@ -231,7 +234,12 @@ export class EditLookComponent extends TableComponentExtender implements OnInit,
         this.isDraft = false;
         this.lookFacade.look(id).subscribe({
           next: incoming => {
-            // 
+            this.theLook = incoming[0];
+
+            this.fullfillFormInputs();
+            if(!(this.lookProductRelationshipService.selectedProductsToAttachOnNewLook$().length > 0)){
+              this.lookProductRelationshipService.attachProducts(this.theLook.products);
+            }
           },
           error: error => {
             console.error(error);
@@ -249,42 +257,50 @@ export class EditLookComponent extends TableComponentExtender implements OnInit,
   
   submit(): void{
     if(this.editLookFormGroup.invalid) return;
-    if(!(this.selectedProducts$().length > 0)){
+    if(!(this.selectedProducts$().length > 0) && !(this.theLook.products.length > 0)){
       this.alertService.add("Seleccione os produtos para criar o look", LogStatus.ERROR)
       return;
     };
 
-    if(!(this.selectedLookImages.length > 0)){
+    if(!(this.selectedLookImages.length > 0) && !(this.theLook.images.length > 0)){
       this.alertService.add("Seleccione os produtos para criar o look", LogStatus.ERROR)
       return;
     }
 
+    console.log(this.theLook)
+
+    const newLookProducts = this.selectedProducts$().map(look => {
+      if(this.oldLookProducts.map(l => l.id).includes(look.id)){
+        return 0;
+      } else {
+        return 1;
+      }
+    });
+
+    console.log(newLookProducts)
+
     const look = {
-      shop_id: '1c13d9e3-41a3-47c5-83ae-8785441c878b',
+      user_id: '1c13d9e3-41a3-47c5-83ae-8785441c878b',
+      look_id: this.theLook.id,
       title: this.editLookFormGroup.get('title')?.value,
       description: this.editLookFormGroup.get('description')?.value,
       main_image: (this.selectedLookImages[0]) ? (this.selectedLookImages[0].previewUrl).replace(/^data:image\/[a-zA-Z]+;base64,/, '') : null,
+      main_image_filename: (this.selectedLookImages[0]) ? (this.selectedLookImages[0].name) : null,
       feature_image_1: (this.selectedLookImages[1]) ? (this.selectedLookImages[1].previewUrl).replace(/^data:image\/[a-zA-Z]+;base64,/, '') : null,
+      feature_image_1_filename: (this.selectedLookImages[1]) ? (this.selectedLookImages[1].name) : null,
       feature_image_2: (this.selectedLookImages[2]) ? (this.selectedLookImages[2].previewUrl).replace(/^data:image\/[a-zA-Z]+;base64,/, '') : null,
+      feature_image_2_filename: (this.selectedLookImages[2]) ? (this.selectedLookImages[2].name) : null,
       feature_image_3: (this.selectedLookImages[3]) ? (this.selectedLookImages[3].previewUrl).replace(/^data:image\/[a-zA-Z]+;base64,/, '') : null,
-      product_id: this.selectedProducts$().map(product => product.id)
+      feature_image_3_filename: (this.selectedLookImages[3]) ? (this.selectedLookImages[3].name) : null,
+      product_id_old: this.oldLookProducts.map(product => product.id),
+      product_id_new: this.selectedProducts$().map(product => product.id)
     }
 
     this.isEditing.set(true);
-    this.lookFacade.publish(JSON.stringify(look))
-    .pipe(
-      switchMap(response => {
-        if(this.isDraft){
-          return this.lookFacade.removeFromDraft(this.theLook.id).pipe(
-            map(() => response)
-          );
-        }
-        return of(response);
-      })
-    )
+    this.lookFacade.edit(JSON.stringify(look))
     .subscribe({
       next: (response) => {
-        this.alertService.add("Look publicado com êxito", LogStatus.SUCCESS);
+        this.alertService.add("Look actualizado com êxito", LogStatus.SUCCESS);
         this.isEditing.set(false);
         this.router.navigate(['/store/looks']);
       },

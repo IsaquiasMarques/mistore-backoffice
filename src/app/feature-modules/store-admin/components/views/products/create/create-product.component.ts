@@ -14,6 +14,7 @@ import { ColorFacade } from '@store/facades/color.facade';
 import { IProductSize } from '@store/models/product.model';
 import { map } from 'rxjs';
 import { AlertService, LogStatus } from '@core/services/alert/alert.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'mi-create-product',
@@ -29,6 +30,7 @@ export class CreateProductComponent implements OnInit {
   private colorFacade = inject(ColorFacade);
   private addProductFacade = inject(AddProductFacade);
   private alertService = inject(AlertService);
+  private router = inject(Router);
 
   addProductFormGroup!: FormGroup;
 
@@ -211,6 +213,7 @@ export class CreateProductComponent implements OnInit {
     this.addProductFacade.addProduct(JSON.parse(JSON.stringify(fields))).subscribe({
       next: repsonse => {
         this.alertService.add("Produto adicionado com êxito", LogStatus.SUCCESS);
+        this.router.navigate(['/store/products']);
         this.isCreating.set(false);
       },
       error: error => {

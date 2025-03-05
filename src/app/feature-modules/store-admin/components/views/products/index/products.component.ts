@@ -129,7 +129,7 @@ export class ProductsComponent extends TableComponentExtender implements OnInit,
     this.activatedRoute.queryParamMap.subscribe(queryParam => {
       const pageParam = parseInt(queryParam.get('page') ?? '1');
       this.currentPage = pageParam;
-      this.getProducts(pageParam, this.perPage);
+      this.getProducts(pageParam, PRODUCTS_LIMIT);
     });
     this.generatePlaceholders();
     

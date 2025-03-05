@@ -71,6 +71,12 @@ export class LookFacade{
         );
     }
 
+    edit(look: any): Observable<any>{
+        return this.api.editLook(look).pipe(
+            tap(() => this.looksData.clearData()),
+        );
+    }
+
     removeFromDraft(look_id: string): Observable<any>{
         return this.draftingLook.removeLookFromDraft(look_id);
     }

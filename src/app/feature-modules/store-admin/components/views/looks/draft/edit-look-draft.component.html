@@ -101,10 +101,10 @@
                                 </div>
                             }
 
-                            <div class="buttons flex justify-between items-center mt-8">
-                                <button class="cancel p-4 text-sm leading-4 text-[#999] rounded-lg">
+                            <div class="buttons flex justify-end items-center mt-8">
+                                <!-- <button class="cancel p-4 text-sm leading-4 text-[#999] rounded-lg">
                                     Cancelar
-                                </button>
+                                </button> -->
                                 <button
                                 [disabled]="this.editLookOnDraftFormGroup.invalid"
                                 type="submit"
@@ -112,7 +112,7 @@
                                     @if (this.isEditing()) {
                                         <mi-spinner />
                                     } @else {
-                                        Editar draft
+                                        Salvar
                                     }
                                 </button>
                             </div>
