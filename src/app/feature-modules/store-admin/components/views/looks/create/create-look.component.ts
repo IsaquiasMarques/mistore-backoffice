@@ -58,8 +58,6 @@ export class CreateLookComponent implements OnInit {
       product_id: this.selectedProducts$().map(product => product.id)
     }
 
-    console.log(look)
-
     this.isCreating.set(true);
     this.lookFacade.publish(JSON.stringify(look)).subscribe({
       next: (response) => {

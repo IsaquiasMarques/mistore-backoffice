@@ -20,6 +20,11 @@ export class ProductsData implements StoredataInterface{
             }
         }));
     }
+    
+    clearData(): boolean{
+        this.paginatedProducts.set({ total: 0, pages: { 0: [] } });
+        return true;
+    }
 
     nonPaginatedData(total:  number, data: any[]): void {
         this.generalProducts.set(

@@ -81,10 +81,10 @@ export class EditLookComponent extends TableComponentExtender implements OnInit,
     .subscribe(([params, queryParams]) => {
 
       const id = params.get('id') ?? null;
-      const lookType = queryParams.get('type') ?? 'normal';
+      // const lookType = queryParams.get('type') ?? 'normal';
 
       if(!id) return;
-      this.getTheLook(id, lookType);
+      this.getTheLook(id);
 
       const productsListingActivePage = queryParams.get('product_modal_page');
       if(productsListingActivePage){
@@ -122,18 +122,6 @@ export class EditLookComponent extends TableComponentExtender implements OnInit,
     this.changeProductsModalVisibility(false);
     this.temporaryProductsActions = [];
     this.lookProductRelationshipService.attachProducts((this.selectedItems) as IProduct[]);
-    // actualizar os productos do look em draft
-    if(this.isDraft){
-      this.lookFacade.updateProductsOfLookOnDraft(this.theLook.id, this.lookProductRelationshipService.selectedProductsToAttachOnNewLook$()).subscribe({
-        next: response => {
-          this.alertService.add(response.message, LogStatus.SUCCESS);
-        },
-        error: error => {
-          console.error(error.message);
-          this.alertService.add(error.message, LogStatus.ERROR);
-        }
-      });
-    }
   }
 
   override selectItem(item: IProduct){
@@ -147,6 +135,7 @@ export class EditLookComponent extends TableComponentExtender implements OnInit,
       this.tmpSelectionAction(item, 'added');
 
       this.selectedItems.push(item);
+
   }
 
   revertTemporaryActions(actions: { action: 'added' | 'removed', product: IProduct, index?: number }[]): void{
@@ -208,46 +197,25 @@ export class EditLookComponent extends TableComponentExtender implements OnInit,
     this.showProductsModal.set(status);
   }
 
-  getTheLook(id: string, type: string): void{
-    switch(type){
-      case 'draft':
-        this.isDraft = true;
-        this.lookFacade.lookOnDraft(id).subscribe({
-          next: incoming => {
-            this.theLook = incoming;
-            this.oldLookProducts = this.theLook.products;
+  getTheLook(id: string): void{
+      this.lookFacade.look(id).subscribe({
+        next: incoming => {
+          this.theLook = incoming[0];
+          
+          this.oldLookProducts = incoming[0].products.map(product => ({ ...product }));
 
-            this.fullfillFormInputs();
-            if(!(this.lookProductRelationshipService.selectedProductsToAttachOnNewLook$().length > 0)){
-              this.lookProductRelationshipService.attachProducts(this.theLook.products);
-            }
+          console.log(this.oldLookProducts)
 
-          },
-          error: error => {
-            console.error(error);
-            this.alertService.add(error.message, LogStatus.ERROR);
-            this.router.navigate(['/store/looks']);
+          this.fullfillFormInputs();
+          if(!(this.lookProductRelationshipService.selectedProductsToAttachOnNewLook$().length > 0)){
+            this.lookProductRelationshipService.attachProducts(this.theLook.products);
           }
-        })
-        break;
-      default:
-        this.isDraft = false;
-        this.lookFacade.look(id).subscribe({
-          next: incoming => {
-            this.theLook = incoming[0];
-
-            this.fullfillFormInputs();
-            if(!(this.lookProductRelationshipService.selectedProductsToAttachOnNewLook$().length > 0)){
-              this.lookProductRelationshipService.attachProducts(this.theLook.products);
-            }
-          },
-          error: error => {
-            console.error(error);
-            this.alertService.add(error.message, LogStatus.ERROR);
-          }
-        })
-        break;
-    }
+        },
+        error: error => {
+          console.error(error);
+          this.alertService.add(error.message, LogStatus.ERROR);
+        }
+      })
   }
 
   fullfillFormInputs(): void{
@@ -267,17 +235,7 @@ export class EditLookComponent extends TableComponentExtender implements OnInit,
       return;
     }
 
-    console.log(this.theLook)
-
-    const newLookProducts = this.selectedProducts$().map(look => {
-      if(this.oldLookProducts.map(l => l.id).includes(look.id)){
-        return 0;
-      } else {
-        return 1;
-      }
-    });
-
-    console.log(newLookProducts)
+    const newLookProducts = this.selectedProducts$().filter(look => !this.oldLookProducts.some(l => l.id === look.id));
 
     const look = {
       user_id: '1c13d9e3-41a3-47c5-83ae-8785441c878b',
@@ -293,11 +251,11 @@ export class EditLookComponent extends TableComponentExtender implements OnInit,
       feature_image_3: (this.selectedLookImages[3]) ? (this.selectedLookImages[3].previewUrl).replace(/^data:image\/[a-zA-Z]+;base64,/, '') : null,
       feature_image_3_filename: (this.selectedLookImages[3]) ? (this.selectedLookImages[3].name) : null,
       product_id_old: this.oldLookProducts.map(product => product.id),
-      product_id_new: this.selectedProducts$().map(product => product.id)
+      product_id_new: newLookProducts.map(product => product.id)
     }
 
     this.isEditing.set(true);
-    this.lookFacade.edit(JSON.stringify(look))
+    this.lookFacade.edit(look)
     .subscribe({
       next: (response) => {
         this.alertService.add("Look actualizado com êxito", LogStatus.SUCCESS);
