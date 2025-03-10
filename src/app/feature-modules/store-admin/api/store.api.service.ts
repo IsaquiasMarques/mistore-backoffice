@@ -111,9 +111,9 @@ export class StoreApi extends APIExtender {
     }
 
     editLook(look: any): Observable<any>{
-        console.log(look, look.look_id, look.user_id);
+        // console.log(look, look.look_id, look.user_id);
         const localHeaders = new HttpHeaders().set('Content-Type', 'text/json');
-        return this.http.post(`${ environment.backend }/api/LookApi?look_id=${ look.look_id }&user_id=${ look.user_id }`, look, { headers: localHeaders });
+        return this.http.put(`${ environment.backend }/api/LookApi/UpdateLook?look_id=${ look.look_id }&user_id=${ look.user_id }`, look, { headers: localHeaders });
     }
 
     getCategories(): Observable<IProductCategory[]>{

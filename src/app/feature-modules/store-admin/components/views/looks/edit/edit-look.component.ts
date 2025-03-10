@@ -254,6 +254,8 @@ export class EditLookComponent extends TableComponentExtender implements OnInit,
       product_id_new: newLookProducts.map(product => product.id)
     }
 
+    console.log(look)
+
     this.isEditing.set(true);
     this.lookFacade.edit(look)
     .subscribe({
