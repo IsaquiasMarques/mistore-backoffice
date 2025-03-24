@@ -55,7 +55,7 @@
                 @case (this.lookStatus.DRAFT) {
                     <div class="edit">
                         <a
-                        [routerLink]="[this.route + 'draft/' + look.id ]"
+                        [routerLink]="[this.route + '/draft/edit/' + look.id ]"
                         (click)="this.linkRelatedProducts()"
                         class="px-1 cursor-pointer py-3 text-sm text-black font-semibold rounded-lg">
                             Editar
@@ -63,7 +63,7 @@
                     </div>
                     <div class="dynamic-action">
                         <a
-                        [routerLink]="[this.route + look.id ]"
+                        [routerLink]="[this.route + '/draft/publish/' + look.id ]"
                         [queryParams]="this.queryParams"
                         class="px-4 py-3 block text-sm text-white bg-black font-semibold rounded-lg">
                             Continuar
@@ -98,13 +98,13 @@
                 }
                 @case (this.lookStatus.DELETED) {
                     <div class="delete">
-                        <a
+                        <!-- <a
                         [routerLink]="[this.route + look.id ]"
                         [queryParams]="this.queryParams"
                         (click)="this.linkRelatedProducts()"
                         class="px-1 cursor-pointer py-3 text-sm text-black font-semibold rounded-lg">
                             Visualizar
-                        </a>
+                        </a> -->
                     </div>
                     <div class="dynamic-action">
                         <button class="px-4 py-3 flex gap-2 items-center justify-center text-sm text-[#E13029] bg-[rgba(225,48,41,0.10)] font-semibold rounded-lg">

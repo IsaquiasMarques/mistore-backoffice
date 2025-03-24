@@ -11,7 +11,7 @@ import { ILook } from '@store/models/looks.model';
 })
 export class LookComponent implements OnInit, OnChanges {
   @Input({ required: true }) look!: ILook;
-  @Input() route = '/store/looks/edit/';
+  @Input() route = '/store/looks/';
   @Input() queryParams: Params | null = null;
   @Input() select: boolean = false;
   private lookProductRelation = inject(LookProductRelationService);

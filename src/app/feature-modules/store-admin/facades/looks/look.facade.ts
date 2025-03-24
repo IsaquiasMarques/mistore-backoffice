@@ -2,7 +2,7 @@ import { inject, Injectable } from "@angular/core";
 import { LooksData } from "@core/data/store/looks.data";
 import { StoreApi } from "@store/api/store.api.service";
 import { ILook, ILookResponse } from "@store/models/looks.model";
-import { catchError, map, Observable, of, tap, throwError } from "rxjs";
+import { catchError, map, Observable, of, switchMap, tap, throwError } from "rxjs";
 import { DraftingLookFacade } from "./drafts.facade";
 import { IProduct } from "@store/models/product.model";
 
@@ -67,7 +67,7 @@ export class LookFacade{
 
     publish(look: any): Observable<any>{
         return this.api.publishLook(look).pipe(
-            tap(() => this.looksData.clearData()),
+            switchMap(() => this.removeFromDraft(look.draft_id))
         );
     }
 
@@ -78,7 +78,9 @@ export class LookFacade{
     }
 
     removeFromDraft(look_id: string): Observable<any>{
-        return this.draftingLook.removeLookFromDraft(look_id);
+        return this.draftingLook.removeLookFromDraft(look_id).pipe(
+            tap(() => this.looksData.clearData()),
+        );
     }
 
     deleteLook(look: any): Observable<any>{
