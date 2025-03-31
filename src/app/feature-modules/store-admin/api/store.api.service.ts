@@ -145,4 +145,10 @@ export class StoreApi extends APIExtender {
         };
         return this.http.delete<any>(`${ environment.backend }/api/LookApi/DeleteLook`, options);
     }
+
+    deleteProduct(product: IProduct){
+        const options = {}
+        return this.http.delete<any>(`${ environment.backend }/api/products/RemoveProduct?filename_image=${ (product.featureImages && product.featureImages.length > 0) ? product.featureImages[0].filename : null }&filename_coverimage=${ product.coverImageFilename ?? null }&filename_image_color=${ (product.colors && product.colors.length > 0) ? product.colors[0].filenameImage : null }&product_id=${ product.id }&userid=${ this.storeId }`, {headers: this.headers});
+    }
+
 }

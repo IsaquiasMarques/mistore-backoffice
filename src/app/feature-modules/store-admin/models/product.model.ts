@@ -9,7 +9,9 @@ export interface IProductResponse{
 export interface IProductColor{
     id: string,
     color: string,
-    hexCode: string
+    hexCode: string,
+    imageColor?: string,
+    filenameImage?: string
 }
 
 export interface IProductSize{
@@ -33,12 +35,19 @@ export interface IProductBrand{
     background: string
 }
 
+export interface FilenameImage{
+    id: string,
+    image: string,
+    filename: string
+}
+
 export interface IProduct{
     id: string,
     ID: string,
     imagePath: string,
-    featureImages?: string[],
+    featureImages?: FilenameImage[],
     coverImage?: string,
+    coverImageFilename?: string,
     name: string,
     description?: string,
     subcategory: IProductSubCategory,

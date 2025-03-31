@@ -4,7 +4,7 @@ import { IProductCategory } from "@core/base-models/base/product-category.model"
 import { LookStatus } from "@store/enums/look-status.enum";
 import { ProductStatusEnum } from "@store/enums/products-status.enum";
 import { ILook } from "@store/models/looks.model";
-import { IProduct, IProductColor, IProductSize } from "@store/models/product.model";
+import { FilenameImage, IProduct, IProductColor, IProductSize } from "@store/models/product.model";
 
 export class Transformer{
 
@@ -12,8 +12,12 @@ export class Transformer{
         return incoming.flatMap((product) => {
 
             const created_at = this.date((product.dateTime).split('T')[0], '-', '/');
-            const featureImages: string[] = product.featureimages.flatMap((image: any) => {
-                return image.image
+            const featureImages: FilenameImage[] = product.featureimages.flatMap((image: any) => {
+                return {
+                    id: image.id,
+                    image: image.image,
+                    filename: image.filename
+                }
             });
             let productColors: IProductColor[] = [];
             if(product.product_ColorId){
@@ -21,7 +25,9 @@ export class Transformer{
                     return {
                         id: color.color_id,
                         color: color.color_name,
-                        hexCode: color.hexacode
+                        hexCode: color.hexacode,
+                        imageColor: color.image_color,
+                        filenameImage: color.filename_image
                     }
                 });
             }
@@ -34,6 +40,7 @@ export class Transformer{
                 imagePath: product.image_path,
                 featureImages: featureImages,
                 coverImage: product.coverimage,
+                coverImageFilename: product.coverimage_filename,
                 name: product.name,
                 description: product.description,
                 subcategory: {

@@ -18,7 +18,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { LookFacade } from '@store/facades/looks/look.facade';
 import { AlertService, LogStatus } from '@core/services/alert/alert.service';
 import { UUIDGenerator } from '@core/services/uuid-generator.service';
-import { catchError, delay, map, throwError } from 'rxjs';
+import { catchError, delay, forkJoin, map, tap, throwError } from 'rxjs';
 import { LookStatus } from '@store/enums/look-status.enum';
 
 @Component({
@@ -264,6 +264,41 @@ export class ProductsComponent extends TableComponentExtender implements OnInit,
         this.isCreatingLook.set(false);
       },
     });
+  }
+
+  deleteProducts() {
+
+    if(!window.confirm("Deseja realmente eliminar os produtos seleccionados?")){
+      return;
+    }
+
+    let deleteRequests = this.selectedItems.map((product: IProduct) => {
+
+      // console.log(product)
+      return this.productFacade.deleteProduct(product).pipe(
+        tap((response) => {
+          console.log(response)
+          // if(response){
+          //   this.alertService.add(`Erro ao eliminar o produto: ${ product.name }`, LogStatus.ERROR);
+          //   return;
+          // }
+          this.alertService.add(`Produto: ${ product.name } eliminado com êxito`, LogStatus.SUCCESS);
+        }),
+        catchError(error => {
+          this.alertService.add(`Erro ao eliminar o produto: ${ product.name }`, LogStatus.ERROR);
+          return throwError(() => error);
+        })
+      );
+
+    })
+
+    forkJoin(deleteRequests).subscribe({
+      next: (response) => {},
+      error: error => {
+        console.error("Erro ao eliminar produto: ", error);
+      }
+    });
+
   }
 
 }

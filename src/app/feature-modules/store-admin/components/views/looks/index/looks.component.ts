@@ -175,7 +175,7 @@ implements OnInit {
 
     if(this.selectedLooks.length === 0) return;
 
-    const deleteRequests: any[] = this.selectedLooks.map((look, index) => {
+    const deleteRequests = this.selectedLooks.map((look, index) => {
       const deletionAction = (look.status === LookStatus.DRAFT)
                             ? this.lookFacade.removeFromDraft(look.id)
                             : this.lookFacade.deleteLook( this.generateLookJson(look) );
@@ -199,7 +199,7 @@ implements OnInit {
         this.selectedLooks = [...this.selectedLooks];
       },
       error: error => {
-        console.error("Erro ao deletar os looks:", error);
+        console.error("Erro ao eliminar look:", error);
       }
     })
 
