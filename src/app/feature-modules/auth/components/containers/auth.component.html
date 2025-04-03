@@ -1,5 +1,30 @@
-<h1>
-    Aqui vem o template do módulo de autenticação
-</h1>
 
-<router-outlet>
+<div class="content-wrapper h-screen flex justify-between items-stretch">
+    <div class="aside w-[50%] h-full overflow-hidden relative">
+        <img src="assets/images/auth/frame-1.png" class="w-full h-full bg-cover bg-center" alt="">
+        <div class="content w-full max-w-[434px] flex flex-col gap-10 absolute top-[136px] left-[50%] -translate-x-[50%] text-white">
+            <div class="logo">
+                <svg width="33" height="31" viewBox="0 0 33 31" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M32.4684 0H26.3047V4.48578H32.4684V0Z" fill="white"/>
+                    <path d="M32.4684 16.8045V30.21H26.3047V9.15399C29.8285 9.90572 32.4684 13.0458 32.4684 16.8045Z" fill="white"/>
+                    <path d="M24.139 8.99863V14.8893C23.6185 14.559 23.0021 14.3692 22.3415 14.3692C21.3101 14.3692 20.3868 14.8351 19.768 15.5671C19.4782 15.9097 19.2548 16.309 19.1197 16.7477C19.0215 17.0656 18.9674 17.4058 18.9674 17.7558V30.2099H12.8038V17.7607C12.8038 15.922 11.3181 14.4309 9.48372 14.4309C7.99069 14.4309 6.72603 15.4217 6.31102 16.7847V16.7896C6.21525 17.0977 6.16614 17.423 6.16614 17.7607V30.2099H0V9.41517H5.07092L5.60134 12.4394C7.00106 10.3518 9.37568 8.98138 12.0695 8.98138C14.5325 8.98138 16.7254 10.125 18.1546 11.9144C18.2308 12.008 18.302 12.1017 18.3732 12.2003C19.6894 10.3838 21.7693 9.1613 24.139 8.99863Z" fill="white"/>
+                </svg>
+            </div>
+            <div class="main-contents flex flex-col gap-5">
+                <div class="title">
+                    <h1 class="text-white text-[2.5rem] font-bold leading-[120%]">
+                        Tenha tudo o que você precisa para vender e lucrar ainda mais.
+                    </h1>
+                </div>
+                <div class="description">
+                    <p class="text-white opacity-[0.6] text-base">
+                        Descubra todas as ferramentas necessárias para impulsionar suas vendas e maximizar seus lucros.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="steps-forms w-[50%] pt-[136px] h-full overflow-y-auto flex justify-center">
+        <router-outlet />
+    </div>
+</div>

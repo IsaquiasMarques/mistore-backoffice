@@ -7,4 +7,10 @@ import { Component } from '@angular/core';
 })
 export class SignUpComponent {
 
+  userAgree: boolean = false;
+  
+  changeAgreementStatus(){
+    this.userAgree = !this.userAgree;
+  }
+
 }
