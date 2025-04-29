@@ -61,6 +61,10 @@ export class LookFacade{
         return this.draftingLook.editLookOnDraft(look);
     }
 
+    updateProductsOfLook(data: any): Observable<any>{
+        return this.api.updateLookProducts(data);
+    }
+
     updateProductsOfLookOnDraft(look_id: string, products: IProduct[]): Observable<any>{
         return this.draftingLook.updateLookProducts(look_id, products);
     }

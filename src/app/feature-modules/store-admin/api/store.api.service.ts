@@ -116,6 +116,11 @@ export class StoreApi extends APIExtender {
         return this.http.put(`${ environment.backend }/api/LookApi/UpdateLook?look_id=${ look.look_id }&user_id=${ look.user_id }`, look, { headers: localHeaders });
     }
 
+    updateLookProducts(data: any): Observable<any>{
+        const localHeaders = new HttpHeaders().set('Content-Type', 'text/json');
+        return this.http.put(`${ environment.backend }/api/LookApi/ProductListUpdate`, data, { headers: localHeaders });
+    }
+
     getCategories(): Observable<IProductCategory[]>{
         return this.http.get<IProductCategory[]>(`${ environment.backend }/api/categories/all`, { headers: this.headers })
                         .pipe(

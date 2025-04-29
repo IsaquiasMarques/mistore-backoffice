@@ -250,14 +250,22 @@ export class EditLookComponent extends TableComponentExtender implements OnInit,
       feature_image_2_filename: (this.selectedLookImages[2]) ? (this.selectedLookImages[2].name) : null,
       feature_image_3: (this.selectedLookImages[3]) ? (this.selectedLookImages[3].previewUrl).replace(/^data:image\/[a-zA-Z]+;base64,/, '') : null,
       feature_image_3_filename: (this.selectedLookImages[3]) ? (this.selectedLookImages[3].name) : null,
-      product_id_old: this.oldLookProducts.map(product => product.id),
-      product_id_new: newLookProducts.map(product => product.id)
     }
 
     console.log(look)
 
     this.isEditing.set(true);
     this.lookFacade.edit(look)
+    .pipe(
+      tap(console.log),
+      switchMap(() => {
+        const data = {
+          look_id: look.look_id,
+          products: this.selectedProducts$()
+        }
+        return this.lookFacade.updateProductsOfLook(data)
+      })
+    )
     .subscribe({
       next: (response) => {
         this.alertService.add("Look actualizado com êxito", LogStatus.SUCCESS);
