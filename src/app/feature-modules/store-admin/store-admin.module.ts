@@ -27,6 +27,7 @@ import { QueryParamsPipe } from './pipes/query-params.pipe';
 import { EditLookDraftComponent } from './components/views/looks/draft/edit/edit-look-draft.component';
 import { SeeLookComponent } from './components/views/looks/see-look/see-look.component';
 import { PublishLookDraftComponent } from './components/views/looks/draft/publish/publish-look-draft.component';
+import { EditProductComponent } from './components/views/products/edit/edit-product.component';
 
 @NgModule({
   declarations: [
@@ -53,6 +54,7 @@ import { PublishLookDraftComponent } from './components/views/looks/draft/publis
     EditLookDraftComponent,
     SeeLookComponent,
     PublishLookDraftComponent,
+    EditProductComponent,
   ],
   imports: [
     SharedModule,

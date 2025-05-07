@@ -44,6 +44,12 @@ export class StoreApi extends APIExtender {
         );
     }
 
+    getProductById(id: string): Observable<any>{
+        return this.http.get<IProduct[]>(`${ environment.backend }/api/products/GetProductById?id=${id}`,
+            { headers: this.headers }
+        )
+    }
+
     addProduct(product: JSON): Observable<any>{
         return this.http.post(`${ environment.backend }/api/products/Product-Insert`, product, { headers: this.headers });
     }

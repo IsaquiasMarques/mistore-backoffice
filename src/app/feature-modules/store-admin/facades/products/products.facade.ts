@@ -26,6 +26,14 @@ export class ProductFacade{
         );
     }
 
+    getProductById(id: string): Observable<any>{
+        return this.api.getProductById(id).pipe(
+            tap(() => {
+                this.productsData.clearData()
+            })
+        );
+    }
+
     promotionProducts(page: number, limit: number): Observable<IProduct[]>{
         return this.api.getPromotionProducts(page, limit);
     }
@@ -42,7 +50,6 @@ export class ProductFacade{
         return this.api.deleteProduct(product).pipe(
             tap(() => {
                 this.productsData.clearData()
-                console.log(this.productsData.allDatas())
             })
         );
     }

@@ -13,7 +13,7 @@ import { LookFacade } from '@store/facades/looks/look.facade';
 import { ProductFacade } from '@store/facades/products/products.facade';
 import { ILook } from '@store/models/looks.model';
 import { IProduct, IProductResponse } from '@store/models/product.model';
-import { combineLatest, map, of, switchMap, tap } from 'rxjs';
+import { catchError, combineLatest, map, of, switchMap, tap, throwError } from 'rxjs';
 
 @Component({
   selector: 'mi-edit-look',
@@ -235,8 +235,6 @@ export class EditLookComponent extends TableComponentExtender implements OnInit,
       return;
     }
 
-    const newLookProducts = this.selectedProducts$().filter(look => !this.oldLookProducts.some(l => l.id === look.id));
-
     const look = {
       user_id: '1c13d9e3-41a3-47c5-83ae-8785441c878b',
       look_id: this.theLook.id,
@@ -260,11 +258,12 @@ export class EditLookComponent extends TableComponentExtender implements OnInit,
       tap(console.log),
       switchMap(() => {
         const data = {
-          look_id: look.look_id,
-          products: this.selectedProducts$()
+          lookId: look.look_id,
+          ProductIds: this.selectedProducts$().flatMap(product => product.id)
         }
         return this.lookFacade.updateProductsOfLook(data)
-      })
+      }),
+      catchError(error => throwError(() => error))
     )
     .subscribe({
       next: (response) => {
@@ -273,7 +272,16 @@ export class EditLookComponent extends TableComponentExtender implements OnInit,
         this.router.navigate(['/store/looks']);
       },
       error: (error) => {
-        this.alertService.add(error, LogStatus.ERROR);
+        if (error && error.error) {
+          const messages: string[] = [];
+        
+          for (const field in error.error.errors) {
+            if (Array.isArray(error.error.errors[field])) {
+              error.error.errors[field].forEach((msg: string) => messages.push(msg));
+            }
+          }
+          messages.forEach(msg => this.alertService.add(msg, LogStatus.ERROR));
+        }
         this.isEditing.set(false);
         console.error(error);
       }
