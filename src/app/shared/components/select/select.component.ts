@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, ElementRef, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges, ViewChild } from '@angular/core';
+import { AfterViewInit, ChangeDetectorRef, Component, ElementRef, EventEmitter, inject, Input, OnChanges, OnInit, Output, SimpleChanges, ViewChild } from '@angular/core';
 
 @Component({
   selector: 'mi-select',
@@ -17,8 +17,11 @@ export class SelectComponent implements OnInit, OnChanges, AfterViewInit {
 
   @Output() selectedItemsEventEmitter: EventEmitter<any[]> = new EventEmitter<any[]>();
 
+  @Input() defaultValues: any[] = [];
   selectedItems: any[] = [];
   filteredItems: any[] = [];
+
+  private changeDetectorRef = inject(ChangeDetectorRef);
 
   placeholderDisplay: string = '';
 
@@ -37,23 +40,23 @@ export class SelectComponent implements OnInit, OnChanges, AfterViewInit {
 
   ngOnChanges(changes: SimpleChanges): void {
     this.placeholderDisplay = this.placeholder;
+    
     this.filteredItems = this.items;
-    if(this.items.length > 0){
-      this.countItems();
+
+    if(this.defaultValues.length > 0 && this.filteredItems.length > 0){
+      this.defaultValues.forEach(element => {
+        this.selectItem(element);
+      });
     }
+
   }
   
   ngAfterViewInit(): void {
-    this.countItems();
+    
   }
 
   countItems(){
-    // for (let index = 0; index </ this.selectDropdownReference.nativeElement.children.length; index++) {
-    //   this.maxHeightOfDropdown += this.selectDropdownReference.nativeElement.children[index].clientHeight;
-    // }
-
     const selectDropdownReference = document.querySelector(`.dropdown-${ this.name }`) as HTMLElement;
-    // console.log(selectDropdownReference)
     if(!selectDropdownReference) return;
     for (let index = 0; index < selectDropdownReference.children.length; index++) {
       this.maxHeightOfDropdown += selectDropdownReference.children[index].clientHeight;
@@ -61,22 +64,28 @@ export class SelectComponent implements OnInit, OnChanges, AfterViewInit {
   }
 
   toggleSelectVisibility(){
-    this.isSelectExpanded = !this.isSelectExpanded;
+    if(!this.isSelectExpanded){
+      this.expand();
+      return;
+    }
+    this.collapse();
   }
 
   collapse(){
     this.isSelectExpanded = false;
+    this.maxHeightOfDropdown = 0;
   }
 
   expand(){
     this.isSelectExpanded = true;
+    this.countItems();
   }
 
   selectItem(item: any){
     let itemIndex = this.itemIndex(item[this.optionValue]);
     if(itemIndex === -1){
       if(this.multi){
-        this.selectedItems.push(item);
+        this.selectedItems = [...this.selectedItems, item];
       }else{
         this.selectedItems = [item];
         this.collapse();

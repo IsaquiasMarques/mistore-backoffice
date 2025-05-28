@@ -24,7 +24,7 @@ export class Transformer{
                  productColors = product.product_ColorId.flatMap((color: any) => {
                     return {
                         id: color.color_id,
-                        color: color.color_name,
+                        color: color.colorname,
                         hexCode: color.hexacode,
                         imageColor: color.image_color,
                         filenameImage: color.filename_image
@@ -43,6 +43,22 @@ export class Transformer{
                 coverImageFilename: product.coverimage_filename,
                 name: product.name,
                 description: product.description,
+                brand: product.product_Brand.flatMap((brand: any) => {
+                        return {
+                            id: brand.id,
+                            name: brand.name,
+                            slug: brand.slug,
+                            logo: brand.logo,
+                            bgImage: brand.bgImage
+                        }
+                })[0],
+                categories: (product.categories ?? []).flatMap((category: any) => {
+                    return {
+                        id: category.id,
+                        name: category.name,
+                        slug: category.slug
+                    }
+                }),
                 subcategory: {
                     id: (product.subcategories && product.subcategories[0]) ? product.subcategories[0].id : '',
                     name: (product.subcategories && product.subcategories[0]) ? product.subcategories[0].name : 'Não categorizado',

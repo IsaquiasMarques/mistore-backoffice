@@ -1,5 +1,5 @@
 import { inject, Injectable } from "@angular/core";
-import { StoreApi } from "@store/api/store.api.service";
+import { GenericApiService } from "@store/api/generic.api.service";
 import { IProductSize } from "@store/models/product.model";
 import { Observable } from "rxjs";
 
@@ -7,13 +7,13 @@ import { Observable } from "rxjs";
     providedIn: 'root'
 })
 export class SizeFacade{
-    private API = inject(StoreApi);
+    private api = inject(GenericApiService);
 
     all(): Observable<IProductSize[]>{
-        return this.API.getSizes();
+        return this.api.getSizes();
     }
 
     sizesOfSubcategory(subcategory_id: string): Observable<IProductSize[]>{
-        return this.API.getSizes(subcategory_id);
+        return this.api.getSizes(subcategory_id);
     }
 }

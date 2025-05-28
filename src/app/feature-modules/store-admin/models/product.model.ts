@@ -41,15 +41,25 @@ export interface FilenameImage{
     filename: string
 }
 
+export interface ProductBrand{
+    id: string,
+    name: string,
+    slug: string,
+    logo: string,
+    bgImage?: string
+}
+
 export interface IProduct{
     id: string,
     ID: string,
     imagePath: string,
+    brand: ProductBrand,
     featureImages?: FilenameImage[],
     coverImage?: string,
     coverImageFilename?: string,
     name: string,
     description?: string,
+    categories: IProductCategory[],
     subcategory: IProductSubCategory,
     quantity: number,
     status?: ProductStatusEnum,

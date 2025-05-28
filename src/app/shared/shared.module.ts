@@ -22,6 +22,7 @@ import { AlertComponent } from './components/alert/alert.component';
 import { SpinnerComponent } from './components/spinner/spinner.component';
 import { LookComponent } from './components/cards/look/look.component';
 import { HorizontalGalleryComponent } from './components/horizontal-gallery/horizontal-gallery.component';
+import { InputRangeComponent } from './components/input-range/input-range.component';
 
 @NgModule({
   declarations: [
@@ -45,6 +46,7 @@ import { HorizontalGalleryComponent } from './components/horizontal-gallery/hori
     SpinnerComponent,
     LookComponent,
     HorizontalGalleryComponent,
+    InputRangeComponent,
   ],
   imports: [
     CommonModule,
@@ -76,6 +78,7 @@ import { HorizontalGalleryComponent } from './components/horizontal-gallery/hori
     ModalComponent,
     AlertComponent,
     SpinnerComponent,
+    InputRangeComponent,
     LookComponent,
     HorizontalGalleryComponent
   ],

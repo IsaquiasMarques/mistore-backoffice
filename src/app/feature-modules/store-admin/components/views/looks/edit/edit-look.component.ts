@@ -203,9 +203,6 @@ export class EditLookComponent extends TableComponentExtender implements OnInit,
           this.theLook = incoming[0];
           
           this.oldLookProducts = incoming[0].products.map(product => ({ ...product }));
-
-          console.log(this.oldLookProducts)
-
           this.fullfillFormInputs();
           if(!(this.lookProductRelationshipService.selectedProductsToAttachOnNewLook$().length > 0)){
             this.lookProductRelationshipService.attachProducts(this.theLook.products);

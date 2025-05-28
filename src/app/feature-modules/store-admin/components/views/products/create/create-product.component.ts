@@ -149,7 +149,7 @@ export class CreateProductComponent implements OnInit {
     this.loaderService.setLoadingStatus(this.pageLoaderIdentifier.SUB_CATEGORIES_ADD_PRODUCTS, true);
     this.categoryFacade.subcategoriesOfCategory(this.selectedCategory[0].id).subscribe((incomingSubCategories: IProductSubCategory[]) => {
       this.subCategoriesToSelect.set(incomingSubCategories);
-      if(this.subCategoriesToSelect.length > 0){
+      if(this.subCategoriesToSelect().length > 0){
         this.loaderService.setLoadingStatus(this.pageLoaderIdentifier.SUB_CATEGORIES_ADD_PRODUCTS, false);
       }else{
         this.loaderService.loaderActionAfterTryFetching(this.pageLoaderIdentifier.SUB_CATEGORIES_ADD_PRODUCTS);

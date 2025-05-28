@@ -9,10 +9,9 @@ import { LoaderService } from '@core/services/loader/loader.service';
 import { PageLoaderIdentifier } from '@shared/Enums/page-loader-id.enum';
 import { CategoryFacade } from '@store/facades/category.facade';
 import { ColorFacade } from '@store/facades/color.facade';
-import { AddProductFacade } from '@store/facades/products/add-product.facade';
 import { ProductFacade } from '@store/facades/products/products.facade';
 import { SizeFacade } from '@store/facades/size.facade';
-import { IProductSubCategory, IProductSize, IProduct } from '@store/models/product.model';
+import { IProductSubCategory, IProductSize, IProduct, IProductColor } from '@store/models/product.model';
 import { map } from 'rxjs';
 
 @Component({
@@ -27,7 +26,6 @@ export class EditProductComponent implements OnInit {
   private categoryFacade = inject(CategoryFacade);
   private sizeFacade = inject(SizeFacade);
   private colorFacade = inject(ColorFacade);
-  private addProductFacade = inject(AddProductFacade);
   private alertService = inject(AlertService);
   private activatedRoute = inject(ActivatedRoute);
   private router = inject(Router);
@@ -159,7 +157,7 @@ export class EditProductComponent implements OnInit {
     this.loaderService.setLoadingStatus(this.pageLoaderIdentifier.SUB_CATEGORIES_ADD_PRODUCTS, true);
     this.categoryFacade.subcategoriesOfCategory(this.selectedCategory[0].id).subscribe((incomingSubCategories: IProductSubCategory[]) => {
       this.subCategoriesToSelect.set(incomingSubCategories);
-      if(this.subCategoriesToSelect.length > 0){
+      if(this.subCategoriesToSelect().length > 0){
         this.loaderService.setLoadingStatus(this.pageLoaderIdentifier.SUB_CATEGORIES_ADD_PRODUCTS, false);
       }else{
         this.loaderService.loaderActionAfterTryFetching(this.pageLoaderIdentifier.SUB_CATEGORIES_ADD_PRODUCTS);
@@ -185,11 +183,8 @@ export class EditProductComponent implements OnInit {
       } else {
         const theIndex = this.selectedColors.findIndex(item => item.id === theColor!.id);
         if(theIndex >= 0){
-
           // remove as imagens da cor clicada
-          
           this.selectedColors.splice(theIndex, 1);
-
         }
       }
     }
@@ -200,8 +195,17 @@ export class EditProductComponent implements OnInit {
     this.productFacade.getProductById(id).subscribe({
       next: (product: any) => {
         this.theProduct = product;
-        console.log(product)
         const featureImages = this.theProduct.featureImages?.map(i => i.image) || [];
+        console.log(this.theProduct)
+
+        const selectedColorIds: any[] = this.theProduct.colors?.map(cl => cl.id) ?? [];
+
+        const updatedColors: ColorOption[] = this.colors().map((color: ColorOption) => ({
+          ...color,
+          selected: selectedColorIds.includes(color.id)
+        }));
+
+        this.colors.set(updatedColors);
 
         this.fullfillFormFields();
         
@@ -215,17 +219,18 @@ export class EditProductComponent implements OnInit {
     });
   }
 
-  fullfillFormFields(){;
+  fullfillFormFields(){
     this.editProductFormGroup.get('productName')?.setValue(this.theProduct.name)
     this.editProductFormGroup.get('price')?.setValue(this.theProduct.price)
     this.editProductFormGroup.get('qtd')?.setValue(this.theProduct.quantity)
-    this.editProductFormGroup.get('promotionRate')?.setValue(0) // this.theProduct.promotion_price
+    this.editProductFormGroup.get('promotionRate')?.setValue(this.theProduct.promotion_price)
     this.editProductFormGroup.get('description')?.setValue(this.theProduct.description)
   }
 
   submitForm(): void{
     // after validation
     const fields: EditProductModel = {
+      productId: this.theProduct.id,
       name: this.editProductFormGroup.get('productName')?.value,
       price: parseFloat(this.editProductFormGroup.get('price')!.value),
       stock_quantity: [parseInt(this.editProductFormGroup.get('qtd')!.value)],
@@ -236,19 +241,20 @@ export class EditProductComponent implements OnInit {
       brand_id: this.selectedBrand[0].id,
       category_id: this.selectedCategory[0].id,
       subcategory_id: this.selectedSubCategories[0].id,
-      size: this.selectedSizes.flatMap(_ => _.id),
-      color: this.selectedColors.flatMap(_ => _.id),
+      sizes: this.selectedSizes.flatMap(_ => _.id),
+      colors: this.selectedColors.flatMap(_ => _.id),
       images: this.files.flatMap(_ => (_.previewUrl).replace(/^data:image\/[a-zA-Z]+;base64,/, '')),
       image_filename: this.files.flatMap(_ => _.name),
       shop_id: '1c13d9e3-41a3-47c5-83ae-8785441c878b',
       coverimage: (this.files[0].previewUrl).replace(/^data:image\/[a-zA-Z]+;base64,/, ''),
       coverimage_filename: this.files[0].name,
+      coverimage_filenameold: this.theProduct.coverImageFilename ?? '',
       imagescolor: Object.values(this.colorsWithImages).flatMap((images: any[]) => images.map(image => (image.previewUrl).replace(/^data:image\/[a-zA-Z]+;base64,/, ''))),
       imagescolor_filename: Object.values(this.colorsWithImages).flatMap((images: any[]) => images.map(image => image.name))
     };
 
     this.isEditing.set(true);
-    this.addProductFacade.addProduct(JSON.parse(JSON.stringify(fields))).subscribe({
+    this.productFacade.editProduct(JSON.parse(JSON.stringify(fields))).subscribe({
       next: repsonse => {
         this.alertService.add("Produto actualizado com êxito", LogStatus.SUCCESS);
         this.router.navigate(['/store/products']);
@@ -264,6 +270,7 @@ export class EditProductComponent implements OnInit {
 }
 
 export interface EditProductModel{
+  productId: string,
   name: string,
   price: number,
   stock_quantity: number[],
@@ -273,12 +280,13 @@ export interface EditProductModel{
   shop_id: string,
   coverimage: string,
   coverimage_filename: string,
+  coverimage_filenameold: string,
   desc: number,
   brand_id: string | undefined,
   category_id: string | undefined,
   subcategory_id: string | undefined,
-  size: string[],
-  color: string[],
+  sizes: string[],
+  colors: string[],
   images: string[],
   image_filename: string[],
   imagescolor: string[],

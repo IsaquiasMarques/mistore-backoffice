@@ -1,16 +1,16 @@
 import { inject, Injectable } from "@angular/core";
 import { LooksData } from "@core/data/store/looks.data";
-import { StoreApi } from "@store/api/store.api.service";
 import { ILook, ILookResponse } from "@store/models/looks.model";
 import { catchError, map, Observable, of, switchMap, tap, throwError } from "rxjs";
 import { DraftingLookFacade } from "./drafts.facade";
 import { IProduct } from "@store/models/product.model";
+import { LookApiService } from "@store/api/looks.api.service";
 
 @Injectable({
     providedIn: 'root'
 })
 export class LookFacade{
-    private api = inject(StoreApi);
+    private api = inject(LookApiService);
     private looksData = inject(LooksData);
     private draftingLook = inject(DraftingLookFacade);
 

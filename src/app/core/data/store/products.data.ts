@@ -20,6 +20,27 @@ export class ProductsData implements StoredataInterface{
             }
         }));
     }
+
+    removeDataFromPage(page: number, data: any): number{
+        let remaingDataOnPage: number = 0;
+        this.paginatedProducts.update(obj => {
+            const itemIndex = obj.pages[page].findIndex(item => data.id == item.id);
+            if(itemIndex == -1){ return obj; }
+
+            const itemsArray = obj.pages[page] || [];
+            itemsArray.splice(itemIndex, 1);
+            remaingDataOnPage = itemsArray.length;
+            console.log(data.id, page, itemsArray, remaingDataOnPage);
+            return {
+              ...obj,
+              pages: {
+                ...obj.pages,
+                [page]: itemsArray
+              }
+            };
+        });
+        return remaingDataOnPage;
+    }
     
     clearData(): boolean{
         this.paginatedProducts.set({ total: 0, pages: { 0: [] } });

@@ -1,5 +1,5 @@
 import { inject, Injectable } from "@angular/core";
-import { StatisticsApiService as API } from "@store/api/statistics-api.service";
+import { StatisticsApiService } from "@store/api/statistics-api.service";
 import { StatisticsData } from "@store/models/statistics.model";
 import { Observable } from "rxjs";
 
@@ -8,7 +8,7 @@ import { Observable } from "rxjs";
 })
 export class StatisticsFacade{
 
-    private api = inject(API);
+    private api = inject(StatisticsApiService);
 
     allProductsCount(): Observable<StatisticsData>{
         return this.api.getProductsPageStatistics();

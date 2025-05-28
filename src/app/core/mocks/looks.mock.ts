@@ -30,24 +30,40 @@ export const LOOKS: ILook[] = [
                 created_at: '06/01/2024',
                 price: 2000,
                 promotion_price: 1000,
-                money_raised: 173000
+                money_raised: 173000,
+                brand: {
+                    id: '',
+                    name: '',
+                    slug: '',
+                    logo: '',
+                    bgImage: ''
+                },
+                categories: []
             },
             {
-            id: '10687a95-c512-44de-9ecc-12ed559812dc',
-            ID: '43756',
-            imagePath: 'assets/images/products/image-2.png',
-            name: 'Nike air force 4',
-            subcategory: {
-                id: '',
-                name: 'Kids',
-                parent_id: '',
-            },
-            status: ProductStatusEnum.UNAVAILABLE,
-            quantity: 193,
-            created_at: '06/01/2024',
-            price: 2000,
-            promotion_price: 0,
-            money_raised: 173000
+                id: '10687a95-c512-44de-9ecc-12ed559812dc',
+                ID: '43756',
+                imagePath: 'assets/images/products/image-2.png',
+                name: 'Nike air force 4',
+                subcategory: {
+                    id: '',
+                    name: 'Kids',
+                    parent_id: '',
+                },
+                status: ProductStatusEnum.UNAVAILABLE,
+                quantity: 193,
+                created_at: '06/01/2024',
+                price: 2000,
+                promotion_price: 0,
+                money_raised: 173000,
+                brand: {
+                    id: '',
+                    name: '',
+                    slug: '',
+                    logo: '',
+                    bgImage: ''
+                },
+                categories: []
             },
         ]
     },
@@ -75,24 +91,40 @@ export const LOOKS: ILook[] = [
                 created_at: '06/01/2024',
                 price: 2000,
                 promotion_price: 1000,
-                money_raised: 173000
+                money_raised: 173000,
+                brand: {
+                    id: '',
+                    name: '',
+                    slug: '',
+                    logo: '',
+                    bgImage: ''
+                },
+                categories: []
             },
             {
-            id: '10687a95-c512-44de-9ecc-12ed559812dc',
-            ID: '43756',
-            imagePath: 'assets/images/products/image-4.png',
-            name: 'Nike air force 4',
-            subcategory: {
-                id: '',
-                name: 'Winter',
-                parent_id: '',
-            },
-            status: ProductStatusEnum.UNAVAILABLE,
-            quantity: 193,
-            created_at: '06/01/2024',
-            price: 2000,
-            promotion_price: 0,
-            money_raised: 173000
+                id: '10687a95-c512-44de-9ecc-12ed559812dc',
+                ID: '43756',
+                imagePath: 'assets/images/products/image-4.png',
+                name: 'Nike air force 4',
+                subcategory: {
+                    id: '',
+                    name: 'Winter',
+                    parent_id: '',
+                },
+                status: ProductStatusEnum.UNAVAILABLE,
+                quantity: 193,
+                created_at: '06/01/2024',
+                price: 2000,
+                promotion_price: 0,
+                money_raised: 173000,
+                brand: {
+                    id: '',
+                    name: '',
+                    slug: '',
+                    logo: '',
+                    bgImage: ''
+                },
+                categories: []
             },
         ]
     },
@@ -120,24 +152,40 @@ export const LOOKS: ILook[] = [
                 created_at: '06/01/2024',
                 price: 2000,
                 promotion_price: 1000,
-                money_raised: 173000
+                money_raised: 173000,
+                brand: {
+                    id: '',
+                    name: '',
+                    slug: '',
+                    logo: '',
+                    bgImage: ''
+                },
+                categories: []
             },
             {
-            id: '10687a95-c512-44de-9ecc-12ed559812dc',
-            ID: '43756',
-            imagePath: 'assets/images/products/image-2.png',
-            name: 'Nike air force 4',
-            subcategory: {
-                id: '',
-                name: 'Winter',
-                parent_id: '',
-            },
-            status: ProductStatusEnum.UNAVAILABLE,
-            quantity: 193,
-            created_at: '06/01/2024',
-            price: 2000,
-            promotion_price: 0,
-            money_raised: 173000
+                id: '10687a95-c512-44de-9ecc-12ed559812dc',
+                ID: '43756',
+                imagePath: 'assets/images/products/image-2.png',
+                name: 'Nike air force 4',
+                subcategory: {
+                    id: '',
+                    name: 'Winter',
+                    parent_id: '',
+                },
+                status: ProductStatusEnum.UNAVAILABLE,
+                quantity: 193,
+                created_at: '06/01/2024',
+                price: 2000,
+                promotion_price: 0,
+                money_raised: 173000,
+                brand: {
+                    id: '',
+                    name: '',
+                    slug: '',
+                    logo: '',
+                    bgImage: ''
+                },
+                categories: []
             },
         ]
     },
@@ -165,24 +213,40 @@ export const LOOKS: ILook[] = [
                 created_at: '06/01/2024',
                 price: 2000,
                 promotion_price: 1000,
-                money_raised: 173000
+                money_raised: 173000,
+                brand: {
+                    id: '',
+                    name: '',
+                    slug: '',
+                    logo: '',
+                    bgImage: ''
+                },
+                categories: []
             },
             {
-            id: '10687a95-c512-44de-9ecc-12ed559812dc',
-            ID: '43756',
-            imagePath: 'assets/images/products/image-2.png',
-            name: 'Nike air force 4',
-            subcategory: {
-                id: '',
-                name: 'Winter',
-                parent_id: '',
-            },
-            status: ProductStatusEnum.UNAVAILABLE,
-            quantity: 193,
-            created_at: '06/01/2024',
-            price: 2000,
-            promotion_price: 0,
-            money_raised: 173000
+                id: '10687a95-c512-44de-9ecc-12ed559812dc',
+                ID: '43756',
+                imagePath: 'assets/images/products/image-2.png',
+                name: 'Nike air force 4',
+                subcategory: {
+                    id: '',
+                    name: 'Winter',
+                    parent_id: '',
+                },
+                status: ProductStatusEnum.UNAVAILABLE,
+                quantity: 193,
+                created_at: '06/01/2024',
+                price: 2000,
+                promotion_price: 0,
+                money_raised: 173000,
+                brand: {
+                    id: '',
+                    name: '',
+                    slug: '',
+                    logo: '',
+                    bgImage: ''
+                },
+                categories: []
             },
         ]
     },
@@ -210,24 +274,40 @@ export const LOOKS: ILook[] = [
                 created_at: '06/01/2024',
                 price: 2000,
                 promotion_price: 1000,
-                money_raised: 173000
+                money_raised: 173000,
+                brand: {
+                    id: '',
+                    name: '',
+                    slug: '',
+                    logo: '',
+                    bgImage: ''
+                },
+                categories: []
             },
             {
-            id: '10687a95-c512-44de-9ecc-12ed559812dc',
-            ID: '43756',
-            imagePath: 'assets/images/products/image-2.png',
-            name: 'Nike air force 4',
-            subcategory: {
-                id: '',
-                name: 'Winter',
-                parent_id: '',
-            },
-            status: ProductStatusEnum.UNAVAILABLE,
-            quantity: 193,
-            created_at: '06/01/2024',
-            price: 2000,
-            promotion_price: 0,
-            money_raised: 173000
+                id: '10687a95-c512-44de-9ecc-12ed559812dc',
+                ID: '43756',
+                imagePath: 'assets/images/products/image-2.png',
+                name: 'Nike air force 4',
+                subcategory: {
+                    id: '',
+                    name: 'Winter',
+                    parent_id: '',
+                },
+                status: ProductStatusEnum.UNAVAILABLE,
+                quantity: 193,
+                created_at: '06/01/2024',
+                price: 2000,
+                promotion_price: 0,
+                money_raised: 173000,
+                brand: {
+                    id: '',
+                    name: '',
+                    slug: '',
+                    logo: '',
+                    bgImage: ''
+                },
+                categories: []
             },
         ]
     },
@@ -255,24 +335,40 @@ export const LOOKS: ILook[] = [
                 created_at: '06/01/2024',
                 price: 2000,
                 promotion_price: 1000,
-                money_raised: 173000
+                money_raised: 173000,
+                brand: {
+                    id: '',
+                    name: '',
+                    slug: '',
+                    logo: '',
+                    bgImage: ''
+                },
+                categories: []
             },
             {
-            id: '10687a95-c512-44de-9ecc-12ed559812dc',
-            ID: '43756',
-            imagePath: 'assets/images/products/image-4.png',
-            name: 'Nike air force 4',
-            subcategory: {
-                id: '',
-                name: 'Winter',
-                parent_id: '',
-            },
-            status: ProductStatusEnum.UNAVAILABLE,
-            quantity: 193,
-            created_at: '06/01/2024',
-            price: 2000,
-            promotion_price: 0,
-            money_raised: 173000
+                id: '10687a95-c512-44de-9ecc-12ed559812dc',
+                ID: '43756',
+                imagePath: 'assets/images/products/image-4.png',
+                name: 'Nike air force 4',
+                subcategory: {
+                    id: '',
+                    name: 'Winter',
+                    parent_id: '',
+                },
+                status: ProductStatusEnum.UNAVAILABLE,
+                quantity: 193,
+                created_at: '06/01/2024',
+                price: 2000,
+                promotion_price: 0,
+                money_raised: 173000,
+                brand: {
+                    id: '',
+                    name: '',
+                    slug: '',
+                    logo: '',
+                    bgImage: ''
+                },
+                categories: []
             },
         ]
     },

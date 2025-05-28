@@ -1,13 +1,13 @@
 import { inject, Injectable } from "@angular/core";
 import { ProductsData } from "@core/data/store/products.data";
-import { StoreApi } from "@store/api/store.api.service";
+import { ProductApiService } from "@store/api/products.api.service";
 import { Observable, tap } from "rxjs";
 
 @Injectable({
     providedIn: 'root'
 })
 export class AddProductFacade{
-    private API = inject(StoreApi);
+    private API = inject(ProductApiService);
     private productsData = inject(ProductsData);
 
     addProduct(product: JSON): Observable<any>{

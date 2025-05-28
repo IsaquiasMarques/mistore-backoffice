@@ -163,6 +163,7 @@
                                     <mi-select
                                     [label]="'Marca'"
                                     [name]="'select-brand'"
+                                    [defaultValues]="(this.theProduct && this.theProduct.brand) ? [this.theProduct.brand] : []"
                                     [items]="this.brandsToSelect()"
                                     [optionValue]="'id'"
                                     [optionName]="'name'"
@@ -185,6 +186,7 @@
                                     [label]="'Categoria'"
                                     [name]="'select-category'"
                                     [items]="this.categoriesToSelect()"
+                                    [defaultValues]="(this.theProduct && this.theProduct.categories) ? this.theProduct.categories : []"
                                     [optionValue]="'id'"
                                     [optionName]="'name'"
                                     [placeholder]="'Seleccione a categoria'"
@@ -205,6 +207,7 @@
                                     [label]="'Subcategorias'"
                                     [name]="'select-subcategory'"
                                     [items]="this.subCategoriesToSelect()"
+                                    [defaultValues]="(this.theProduct && this.theProduct.subcategory && !(this.loaderService.getLoadingStatus(this.pageLoaderIdentifier.SUB_CATEGORIES_ADD_PRODUCTS) | async)) ? [this.theProduct.subcategory] : []"
                                     [optionValue]="'id'"
                                     [optionName]="'name'"
                                     [multi]="false"
@@ -217,6 +220,7 @@
                                 <mi-select
                                 [label]="'Tamanhos'"
                                 [name]="'select-size'"
+                                [defaultValues]="(this.theProduct && this.theProduct.sizes) ? this.theProduct.sizes : []"
                                 [items]="this.sizes()"
                                 [optionValue]="'id'"
                                 [optionName]="'size'"
@@ -267,17 +271,7 @@
 
                             <div class="promotionRate input flex flex-col gap-y-3"> 
                                 <label for="promotionRate" class="text-xs font-medium mb-5">Promoção</label>
-                                <div class="input-container relative flex">
-                                    <input type="range"
-                                    class="promotion-range relative w-full top-0"
-                                    formControlName="promotionRate"
-                                    id="promotionRate"
-                                    value="90"
-                                    >
-                                    <!-- <div class="input-track absolute top-0 bg-black h-full"
-                                    [style.width.%]="promotionRate()"
-                                    ></div> -->
-                                </div>
+                                <mi-input-range id="promotionRate" formControlName="promotionRate" />
                                 <div class="number-preview flex justify-between items-center mt-6">
                                     <span class="text-xs font-semibold text-black">{{ this.editProductFormGroup.get('promotionRate')!.value }}</span>
                                     <span class="text-xs font-semibold text-black">100</span>

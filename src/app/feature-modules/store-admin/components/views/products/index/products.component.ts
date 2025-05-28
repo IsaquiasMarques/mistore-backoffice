@@ -208,14 +208,16 @@ export class ProductsComponent extends TableComponentExtender implements OnInit,
     this.productFacade.products(page, limit).subscribe({
       next: (incoming: IProductResponse) => {
         this.tableProducts = incoming.products;
+
         if(this.tableProducts.length > 0){
 
           this.itemsSelectionService.setItems = this.tableProducts;
 
           this.totalItems = incoming.total;
+
           this.loaderService.setLoadingStatus(this.pageLoaderIdentifier.PRODUCTS, false);
         
-        }else{
+        } else {
           this.loaderService.loaderActionAfterTryFetching(this.pageLoaderIdentifier.PRODUCTS);
         }
       },
@@ -272,12 +274,16 @@ export class ProductsComponent extends TableComponentExtender implements OnInit,
       return;
     }
 
-    let deleteRequests = this.selectedItems.map((product: IProduct) => {
+    let deleteRequests = this.selectedItems.map((product: IProduct, index: number) => {
 
       // console.log(product)
-      return this.productFacade.deleteProduct(product).pipe(
+      return this.productFacade.deleteProduct(this.currentPage, product).pipe(
         tap((response) => {
-          console.log(response)
+          console.log(response);
+          this.selectedItems.splice(index, 1);
+          if(response.remaining === 0){
+            this.router.navigate(['/store/products/index'], { queryParams: { page: this.currentPage-- }, queryParamsHandling: 'merge' });
+          }
           // if(response){
           //   this.alertService.add(`Erro ao eliminar o produto: ${ product.name }`, LogStatus.ERROR);
           //   return;
