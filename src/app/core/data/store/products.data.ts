@@ -24,6 +24,7 @@ export class ProductsData implements StoredataInterface{
     removeDataFromPage(page: number, data: any): number{
         let remaingDataOnPage: number = 0;
         this.paginatedProducts.update(obj => {
+            if(!obj.pages[page]) return obj;
             const itemIndex = obj.pages[page].findIndex(item => data.id == item.id);
             if(itemIndex == -1){ return obj; }
 

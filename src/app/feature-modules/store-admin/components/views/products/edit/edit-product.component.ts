@@ -11,7 +11,7 @@ import { CategoryFacade } from '@store/facades/category.facade';
 import { ColorFacade } from '@store/facades/color.facade';
 import { ProductFacade } from '@store/facades/products/products.facade';
 import { SizeFacade } from '@store/facades/size.facade';
-import { IProductSubCategory, IProductSize, IProduct, IProductColor } from '@store/models/product.model';
+import { IProductSubCategory, IProductSize, IProduct, IProductColor, FilenameImage } from '@store/models/product.model';
 import { map } from 'rxjs';
 
 @Component({
@@ -62,10 +62,13 @@ export class EditProductComponent implements OnInit {
 
   isEditing = signal(false);
 
+  belongingPageNumber: number = 0;
+
   ngOnInit(): void {
 
     this.activatedRoute.paramMap.subscribe(params => {
       const product_id = params.get('product');
+      this.belongingPageNumber = parseInt(params.get('product_page') ?? '1');
       if(product_id == null) return;
       this.getTheProduct(product_id);
     });
@@ -242,19 +245,21 @@ export class EditProductComponent implements OnInit {
       category_id: this.selectedCategory[0].id,
       subcategory_id: this.selectedSubCategories[0].id,
       sizes: this.selectedSizes.flatMap(_ => _.id),
-      colors: this.selectedColors.flatMap(_ => _.id),
-      images: this.files.flatMap(_ => (_.previewUrl).replace(/^data:image\/[a-zA-Z]+;base64,/, '')),
-      image_filename: this.files.flatMap(_ => _.name),
+      old_colors: this.theProduct.colors,
+      new_colors: this.selectedColors.flatMap(_ => _.id),
+      images: (this.files.length > 0) ? this.files.flatMap(_ => (_.previewUrl).replace(/^data:image\/[a-zA-Z]+;base64,/, '')) : [],
+      oldImages: this.theProduct.featureImages,
+      image_filename: this.files.flatMap(_ => _.hashedName),
       shop_id: '1c13d9e3-41a3-47c5-83ae-8785441c878b',
-      coverimage: (this.files[0].previewUrl).replace(/^data:image\/[a-zA-Z]+;base64,/, ''),
-      coverimage_filename: this.files[0].name,
+      coverimage: (this.files.length > 0) ? (this.files[0].previewUrl).replace(/^data:image\/[a-zA-Z]+;base64,/, '') : this.theProduct.coverImage,
+      coverimage_filename: (this.files.length > 0) ? this.files[0].hashedName : this.theProduct.coverImageFilename,
       coverimage_filenameold: this.theProduct.coverImageFilename ?? '',
       imagescolor: Object.values(this.colorsWithImages).flatMap((images: any[]) => images.map(image => (image.previewUrl).replace(/^data:image\/[a-zA-Z]+;base64,/, ''))),
-      imagescolor_filename: Object.values(this.colorsWithImages).flatMap((images: any[]) => images.map(image => image.name))
+      imagescolor_filename: Object.values(this.colorsWithImages).flatMap((images: any[]) => images.map(image => image.hashedName))
     };
 
     this.isEditing.set(true);
-    this.productFacade.editProduct(JSON.parse(JSON.stringify(fields))).subscribe({
+    this.productFacade.editProduct(JSON.parse(JSON.stringify(fields)), this.belongingPageNumber).subscribe({
       next: repsonse => {
         this.alertService.add("Produto actualizado com êxito", LogStatus.SUCCESS);
         this.router.navigate(['/store/products']);
@@ -286,7 +291,9 @@ export interface EditProductModel{
   category_id: string | undefined,
   subcategory_id: string | undefined,
   sizes: string[],
-  colors: string[],
+  old_colors?: any[],
+  new_colors: string[],
+  oldImages?: FilenameImage[],
   images: string[],
   image_filename: string[],
   imagescolor: string[],

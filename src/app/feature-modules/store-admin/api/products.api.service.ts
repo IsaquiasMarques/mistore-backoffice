@@ -55,7 +55,7 @@ export class ProductApiService extends StoreApi{
     }
 
     getProducts(page: number = 1, limit_per_page: number): Observable<IProductResponse>{
-        return this.http.get<IProductResponse>(`${ environment.backend }/api/products/GET-ListOfProductsClient?id=${ this.storeId }&page=${ page }&page_size=${ limit_per_page }&sortColumn=created_at&order=desc`,
+        return this.http.get<IProductResponse>(`${ environment.backend }/api/products/GET-ListOfProductsClient?id=${ this.storeId }&page=${ page }&quantity=1&price=1&page_size=${ limit_per_page }&sortColumn=create_date&order=desc`,
             { headers: this.headers }
         )
         .pipe(
@@ -82,12 +82,12 @@ export class ProductApiService extends StoreApi{
 
     editProduct(product: any): Observable<any>{
         const localHeaders = new HttpHeaders().set('Content-Type', 'text/json');
-        return this.http.put<any>(`${ environment.backend }/api/products/Updateproduct`, product, { headers: localHeaders });
+        return this.http.patch<any>(`${ environment.backend }/api/products/Updateproduct`, product, { headers: localHeaders });
     }
 
     productColor(data: any): Observable<any>{
         const localHeaders = new HttpHeaders().set('Content-Type', 'text/json');
-        return this.http.put<any>(`${ environment.backend }/api/ProductColor`, data, { headers: localHeaders });
+        return this.http.post<any>(`${ environment.backend }/api/ProductColor`, data, { headers: localHeaders });
     }
 
     productImage(data: any): Observable<any>{
@@ -97,12 +97,12 @@ export class ProductApiService extends StoreApi{
 
     productDiscount(data: any): Observable<any>{
         const localHeaders = new HttpHeaders().set('Content-Type', 'text/json');
-        return this.http.put<any>(`${ environment.backend }/api/Discount`, data, { headers: localHeaders });
+        return this.http.post<any>(`${ environment.backend }/api/Discount`, data, { headers: localHeaders });
     }
 
     productStock(data: any): Observable<any>{
         const localHeaders = new HttpHeaders().set('Content-Type', 'text/json');
-        return this.http.put<any>(`${ environment.backend }/api/StockApi`, data, { headers: localHeaders });
+        return this.http.post<any>(`${ environment.backend }/api/StockApi`, data, { headers: localHeaders });
     }
 
     deleteProduct(product: IProduct){

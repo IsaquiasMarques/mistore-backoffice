@@ -46,7 +46,7 @@ export class ProductFacade{
         return this.api.getBrands();
     };
 
-    editProduct(product: any): Observable<any>{
+    editProduct(product: any, page: number): Observable<any>{
         // return this.api.editProduct(product);
 
         const editProductMethodDatas = {
@@ -62,42 +62,66 @@ export class ProductFacade{
             coverimage_filenameold: product.coverimage_filenameold
         }
 
-        const productColorMethodDatas = {
-            productId: product.id,
-            colorId: product.colors[0],
-            base64Image: product.images[0],
-            filename: product.image_filename[0]
-        };
-
         const productImageMethodDatas = {
-            imageId: "3fa85f64-5717-4562-b3fc-2c963f66afa6",
-            productId: product.id,
-            newFileName: "string",
+            imageId: product.oldImages[0].id,
+            productId: product.productId,
+            newFileName: product.image_filename[0],
             type: 0,
-            originalFileName: "string",
-            newImageData: "string"
+            originalFileName: product.oldImages[0].filename,
+            newImageData: product.images[0]
         }
 
         const productDiscountMethodDatas = {
-            id: product.id,
+            id: product.productId,
             active: product.stock_status[0],
             discountRate: product.discount_rate,
-            products: product.id
+            products: product.productId
         }
 
         const productStockMethodDatas = {
             quantity: product.stock_quantity[0],
-            product_id: product.id,
+            product_id: product.productId,
             size_id: product.sizes[0],
-            color_id: product.colors[0],
+            color_id: product.new_colors[0],
             active: product.stock_status[0]
         }
 
-        console.log(editProductMethodDatas)
+        console.log(editProductMethodDatas, productStockMethodDatas, productDiscountMethodDatas, productImageMethodDatas)
 
         return this.api.editProduct(editProductMethodDatas)
         .pipe(
-            switchMap(response => this.api.productColor(productColorMethodDatas)),
+            tap(console.log),
+            map((response: any) => {
+               this.productsData.removeDataFromPage(page, product);
+               return response;
+            }),
+            switchMap(response => {
+                let colorSubs: Observable<any>[] = [];
+                product.new_colors.forEach((color: string, index: number) => {
+                    const theColor = {
+                        productId: product.productId,
+                        colorId: color,
+                        base64Image: product.imagescolor[index],
+                        filename: product.imagescolor_filename[index]
+                    }
+                    console.log(product, theColor);
+                    colorSubs.push(
+                        this.api.productColor(
+                            theColor
+                        )
+                    )
+                });
+                return forkJoin(colorSubs);
+            }),
+            switchMap(response => {
+                let imagesSubs: Observable<any>[] = [];
+                // logic for single colors and sizes, going to do further
+                if(product.images.length > 0)
+                    return this.api.productImage(productImageMethodDatas);
+
+                return of(response);
+            }),
+            tap(console.log),
             switchMap(response => this.api.productDiscount(productDiscountMethodDatas)),
             switchMap(response => this.api.productStock(productStockMethodDatas)),
             catchError(error => throwError(() => error))

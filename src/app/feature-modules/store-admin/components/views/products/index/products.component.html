@@ -220,7 +220,11 @@
                                                 </div>
                                                 <div class="buttons flex gap-5 justify-center items-center">
                                                     @if (this.selectedItems.length === 1) {
-                                                        <button [routerLink]="['/store/products/edit/' + this.selectedItems[0].id ]" class="">
+                                                        <button
+                                                            [routerLink]="['/store/products/edit/' + this.selectedItems[0].id ]"
+                                                            [queryParams]="{ product_page: this.currentPage }"
+                                                            [queryParamsHandling]="'merge'"
+                                                            class="">
                                                             <svg width="34" height="34" viewBox="0 0 34 34" fill="none" xmlns="http://www.w3.org/2000/svg">
                                                                 <rect x="0.5" y="0.5" width="33" height="33" rx="3.5" fill="#F8F8F8"/>
                                                                 <rect x="0.5" y="0.5" width="33" height="33" rx="3.5" stroke="#F2F2F2"/>

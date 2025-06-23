@@ -18,7 +18,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { LookFacade } from '@store/facades/looks/look.facade';
 import { AlertService, LogStatus } from '@core/services/alert/alert.service';
 import { UUIDGenerator } from '@core/services/uuid-generator.service';
-import { catchError, delay, forkJoin, map, tap, throwError } from 'rxjs';
+import { catchError, delay, forkJoin, map, of, tap, throwError } from 'rxjs';
 import { LookStatus } from '@store/enums/look-status.enum';
 
 @Component({
@@ -292,7 +292,7 @@ export class ProductsComponent extends TableComponentExtender implements OnInit,
         }),
         catchError(error => {
           this.alertService.add(`Erro ao eliminar o produto: ${ product.name }`, LogStatus.ERROR);
-          return throwError(() => error);
+          return of(() => error);
         })
       );
 

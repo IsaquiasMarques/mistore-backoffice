@@ -17,7 +17,7 @@ export class DropzoneFunctionalities{
   }
 
   startFilesSetup(){
-    this.files = [...this.files]; // forçar o files a ser considerado um array
+    this.files = [...this.files]; 
     const promise = this.files.map(file => this.loadFile(file));
   }
 
@@ -25,6 +25,12 @@ export class DropzoneFunctionalities{
     return new Promise((resolve, reject) => {
       const fileReader = new FileReader();
       fileReader.onload = (e: any) => {
+        
+        const extension = file.name.substring(file.name.lastIndexOf('.'));
+        const shortToken = this.generateShortToken();
+        const hashedName = `file_${shortToken}${extension}`;
+
+        file['hashedName'] = hashedName;
         file['previewUrl'] = e.target.result;
         file['hasLoaded'] = true;
         resolve();
@@ -43,6 +49,10 @@ export class DropzoneFunctionalities{
 
   removeFileItem($index: number){
     this.files.splice($index, 1);
+  }
+
+  private generateShortToken(length: number = 6): string {
+    return Math.random().toString(36).substring(2, 2 + length);
   }
 
 }
