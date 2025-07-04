@@ -12,7 +12,7 @@ import { ColorFacade } from '@store/facades/color.facade';
 import { ProductFacade } from '@store/facades/products/products.facade';
 import { SizeFacade } from '@store/facades/size.facade';
 import { IProductSubCategory, IProductSize, IProduct, IProductColor, FilenameImage } from '@store/models/product.model';
-import { map } from 'rxjs';
+import { combineLatest, map } from 'rxjs';
 
 @Component({
   selector: 'mi-edit-product',
@@ -42,7 +42,7 @@ export class EditProductComponent implements OnInit {
   selectedBrand!: IBrand[];
   selectedCategory!: IProductCategory[];
   selectedSubCategories!: IProductSubCategory[];
-  selectedSizes!: { id: string, label: string, value: string }[];
+  selectedSizes: { id: string, label: string, value: string }[] = [];
   selectedColors: ColorOption[] = [];
 
   promotionRateValue = signal(0);
@@ -65,10 +65,15 @@ export class EditProductComponent implements OnInit {
   belongingPageNumber: number = 0;
 
   ngOnInit(): void {
+    let urlParams = combineLatest([
+      this.activatedRoute.paramMap,
+      this.activatedRoute.queryParamMap
+    ]);
 
-    this.activatedRoute.paramMap.subscribe(params => {
+    urlParams.subscribe(([params, queryParams]) => {
       const product_id = params.get('product');
-      this.belongingPageNumber = parseInt(params.get('product_page') ?? '1');
+      this.belongingPageNumber = parseInt(queryParams.get('product_page') ?? '1');
+
       if(product_id == null) return;
       this.getTheProduct(product_id);
     });
@@ -212,7 +217,10 @@ export class EditProductComponent implements OnInit {
 
         this.fullfillFormFields();
         
-        this.theProductImages = [ this.theProduct.imagePath, ...featureImages ].filter(Boolean);
+        this.theProductImages = [
+          // this.theProduct.imagePath,
+          ...featureImages
+        ].filter(Boolean);
         this.loaderService.setLoadingStatus(PageLoaderIdentifier.PRODUCTS, false);
       },
       error: (error: any) => {
@@ -232,8 +240,28 @@ export class EditProductComponent implements OnInit {
 
   submitForm(): void{
     // after validation
+
+    // if(this.theProduct.imagePath !== ''){
+    //   if(this.theProduct.featureImages!.length + 1 < this.files.length){
+    //     this.alertService.add("A quantidade de imagens novas deve ser igual à das imagens antigas", LogStatus.WARNING);
+    //     return;
+    //   }
+    // } else {
+      if(this.theProduct.featureImages!.length < this.files.length){
+        this.alertService.add("A quantidade de imagens novas deve ser igual à das imagens antigas", LogStatus.WARNING);
+        return;
+      }
+
+      // }
+
+    if(!(this.selectedSizes.length > 0)){
+      this.alertService.add("Seleccione um tamanho para este produto", LogStatus.INFO);
+      return;
+    }
+
     const fields: EditProductModel = {
       productId: this.theProduct.id,
+      id: this.theProduct.id,
       name: this.editProductFormGroup.get('productName')?.value,
       price: parseFloat(this.editProductFormGroup.get('price')!.value),
       stock_quantity: [parseInt(this.editProductFormGroup.get('qtd')!.value)],
@@ -250,6 +278,7 @@ export class EditProductComponent implements OnInit {
       images: (this.files.length > 0) ? this.files.flatMap(_ => (_.previewUrl).replace(/^data:image\/[a-zA-Z]+;base64,/, '')) : [],
       oldImages: this.theProduct.featureImages,
       image_filename: this.files.flatMap(_ => _.hashedName),
+      old_image_path: this.theProduct.imagePath,
       shop_id: '1c13d9e3-41a3-47c5-83ae-8785441c878b',
       coverimage: (this.files.length > 0) ? (this.files[0].previewUrl).replace(/^data:image\/[a-zA-Z]+;base64,/, '') : this.theProduct.coverImage,
       coverimage_filename: (this.files.length > 0) ? this.files[0].hashedName : this.theProduct.coverImageFilename,
@@ -262,7 +291,7 @@ export class EditProductComponent implements OnInit {
     this.productFacade.editProduct(JSON.parse(JSON.stringify(fields)), this.belongingPageNumber).subscribe({
       next: repsonse => {
         this.alertService.add("Produto actualizado com êxito", LogStatus.SUCCESS);
-        this.router.navigate(['/store/products']);
+        this.router.navigate(['/store/products'], { queryParams: {'page': this.belongingPageNumber}, queryParamsHandling: 'preserve' });
         this.isEditing.set(false);
       },
       error: error => {
@@ -276,6 +305,7 @@ export class EditProductComponent implements OnInit {
 
 export interface EditProductModel{
   productId: string,
+  id: string,
   name: string,
   price: number,
   stock_quantity: number[],
@@ -293,6 +323,7 @@ export interface EditProductModel{
   sizes: string[],
   old_colors?: any[],
   new_colors: string[],
+  old_image_path: string,
   oldImages?: FilenameImage[],
   images: string[],
   image_filename: string[],

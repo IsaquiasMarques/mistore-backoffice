@@ -62,15 +62,6 @@ export class ProductFacade{
             coverimage_filenameold: product.coverimage_filenameold
         }
 
-        const productImageMethodDatas = {
-            imageId: product.oldImages[0].id,
-            productId: product.productId,
-            newFileName: product.image_filename[0],
-            type: 0,
-            originalFileName: product.oldImages[0].filename,
-            newImageData: product.images[0]
-        }
-
         const productDiscountMethodDatas = {
             id: product.productId,
             active: product.stock_status[0],
@@ -81,19 +72,21 @@ export class ProductFacade{
         const productStockMethodDatas = {
             quantity: product.stock_quantity[0],
             product_id: product.productId,
-            size_id: product.sizes[0],
-            color_id: product.new_colors[0],
+            size_id: product.sizes[0] ?? '',
+            color_id: product.new_colors[0] ?? product.old_colors[0].id,
             active: product.stock_status[0]
         }
 
-        console.log(editProductMethodDatas, productStockMethodDatas, productDiscountMethodDatas, productImageMethodDatas)
+        console.log(editProductMethodDatas, productStockMethodDatas, productDiscountMethodDatas)
 
         return this.api.editProduct(editProductMethodDatas)
         .pipe(
-            tap(console.log),
+            // tap(console.log),
             map((response: any) => {
-               this.productsData.removeDataFromPage(page, product);
-               return response;
+                return {
+                    remaining: this.productsData.clearPage(page),
+                    response
+                };
             }),
             switchMap(response => {
                 let colorSubs: Observable<any>[] = [];
@@ -104,24 +97,50 @@ export class ProductFacade{
                         base64Image: product.imagescolor[index],
                         filename: product.imagescolor_filename[index]
                     }
-                    console.log(product, theColor);
+                    
                     colorSubs.push(
                         this.api.productColor(
                             theColor
                         )
                     )
                 });
-                return forkJoin(colorSubs);
+
+                if(!(colorSubs.length > 0)) return of(response);
+
+                return forkJoin(colorSubs).pipe(
+                    map(() => response) // continua com o response original depois que todas as cores forem salvas
+                );
             }),
             switchMap(response => {
                 let imagesSubs: Observable<any>[] = [];
-                // logic for single colors and sizes, going to do further
-                if(product.images.length > 0)
-                    return this.api.productImage(productImageMethodDatas);
 
-                return of(response);
+                product.images.forEach((item: any, index: number) => {
+                    const productImageMethodDatas = {
+                        imageId:
+                                    // (index === 0) ? 
+                                    // product.old_image_path :
+                                    product.oldImages[index].id,
+                        productId: product.productId,
+                        newFileName: product.image_filename[index],
+                        type: 0,
+                        originalFileName: 
+                                            // (index === 0) ?
+                                            // 'no-old-filename-specified' :
+                                            product.oldImages[index].filename,
+                        newImageData: product.images[index]
+                    }
+                    imagesSubs.push(
+                        this.api.productImage(productImageMethodDatas)
+                    );
+                });
+
+                if(!(imagesSubs.length > 0)) return of(response);
+
+                return forkJoin(imagesSubs).pipe(
+                    map(() => response) // continua com o response original depois que todas as cores forem salvas
+                );
             }),
-            tap(console.log),
+            // tap(console.log),
             switchMap(response => this.api.productDiscount(productDiscountMethodDatas)),
             switchMap(response => this.api.productStock(productStockMethodDatas)),
             catchError(error => throwError(() => error))

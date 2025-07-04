@@ -55,7 +55,7 @@ export class ProductApiService extends StoreApi{
     }
 
     getProducts(page: number = 1, limit_per_page: number): Observable<IProductResponse>{
-        return this.http.get<IProductResponse>(`${ environment.backend }/api/products/GET-ListOfProductsClient?id=${ this.storeId }&page=${ page }&quantity=1&price=1&page_size=${ limit_per_page }&sortColumn=create_date&order=desc`,
+        return this.http.get<IProductResponse>(`${ environment.backend }/api/products/getallproductsbyshop?id=${ this.storeId }&page=${ page }&page_size=${ limit_per_page }&sortColumn=create_date&order=desc`,
             { headers: this.headers }
         )
         .pipe(

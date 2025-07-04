@@ -31,7 +31,6 @@ export class ProductsData implements StoredataInterface{
             const itemsArray = obj.pages[page] || [];
             itemsArray.splice(itemIndex, 1);
             remaingDataOnPage = itemsArray.length;
-            console.log(data.id, page, itemsArray, remaingDataOnPage);
             return {
               ...obj,
               pages: {
@@ -41,6 +40,15 @@ export class ProductsData implements StoredataInterface{
             };
         });
         return remaingDataOnPage;
+    }
+
+    clearPage(page: number){
+        this.paginatedProducts.update(obj => {
+            if(!obj.pages[page]) return obj;
+            delete obj.pages[page];
+
+            return obj;
+        })
     }
     
     clearData(): boolean{
