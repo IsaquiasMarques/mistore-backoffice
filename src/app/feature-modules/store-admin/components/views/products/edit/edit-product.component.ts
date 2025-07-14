@@ -247,7 +247,7 @@ export class EditProductComponent implements OnInit {
     //     return;
     //   }
     // } else {
-      if(this.theProduct.featureImages!.length < this.files.length){
+      if(this.theProduct.featureImages!.length > 0 && (this.theProduct.featureImages!.length < this.files.length)){
         this.alertService.add("A quantidade de imagens novas deve ser igual à das imagens antigas", LogStatus.WARNING);
         return;
       }
@@ -266,6 +266,7 @@ export class EditProductComponent implements OnInit {
       price: parseFloat(this.editProductFormGroup.get('price')!.value),
       stock_quantity: [parseInt(this.editProductFormGroup.get('qtd')!.value)],
       stock_status: [this.isAvailable],
+      old_status: this.theProduct.status ?? [],
       discount_status: true,
       discount_rate: (this.editProductFormGroup.get('promotionRate')?.value !== '') ? parseInt(this.editProductFormGroup.get('promotionRate')?.value) : 0,
       desc: this.editProductFormGroup.get('description')?.value,
@@ -309,7 +310,8 @@ export interface EditProductModel{
   name: string,
   price: number,
   stock_quantity: number[],
-  stock_status: boolean[]
+  stock_status: boolean[],
+  old_status: any[],
   discount_status: boolean,
   discount_rate: number,
   shop_id: string,

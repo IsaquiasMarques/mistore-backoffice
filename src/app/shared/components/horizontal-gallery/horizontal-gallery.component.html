@@ -16,15 +16,19 @@
                     </svg>
                 </button>
             </div>
-            <img [src]="this.images[this.activeImageIndex()]" class="w-full h-full z-[1] object-cover object-center" alt="">
+            <img [src]="this.images[this.activeImageIndex()]" class="w-full h-full z-[1] object-contain object-center" alt="">
         </div>
         <div class="scroller w-full overflow-x-auto">
             <div class="tiny-images w-max flex gap-4 justify-start items-stretch">
                 @for (image of images; track $index) {
                     <div
                     (click)="this.changeImage($index)"
-                    class="box cursor-pointer w-[88px] h-[88px] rounded-lg overflow-hidden">
-                        <img [src]="image" class="w-full h-full object-cover object-center" alt="">
+                    class="box cursor-pointer duration-[.3s] w-[88px] h-[88px] rounded-lg overflow-hidden"
+                    [ngClass]="{
+                        'opacity-[0.4]': $index !== activeImageIndex()
+                    }"
+                    >
+                        <img [src]="image" class="w-full h-full object-contain object-center" alt="">
                     </div>
                 } @empty {}
             </div>

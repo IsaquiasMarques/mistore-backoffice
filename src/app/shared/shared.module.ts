@@ -23,6 +23,7 @@ import { SpinnerComponent } from './components/spinner/spinner.component';
 import { LookComponent } from './components/cards/look/look.component';
 import { HorizontalGalleryComponent } from './components/horizontal-gallery/horizontal-gallery.component';
 import { InputRangeComponent } from './components/input-range/input-range.component';
+import { ProductsTableComponent } from './components/products/products-table/products-table.component';
 
 @NgModule({
   declarations: [
@@ -47,6 +48,7 @@ import { InputRangeComponent } from './components/input-range/input-range.compon
     LookComponent,
     HorizontalGalleryComponent,
     InputRangeComponent,
+    ProductsTableComponent,
   ],
   imports: [
     CommonModule,

@@ -140,9 +140,14 @@ export class ProductFacade{
                     map(() => response) // continua com o response original depois que todas as cores forem salvas
                 );
             }),
-            // tap(console.log),
             switchMap(response => this.api.productDiscount(productDiscountMethodDatas)),
-            switchMap(response => this.api.productStock(productStockMethodDatas)),
+            switchMap(response => {
+                if(!(product.old_status.length > 0)){
+                    return this.api.createProductStock(productStockMethodDatas).pipe(tap(console.log));
+                } else {
+                    return this.api.updateProductStock(productStockMethodDatas, product.old_status[0].id);
+                }
+            }),
             catchError(error => throwError(() => error))
         )
     }

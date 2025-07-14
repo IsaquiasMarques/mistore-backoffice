@@ -76,6 +76,11 @@ export class ProductApiService extends StoreApi{
         )
     }
 
+    createProductStock(data: any): Observable<any>{
+        const localHeaders = new HttpHeaders().set('Content-Type', 'text/json');
+        return this.http.post<any>(`${ environment.backend }/api/StockApi`, data, { headers: localHeaders });
+    }
+
     addProduct(product: JSON): Observable<any>{
         return this.http.post(`${ environment.backend }/api/products/Product-Insert`, product, { headers: this.headers });
     }
@@ -100,9 +105,9 @@ export class ProductApiService extends StoreApi{
         return this.http.post<any>(`${ environment.backend }/api/Discount`, data, { headers: localHeaders });
     }
 
-    productStock(data: any): Observable<any>{
+    updateProductStock(data: any, stockId: string): Observable<any>{
         const localHeaders = new HttpHeaders().set('Content-Type', 'text/json');
-        return this.http.post<any>(`${ environment.backend }/api/StockApi`, data, { headers: localHeaders });
+        return this.http.put<any>(`${ environment.backend }/api/StockApi/${ stockId }`, data, { headers: localHeaders });
     }
 
     deleteProduct(product: IProduct){

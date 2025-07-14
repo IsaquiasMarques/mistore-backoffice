@@ -65,8 +65,9 @@ export class Transformer{
                     slug: (product.subcategories && product.subcategories[0]) ? product.subcategories[0].slug : 'nao-categorizado',
                     parent_id: (product.subcategories && product.subcategories[0]) ? product.subcategories[0].category_id : ''
                 },
+                status: product.status,
                 quantity: (product.status && product.status[0]) ? product.status[0].quantity : 0,
-                status: (product.status && product.status[0] && product.status[0].status) ? ProductStatusEnum.AVAILABLE : ProductStatusEnum.UNAVAILABLE,
+                // status: (product.status && product.status[0] && product.status[0].status) ? ProductStatusEnum.AVAILABLE : ProductStatusEnum.UNAVAILABLE,
                 favoritesCount: product.favourite_count,
                 created_at: created_at,
                 price: product.price,

@@ -290,14 +290,14 @@
                                         <td class="py-4 px-6 text-[#828282]">{{ product.price| number | replaceBy }} AOA</td>
                                         <td class="py-4 px-6 flex justify-end">
                                             <button class="chip py-1 px-2 items-center flex gap-x-2 justify-center rounded-full font-medium"
-                                            [style.backgroundColor]="(product.status == this.productStatusEnum.AVAILABLE) ? 'rgba(39,206,153,0.10)' : 'rgba(225,48,41,0.10)'"
-                                            [style.color]="(product.status == this.productStatusEnum.AVAILABLE) ? '#288853' : '#E13029'"
+                                            [style.backgroundColor]="(product.status && product.status.length > 0 && product.status[0].status) ? 'rgba(39,206,153,0.10)' : 'rgba(225,48,41,0.10)'"
+                                            [style.color]="(product.status && product.status.length > 0 && product.status[0].status) ? '#288853' : '#E13029'"
                                             >
                                                 <mi-svg
-                                                [reference]="(product.status == this.productStatusEnum.AVAILABLE) ? this.svgRefEnum.CHECK_CIRCLE : this.svgRefEnum.MINUS_CIRCLE"
-                                                [color]="(product.status == this.productStatusEnum.AVAILABLE) ? '#288853' : '#E13029'"
+                                                [reference]="(product.status && product.status.length > 0 && product.status[0].status) ? this.svgRefEnum.CHECK_CIRCLE : this.svgRefEnum.MINUS_CIRCLE"
+                                                [color]="(product.status && product.status.length > 0 && product.status[0].status) ? '#288853' : '#E13029'"
                                                 />
-                                                {{ (product.status == this.productStatusEnum.AVAILABLE) ? 'Disponível' : 'Indisponível' }}
+                                                {{ (product.status) ? 'Disponível' : 'Indisponível' }}
                                             </button>
                                         </td>
                                     </tr>
