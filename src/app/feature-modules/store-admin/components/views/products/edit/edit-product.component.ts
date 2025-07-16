@@ -300,7 +300,7 @@ export class EditProductComponent implements OnInit {
         this.isEditing.set(false);
       },
       error: error => {
-        this.alertService.add(error, LogStatus.ERROR);
+        this.alertService.add(error.message ?? error.error, LogStatus.ERROR);
         this.isEditing.set(false);
         console.error(error);
       }
