@@ -209,6 +209,8 @@ export class ProductsComponent extends TableComponentExtender implements OnInit,
       next: (incoming: IProductResponse) => {
         this.tableProducts = incoming.products;
 
+        console.log(incoming.products);
+
         if(this.tableProducts.length > 0){
 
           this.itemsSelectionService.setItems = this.tableProducts;
