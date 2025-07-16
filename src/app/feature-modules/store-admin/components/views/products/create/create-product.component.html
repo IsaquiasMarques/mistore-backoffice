@@ -309,7 +309,7 @@
                             </div>
 
                             <div class="buttons flex justify-between items-center mt-8">
-                                <button class="cancel p-4 text-[#999] text-sm leading-4 rounded-lg">
+                                <button type="button" [routerLink]="['/store/products']" class="cancel p-4 text-[#999] text-sm leading-4 rounded-lg">
                                     Cancelar
                                 </button>
                                 <button type="submit" [disabled]="this.isCreating()" class="min-w-[150px] p-4 flex justify-center items-center bg-black text-white text-sm leading-4 rounded-lg">
