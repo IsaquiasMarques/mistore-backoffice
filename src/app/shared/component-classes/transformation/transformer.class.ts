@@ -74,7 +74,10 @@ export class Transformer{
                 promotion_price: 0,
                 money_raised: product.money_raised,
                 colors: productColors,
-                sizes: []
+                sizes: (product.product_Size ?? []).flatMap((item: any) => ({
+                    id: item.size_id,
+                    size: item.size,
+                }))
             }
         });
     }
