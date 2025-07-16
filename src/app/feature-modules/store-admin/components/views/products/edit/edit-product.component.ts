@@ -173,8 +173,8 @@ export class EditProductComponent implements OnInit {
     });
   }
 
-  changeAvailability(){
-    this.isAvailable = !this.isAvailable;
+  changeAvailability(status: boolean){
+    this.isAvailable = status;
   }
 
   toggleSelectColor(colorId: string){
@@ -204,8 +204,8 @@ export class EditProductComponent implements OnInit {
       next: (product: any) => {
         this.theProduct = product;
         const featureImages = this.theProduct.featureImages?.map(i => i.image) || [];
-        console.log(this.theProduct)
-
+        console.log(this.theProduct);
+        
         const selectedColorIds: any[] = this.theProduct.colors?.map(cl => cl.id) ?? [];
 
         const updatedColors: ColorOption[] = this.colors().map((color: ColorOption) => ({
@@ -236,6 +236,10 @@ export class EditProductComponent implements OnInit {
     this.editProductFormGroup.get('qtd')?.setValue(this.theProduct.quantity)
     this.editProductFormGroup.get('promotionRate')?.setValue(this.theProduct.promotion_price)
     this.editProductFormGroup.get('description')?.setValue(this.theProduct.description)
+    
+    if(this.theProduct.status && this.theProduct.status.length > 0){
+      this.isAvailable =  this.theProduct.status[0].status;
+    }
   }
 
   submitForm(): void{

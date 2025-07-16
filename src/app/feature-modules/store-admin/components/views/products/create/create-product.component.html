@@ -149,6 +149,7 @@
                                     [items]="this.brandsToSelect()"
                                     [optionValue]="'id'"
                                     [optionName]="'name'"
+                                    [required]="true"
                                     [placeholder]="'Seleccione a marca'"
                                     (selectedItemsEventEmitter)="this.selectedBrandEventHandler($event)"
                                     />
@@ -170,6 +171,7 @@
                                     [items]="this.categoriesToSelect()"
                                     [optionValue]="'id'"
                                     [optionName]="'name'"
+                                    [required]="true"
                                     [placeholder]="'Seleccione a categoria'"
                                     (selectedItemsEventEmitter)="this.selectedCategoryEventHandler($event)"
                                     />
@@ -190,9 +192,10 @@
                                     [items]="this.subCategoriesToSelect()"
                                     [optionValue]="'id'"
                                     [optionName]="'name'"
+                                    [required]="true"
                                     [multi]="false"
                                     [placeholder]="'Seleccione as subcategorias'"
-                                    (selectedItemsEventEmitter)="this.selectedSubCategoriesEventHandler($event)"
+                                    (selectedItemsEventEmitter)="this.selectedSubCategoryEventHandler($event)"
                                     />
                                 }
                             </div>
@@ -203,6 +206,7 @@
                                 [items]="this.sizes()"
                                 [optionValue]="'id'"
                                 [optionName]="'size'"
+                                [required]="true"
                                 [multi]="true"
                                 [placeholder]="'Seleccione os tamanhos'"
                                 (selectedItemsEventEmitter)="this.selectedSizesEventHandler($event)"

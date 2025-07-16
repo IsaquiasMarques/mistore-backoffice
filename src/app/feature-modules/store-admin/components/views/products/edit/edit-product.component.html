@@ -167,6 +167,7 @@
                                     [items]="this.brandsToSelect()"
                                     [optionValue]="'id'"
                                     [optionName]="'name'"
+                                    [required]="true"
                                     [placeholder]="'Seleccione a marca'"
                                     (selectedItemsEventEmitter)="this.selectedBrandEventHandler($event)"
                                     />
@@ -189,6 +190,7 @@
                                     [defaultValues]="(this.theProduct && this.theProduct.categories) ? this.theProduct.categories : []"
                                     [optionValue]="'id'"
                                     [optionName]="'name'"
+                                    [required]="true"
                                     [placeholder]="'Seleccione a categoria'"
                                     (selectedItemsEventEmitter)="this.selectedCategoryEventHandler($event)"
                                     />
@@ -210,6 +212,7 @@
                                     [defaultValues]="(this.theProduct && this.theProduct.subcategory && !(this.loaderService.getLoadingStatus(this.pageLoaderIdentifier.SUB_CATEGORIES_ADD_PRODUCTS) | async)) ? [this.theProduct.subcategory] : []"
                                     [optionValue]="'id'"
                                     [optionName]="'name'"
+                                    [required]="true"
                                     [multi]="false"
                                     [placeholder]="'Seleccione as subcategorias'"
                                     (selectedItemsEventEmitter)="this.selectedSubCategoriesEventHandler($event)"
@@ -224,6 +227,7 @@
                                 [items]="this.sizes()"
                                 [optionValue]="'id'"
                                 [optionName]="'size'"
+                                [required]="true"
                                 [multi]="true"
                                 [placeholder]="'Seleccione os tamanhos'"
                                 (selectedItemsEventEmitter)="this.selectedSizesEventHandler($event)"
@@ -284,7 +288,7 @@
                                 <div class="chips flex justify-start items-center gap-x-4">
                                     <div
                                     class="chip cursor-pointer w-fit bg-[rgba(39,206,153,0.10)] rounded-full px-3 py-2 text-[#288853] text-sm font-medium uppercase flex gap-2 items-center"
-                                    (click)="changeAvailability()"
+                                    (click)="changeAvailability(true)"
                                     >
                                         <div class="check w-5 h-5 duration-[.6s] border-[2px] rounded-[5px]  border-[#288853] flex justify-center items-center"
                                         [ngClass]="{
@@ -301,7 +305,7 @@
                                     </div>
                                     <div
                                     class="chip cursor-pointer w-fit bg-[rgba(225,48,41,0.10)] rounded-full px-3 py-2 text-[#E13029] text-sm font-medium uppercase flex gap-2 items-center"
-                                    (click)="changeAvailability()"
+                                    (click)="changeAvailability(false)"
                                     >
                                         <div class="check w-5 h-5 border-[2px] rounded-[5px] border-[#E13029] flex justify-center items-center"
                                         [ngClass]="{
@@ -327,7 +331,7 @@
                             </div>
 
                             <div class="buttons flex justify-between items-center mt-8">
-                                <button class="cancel p-4 text-[#999] text-sm leading-4 rounded-lg">
+                                <button type="button" [routerLink]="['/store/products']" class="cancel p-4 text-[#999] text-sm leading-4 rounded-lg">
                                     Cancelar
                                 </button>
                                 <button type="submit" [disabled]="this.isEditing()" class="min-w-[150px] p-4 flex justify-center items-center bg-black text-white text-sm leading-4 rounded-lg">

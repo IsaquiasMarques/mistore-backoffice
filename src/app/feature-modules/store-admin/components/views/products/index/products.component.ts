@@ -215,8 +215,6 @@ export class ProductsComponent extends TableComponentExtender implements OnInit,
 
           this.totalItems = incoming.total;
 
-          console.log(this.tableProducts);
-
           this.loaderService.setLoadingStatus(this.pageLoaderIdentifier.PRODUCTS, false);
         
         } else {

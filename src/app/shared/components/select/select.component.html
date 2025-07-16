@@ -1,16 +1,17 @@
 <div class="field-container flex flex-col gap-y-6">
-    <div class="select-{{ this.name }} flex flex-col gap-y-3">
-        <label [for]="this.name" class="text-xs font-medium">{{ this.label }}</label>
+    <div class="select-{{ this.name() }} flex flex-col gap-y-3">
+        <label [for]="this.name()" class="text-xs font-medium">{{ this.label() }}</label>
         <div class="dropdown-container">
             <div class="select flex duration-[.2s] cursor-pointer px-[14px] justify-between items-center text-[#999] bg-[#F8F8F8] border border-[#E9E9E9] rounded-t-lg"
             (click)="this.toggleSelectVisibility()"
             [ngClass]="{
                 'rounded-b-lg': !this.isSelectExpanded,
+                'is-invalid': this.isInvalid,
             }"
             >
                 <input type="text"
                 readonly
-                [id]="this.name"
+                [id]="this.name()"
                 class="placeholder:text-xs read-only:cursor-pointer bg-transparent py-[14px] w-full text-xs placeholder:text-[#999] focus:outline-none"
                 [placeholder]="this.placeholderDisplay">
                 
@@ -24,7 +25,7 @@
                     <path d="M5 7.5L10 12.5L15 7.5" stroke="#999999" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                 </svg>
             </div>
-            <div class="dropdown-{{ this.name }} duration-[.3s] rounded-b-lg overflow-hidden bg-[#F8F8F8] text-xs"
+            <div class="dropdown-{{ this.name() }} duration-[.3s] rounded-b-lg overflow-hidden bg-[#F8F8F8] text-xs"
             #selectDropdownReference
             [style.maxHeight.px]="(this.isSelectExpanded) ? this.maxHeightOfDropdown : 0"
             >
@@ -44,17 +45,17 @@
                 <div class="items-list max-h-[110px] overflow-y-auto no-scroller">
                     @for (item of this.filteredItems; track $index) {
                         <div class="item p-[14px] cursor-pointer hover:bg-[#F1F1F1]"
-                        [ngClass]="{ 'bg-[#F1F1F1]': this.itemIndex(item[this.optionValue]) !== -1 }"
+                        [ngClass]="{ 'bg-[#F1F1F1]': this.itemIndex(item[this.optionValue()]) !== -1 }"
                         (click)="this.selectItem(item)"
                         >
-                            {{ item[this.optionName] }}
+                            {{ item[this.optionName()] }}
                         </div>
                     }
                 </div>
             </div>
         </div>
     </div>
-    <div class="multi-selected-items" *ngIf="this.multi && this.selectedItems.length > 0">
+    <div class="multi-selected-items" *ngIf="this.multi() && this.selectedItems.length > 0">
         <div class="chips flex flex-wrap gap-4">
             @for (selectedItem of this.selectedItems; track $index) {
                 <div class="chip relative text-sm px-[10px] py-2 bg-[#F8F8F8] rounded-lg border border-black">
@@ -67,7 +68,7 @@
                             <path d="M4 4L9 9" stroke="white" stroke-width="1.08547" stroke-linecap="round" stroke-linejoin="round"/>
                         </svg>
                     </button>
-                    {{ selectedItem[this.optionName] }}
+                    {{ selectedItem[this.optionName()] }}
                 </div>
             }
         </div>

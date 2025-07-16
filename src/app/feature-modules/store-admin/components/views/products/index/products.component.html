@@ -297,7 +297,7 @@
                                                 [reference]="(product.status && product.status.length > 0 && product.status[0].status) ? this.svgRefEnum.CHECK_CIRCLE : this.svgRefEnum.MINUS_CIRCLE"
                                                 [color]="(product.status && product.status.length > 0 && product.status[0].status) ? '#288853' : '#E13029'"
                                                 />
-                                                {{ (product.status) ? 'Disponível' : 'Indisponível' }}
+                                                {{ (product.status && product.status.length > 0 && product.status[0].status) ? 'Disponível' : 'Indisponível' }}
                                             </button>
                                         </td>
                                     </tr>

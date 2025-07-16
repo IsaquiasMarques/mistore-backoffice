@@ -40,7 +40,7 @@ export class CreateProductComponent implements OnInit {
 
   selectedBrand!: IBrand[];
   selectedCategory!: IProductCategory[];
-  selectedSubCategories!: IProductSubCategory[];
+  selectedSubCategory!: IProductSubCategory[];
   selectedSizes!: { id: string, label: string, value: string }[];
   selectedColors: ColorOption[] = [];
 
@@ -136,9 +136,9 @@ export class CreateProductComponent implements OnInit {
     this.getSubCategoriesFromSelectedCategories();
   }
 
-  selectedSubCategoriesEventHandler($event: any){
-    this.selectedSubCategories = $event;
-    this.sizeFacade.sizesOfSubcategory(this.selectedSubCategories[0].id).subscribe((incoming) => this.sizes.set(incoming));
+  selectedSubCategoryEventHandler($event: any){
+    this.selectedSubCategory = $event;
+    this.sizeFacade.sizesOfSubcategory(this.selectedSubCategory[0].id).subscribe((incoming) => this.sizes.set(incoming));
   }
 
   selectedSizesEventHandler($event: any){
@@ -186,6 +186,37 @@ export class CreateProductComponent implements OnInit {
   }
 
   submitForm(): void{
+
+    if(!(this.files.length > 0)){
+      this.alertService.add("Seleccione as imagens deste produto", LogStatus.WARNING);
+      return;
+    }
+
+    if(!(this.selectedBrand.length > 0)){
+      this.alertService.add("Seleccione uma marca para este produto", LogStatus.INFO);
+      return;
+    }
+
+    if(!(this.selectedCategory.length > 0)){
+      this.alertService.add("Seleccione uma categoria para este produto", LogStatus.INFO);
+      return;
+    }
+
+    if(!(this.selectedSubCategory.length > 0)){
+      this.alertService.add("Seleccione uma subcategoria para este produto", LogStatus.INFO);
+      return;
+    }
+
+    if(!(this.selectedColors.length > 0)){
+      this.alertService.add("Seleccione pelo menos uma cor para este produto", LogStatus.INFO);
+      return;
+    }
+
+    if(!(this.selectedSizes.length > 0)){
+      this.alertService.add("Seleccione um tamanho para este produto", LogStatus.INFO);
+      return;
+    }
+
     // after validation
     const fields: AddProductModel = {
       name: this.addProductFormGroup.get('productName')?.value,
@@ -197,7 +228,7 @@ export class CreateProductComponent implements OnInit {
       desc: this.addProductFormGroup.get('description')?.value,
       brand_id: this.selectedBrand[0].id,
       category_id: this.selectedCategory[0].id,
-      subcategory_id: this.selectedSubCategories[0].id,
+      subcategory_id: this.selectedSubCategory[0].id,
       size: this.selectedSizes.flatMap(_ => _.id),
       color: this.selectedColors.flatMap(_ => _.id),
       images: this.files.flatMap(_ => (_.previewUrl).replace(/^data:image\/[a-zA-Z]+;base64,/, '')),
