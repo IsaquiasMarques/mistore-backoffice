@@ -240,6 +240,8 @@ export class CreateProductComponent implements OnInit {
       imagescolor_filename: Object.values(this.colorsWithImages).flatMap((images: any[]) => images.map(image => image.name))
     };
 
+    console.log("campos do produto a ser criado: ", fields);
+
     this.isCreating.set(true);
     this.addProductFacade.addProduct(JSON.parse(JSON.stringify(fields))).subscribe({
       next: repsonse => {
